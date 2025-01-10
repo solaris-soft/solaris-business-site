@@ -1,0 +1,57 @@
+---
+---
+<section id="services" class="services">
+    <div class="service">
+        <span class="number">01</span>
+        <h2>DIGITAL STRATEGY</h2>
+        <div class="service-line"></div>
+    </div>
+    <div class="service">
+        <span class="number">02</span>
+        <h2>WEB DEVELOPMENT</h2>
+        <div class="service-line"></div>
+    </div>
+    <div class="service">
+        <span class="number">03</span>
+        <h2>BRAND IDENTITY</h2>
+        <div class="service-line"></div>
+    </div>
+</section>
+
+<style>
+    .services {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        margin-top: 4rem;
+    }
+
+    .service {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #FF5F1F;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .service-line {
+        height: 2px;
+        background: black;
+        width: 100%;
+    }
+
+    .service:hover .service-line {
+        background: #FF5F1F;
+    }
+</style> 
