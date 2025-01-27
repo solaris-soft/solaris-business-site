@@ -1,0 +1,33 @@
+---
+import ServiceCard from './ServiceCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+
+interface Service {
+    title: string;
+    description: string;
+}
+
+const services: Service[] = [
+    {
+        title: 'PROFESSIONAL WEBSITES',
+        description: 'We build professional, user-friendly websites tailored to your business needs, helping you stand out and drive sales.'
+    },
+    {
+        title: 'HUMAN-CENTRED DESIGN',
+        description: 'We create intuitive designs considering how people think and interact, making your website easy to use.'
+    },
+    {
+        title: 'MEMORABLE BRANDING',
+        description: 'We help refine your message and build a clear, memorable digital presence that connects with your audience.'
+    }
+];
+---
+
+<section id="services" class="py-8 scroll-mt-16">
+    <SectionHeading id="services-heading" title="OUR SERVICES & APPROACH" />
+    <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl mx-auto">
+        {services.map((service: Service) => (
+            <ServiceCard title={service.title} description={service.description} />
+        ))}
+    </div>
+</section> 

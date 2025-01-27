@@ -1,0 +1,43 @@
+---
+import ContactCard from './ContactCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+
+interface ContactInfo {
+    type: string;
+    label: string;
+    value: string;
+    href: string;
+}
+
+const phoneNumbers: ContactInfo[] = [
+    {
+        type: 'General Enquiries',
+        label: 'General Enquiries',
+        value: '+61 432 258 128',
+        href: 'tel:+61432258128'
+    },
+    {
+        type: 'Technical Support',
+        label: 'Technical Support',
+        value: '+61 415 267 117',
+        href: 'tel:+61415267117'
+    }
+];
+---
+
+<section id="contact" class="py-8 scroll-mt-16">
+    <SectionHeading id="contact-heading" title="CONTACT US" />
+    <div class="w-full max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ContactCard href="mailto:admin@solaris.software" label="Email">
+                <span class="text-white group-hover:text-[#ff8a00] transition-colors duration-300">admin@solaris.software</span>
+            </ContactCard>
+            
+            {phoneNumbers.map((phone) => (
+                <ContactCard href={phone.href} label={phone.type}>
+                    <span class="text-white group-hover:text-[#ff8a00] transition-colors duration-300">{phone.value}</span>
+                </ContactCard>
+            ))}
+        </div>
+    </div>
+</section> 
