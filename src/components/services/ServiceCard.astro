@@ -7,11 +7,75 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<div class="group bg-gradient-to-br from-white/[0.02] via-transparent to-transparent border-0 rounded-2xl p-8 transition-all duration-500 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-[#ff3d00] relative overflow-hidden backdrop-blur-sm" tabindex="0">
-    <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
-    <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00]/0 to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-    <div class="relative">
-        <h3 class="text-base m-0 mb-4 tracking-widest text-[#ff3d00] group-hover:text-[#ff8a00] transition-colors duration-300">{title}</h3>
-        <p class="text-white/70 text-base leading-relaxed m-0 transition-colors duration-300 group-hover:text-white/90">{description}</p>
+<div 
+    class="group relative rounded-2xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#ff3d00]/10 focus-within:outline-none isolate cursor-pointer" 
+    tabindex="0"
+>
+    <!-- Animated gradient border -->
+    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#ff3d00]/20 via-[#ff8a00]/10 to-[#ff3d00]/20 -z-10 animate-borderGlow"></div>
+    
+    <!-- Background layers -->
+    <div class="absolute inset-[1px] rounded-2xl bg-black/90 -z-10"></div>
+    <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50 -z-10"></div>
+    
+    <!-- Hover glow effect -->
+    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#ff3d00]/20 via-[#ff8a00]/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
+
+    <!-- Shine effect -->
+    <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
     </div>
-</div> 
+
+    <div class="space-y-6">
+        <!-- Icon container with animated orbit -->
+        <div class="relative w-14 h-14">
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[1px] animate-pulse">
+                <div class="w-full h-full rounded-xl bg-black/90 flex items-center justify-center">
+                    <div class="w-7 h-7 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-lg"></div>
+                </div>
+            </div>
+            <!-- Orbital ring -->
+            <div class="absolute inset-[-4px] border border-[#ff3d00]/20 rounded-xl animate-orbit">
+                <div class="absolute w-1.5 h-1.5 bg-[#ff3d00] rounded-full -top-[3px] left-1/2 -translate-x-1/2 shadow-[0_0_10px_#ff3d00]"></div>
+            </div>
+        </div>
+
+        <!-- Title with gradient -->
+        <h3 class="text-base font-bold tracking-wider text-transparent bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text group-hover:from-[#ff8a00] group-hover:to-[#ff3d00] transition-all duration-300">
+            {title}
+        </h3>
+        
+        <!-- Description with improved contrast -->
+        <p class="text-white/70 text-base leading-relaxed transition-colors duration-300 group-hover:text-white/90">
+            {description}
+        </p>
+
+        <!-- Subtle arrow indicator -->
+        <div class="flex items-center gap-2 text-[#ff3d00] text-sm font-medium opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+            <span>Learn more</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes borderGlow {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.4; }
+    }
+
+    @keyframes orbit {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .animate-borderGlow {
+        animation: borderGlow 4s ease-in-out infinite;
+    }
+
+    .animate-orbit {
+        animation: orbit 8s linear infinite;
+    }
+</style> 
