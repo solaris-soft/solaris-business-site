@@ -65,4 +65,13 @@ const { title = 'SOLARIS | Human Digital Craft' } = Astro.props;
 	::-webkit-scrollbar-thumb {
 		background: var(--primary);
 	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
 </style>
