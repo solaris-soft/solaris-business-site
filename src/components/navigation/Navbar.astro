@@ -1,64 +1,245 @@
-<nav class="fixed md:h-[calc(100vh-4rem)] flex flex-col justify-start md:py-8 z-50 group/nav">
-    <div class="w-6 md:w-20 h-20 md:h-20 grid place-items-center relative cursor-pointer z-20 -ml-6 md:ml-0 hover:ml-0 transition-all duration-300" role="button" tabindex="0" aria-label="Toggle menu" id="nav-toggle">
-        <div class="w-6 h-14 md:w-7 md:h-7 md:bg-[#ff3d00] relative transition-all duration-300 ease-in-out md:rounded-full flex items-center justify-end md:justify-center group-hover/nav:scale-110 group-hover/nav:shadow-[0_0_30px_rgba(255,61,0,0.3)]" aria-hidden="true">
-            <span class="text-[#ff3d00] text-lg md:text-2xl font-light opacity-40 transition-all duration-300 rotate-180 pr-1 md:p-0 group-hover/nav:opacity-100 group-hover/nav:translate-x-0.5 group-hover/nav:rotate-90 md:absolute md:-right-7 md:top-1/2 md:-translate-y-1/2">›</span>
+<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-500" id="main-nav">
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 group">
+            <div class="relative w-8 h-8">
+                <!-- Main dot with gradient -->
+                <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-full animate-mainDot">
+                    <div class="absolute inset-[2px] bg-gradient-to-br from-white/30 to-transparent rounded-full"></div>
+                </div>
+                <!-- Orbital ring -->
+                <div class="absolute inset-[-2px] border border-[#ff3d00]/20 rounded-full animate-orbit">
+                    <div class="absolute w-1.5 h-1.5 bg-[#ff3d00] rounded-full -top-[2px] left-1/2 -translate-x-1/2 shadow-[0_0_10px_#ff3d00]"></div>
+                </div>
+            </div>
+            <span class="text-lg font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent group-hover:from-[#ff8a00] group-hover:to-[#ff3d00] transition-all duration-300">SOLARIS</span>
+        </a>
+        
+        <!-- Navigation Links -->
+        <div class="flex items-center gap-8">
+            <a href="/services" class="nav-link">Services</a>
+            <a href="/projects" class="nav-link">Projects</a>
+            <a href="/testimonials" class="nav-link">Testimonials</a>
+            <a href="/team" class="nav-link">Our Team</a>
+            <a href="/contact" class="contact-button">
+                <span class="relative z-10">Contact Us</span>
+            </a>
         </div>
     </div>
-    <div id="nav-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 md:hidden z-10"></div>
-    <div id="nav-menu" class="fixed left-0 top-0 h-screen flex flex-col justify-center gap-6 pl-8 w-64 bg-gradient-to-r from-black/97 to-transparent -translate-x-full transition-all duration-500 ease-in-out z-20 backdrop-blur-md opacity-0">
-        <a href="#services" class="text-white/70 no-underline text-sm tracking-widest font-medium relative pl-0 hover:text-white hover:pl-4 transition-all duration-300 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-x-5 before:w-0 before:h-px before:bg-[#ff3d00] hover:before:w-6 before:transition-all before:duration-300">SERVICES</a>
-        <a href="#contact" class="text-white/70 no-underline text-sm tracking-widest font-medium relative pl-0 hover:text-white hover:pl-4 transition-all duration-300 before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-x-5 before:w-0 before:h-px before:bg-[#ff3d00] hover:before:w-6 before:transition-all before:duration-300">CONTACT</a>
+    
+    <!-- Mobile Navigation -->
+    <div class="flex md:hidden items-center justify-between px-6 py-4">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2">
+            <div class="relative w-7 h-7">
+                <!-- Main dot with gradient -->
+                <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-full">
+                    <div class="absolute inset-[2px] bg-gradient-to-br from-white/30 to-transparent rounded-full"></div>
+                </div>
+            </div>
+            <span class="text-base font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">SOLARIS</span>
+        </a>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" class="relative w-10 h-10 flex items-center justify-center" aria-label="Toggle menu">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-lg opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed right-0 top-0 h-screen w-4/5 max-w-xs bg-gradient-to-l from-black/95 to-black/90 translate-x-full transition-transform duration-500 ease-in-out z-50 flex flex-col justify-center items-center gap-8 px-8">
+        <a href="/services" class="mobile-nav-link">Services</a>
+        <a href="/projects" class="mobile-nav-link">Projects</a>
+        <a href="/testimonials" class="mobile-nav-link">Testimonials</a>
+        <a href="/team" class="mobile-nav-link">Our Team</a>
+        <a href="/contact" class="mobile-contact-button">Contact Us</a>
     </div>
 </nav>
 
 <script>
-    const nav = document.querySelector('.group\\/nav') as HTMLElement;
-    const overlay = document.getElementById('nav-overlay');
-    const menu = document.getElementById('nav-menu');
-    const toggle = document.getElementById('nav-toggle');
-    let isOpen = false;
-
-    function toggleMenu(open: boolean) {
-        isOpen = open;
+    // Elements
+    const nav = document.getElementById('main-nav');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    let isMenuOpen = false;
+    let lastScrollY = 0;
+    
+    // Toggle mobile menu
+    function toggleMobileMenu(open) {
+        isMenuOpen = open;
+        
         if (open) {
-            menu?.classList.add('translate-x-0', 'opacity-100');
-            overlay?.classList.add('opacity-100', 'pointer-events-auto');
+            mobileMenu?.classList.remove('translate-x-full');
+            mobileMenuOverlay?.classList.remove('opacity-0', 'pointer-events-none');
             document.body.style.overflow = 'hidden';
+            mobileMenuButton?.classList.add('is-active');
         } else {
-            menu?.classList.remove('translate-x-0', 'opacity-100');
-            overlay?.classList.remove('opacity-100', 'pointer-events-auto');
+            mobileMenu?.classList.add('translate-x-full');
+            mobileMenuOverlay?.classList.add('opacity-0', 'pointer-events-none');
             document.body.style.overflow = '';
+            mobileMenuButton?.classList.remove('is-active');
         }
     }
-
-    toggle?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMenu(!isOpen);
-    });
-
-    overlay?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMenu(false);
-    });
-
-    // Handle menu item clicks
-    menu?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            toggleMenu(false);
-        });
-    });
-
-    // Handle hover for desktop only
-    if (window.matchMedia('(min-width: 768px)').matches) {
-        nav?.addEventListener('mouseenter', () => toggleMenu(true));
-        nav?.addEventListener('mouseleave', () => toggleMenu(false));
+    
+    // Handle scroll for navbar appearance
+    function handleScroll() {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > 50) {
+            nav?.classList.add('scrolled');
+        } else {
+            nav?.classList.remove('scrolled');
+        }
+        
+        // Hide on scroll down, show on scroll up
+        if (currentScrollY > lastScrollY && currentScrollY > 100 && !isMenuOpen) {
+            nav?.classList.add('nav-hidden');
+        } else {
+            nav?.classList.remove('nav-hidden');
+        }
+        
+        lastScrollY = currentScrollY;
     }
+    
+    // Event listeners
+    mobileMenuButton?.addEventListener('click', () => toggleMobileMenu(!isMenuOpen));
+    mobileMenuOverlay?.addEventListener('click', () => toggleMobileMenu(false));
+    
+    // Close menu when clicking on mobile nav links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => toggleMobileMenu(false));
+    });
+    
+    // Scroll event
+    window.addEventListener('scroll', handleScroll);
+    
+    // Initialize
+    handleScroll();
 </script>
 
 <style>
-    @media (max-width: 767px) {
-        .group\/nav #nav-toggle {
-            pointer-events: auto;
-        }
+    /* Navbar scroll state */
+    .scrolled {
+        @apply bg-black/80 backdrop-blur-md shadow-lg shadow-black/20;
+    }
+    
+    /* Hide navbar on scroll down */
+    .nav-hidden {
+        transform: translateY(-100%);
+    }
+    
+    /* Desktop nav links */
+    .nav-link {
+        @apply relative text-white/70 text-sm font-medium tracking-wider no-underline transition-all duration-300 hover:text-white;
+    }
+    
+    .nav-link::after {
+        content: '';
+        @apply absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-all duration-300;
+    }
+    
+    .nav-link:hover::after {
+        @apply w-full;
+    }
+    
+    /* Contact button */
+    .contact-button {
+        @apply relative px-5 py-2 text-sm tracking-wider text-white no-underline font-medium rounded-full overflow-hidden inline-flex items-center justify-center;
+    }
+    
+    .contact-button::before {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-transform duration-300;
+    }
+    
+    .contact-button:hover::before {
+        @apply scale-110;
+    }
+    
+    .contact-button::after {
+        content: '';
+        @apply absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300;
+    }
+    
+    .contact-button:hover::after {
+        @apply opacity-100;
+    }
+    
+    /* Mobile nav links */
+    .mobile-nav-link {
+        @apply relative text-white/70 text-lg font-medium tracking-wider no-underline transition-all duration-300 hover:text-white;
+        @apply before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:-bottom-2 before:w-0 before:h-[2px] before:bg-gradient-to-r before:from-[#ff3d00] before:to-[#ff8a00] before:transition-all before:duration-300;
+        @apply hover:before:w-1/2;
+    }
+    
+    /* Mobile contact button */
+    .mobile-contact-button {
+        @apply relative mt-4 px-6 py-2.5 text-base tracking-wider text-white no-underline font-medium rounded-full overflow-hidden inline-flex items-center justify-center;
+        @apply before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#ff3d00] before:to-[#ff8a00] before:transition-transform before:duration-300;
+        @apply after:content-[''] after:absolute after:inset-0 after:bg-black/20 after:opacity-0 after:transition-opacity after:duration-300;
+        @apply hover:before:scale-110 hover:after:opacity-100;
+    }
+    
+    /* Menu icon animation */
+    .menu-icon {
+        @apply relative w-6 h-5;
+    }
+    
+    .menu-icon span {
+        @apply absolute left-0 w-full h-[2px] bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-all duration-300;
+    }
+    
+    .menu-icon span:nth-child(1) {
+        @apply top-0;
+    }
+    
+    .menu-icon span:nth-child(2) {
+        @apply top-1/2 -translate-y-1/2;
+    }
+    
+    .menu-icon span:nth-child(3) {
+        @apply bottom-0;
+    }
+    
+    #mobile-menu-button.is-active .menu-icon span:nth-child(1) {
+        @apply top-1/2 -translate-y-1/2 rotate-45;
+    }
+    
+    #mobile-menu-button.is-active .menu-icon span:nth-child(2) {
+        @apply opacity-0;
+    }
+    
+    #mobile-menu-button.is-active .menu-icon span:nth-child(3) {
+        @apply top-1/2 -translate-y-1/2 -rotate-45;
+    }
+    
+    /* Animations */
+    @keyframes mainDot {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(0.95); }
+    }
+
+    @keyframes orbit {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .animate-mainDot {
+        animation: mainDot 3s ease-in-out infinite;
+    }
+
+    .animate-orbit {
+        animation: orbit 8s linear infinite;
     }
 </style> 
