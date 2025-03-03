@@ -1,39 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import ServiceFeatureCard from '@/components/services/ServiceFeatureCard.astro';
+import { getCollection } from 'astro:content';
 
-const services = [
-    {
-        id: 'web-development',
-        title: 'Web Development',
-        description: 'Modern, scalable web solutions crafted with cutting-edge technologies. From dynamic websites to complex applications, we build digital experiences that perform.'
-    },
-    {
-        id: 'business-automation',
-        title: 'Business Automation',
-        description: 'Automate your business processes to save time and improve efficiency. We help you streamline operations, reduce errors, and increase productivity.'
-    },
-    {
-        id: 'ui-ux',
-        title: 'UI/UX Design',
-        description: 'Human-centered design that balances beautiful aesthetics with intuitive functionality to create engaging digital experiences.'
-    },
-    {
-        id: 'branding',
-        title: 'Branding',
-        description: 'Strategic brand development that helps businesses establish a unique and memorable presence in the digital landscape.'
-    },
-    {
-        id: 'consulting',
-        title: 'Digital Consulting',
-        description: 'Expert guidance on digital transformation, technology adoption, and strategic innovation for future-ready businesses.'
-    },
-    {
-        id: 'mvp',
-        title: 'MVP Development',
-        description: 'We help you build your MVP quickly and efficiently. We can help you build your MVP in a matter of weeks, rather than months.'
-    }
-];
+const services = await getCollection('services');
 ---
 
 <Layout title="Services | SOLARIS">
@@ -66,8 +36,8 @@ const services = [
                 {services.map(service => (
                     <a href={`/services/${service.id}`} class="opacity-0">
                         <ServiceFeatureCard 
-                            title={service.title}
-                            description={service.description}
+                            title={service.data.title}
+                            description={service.data.description}
                             id={service.id}
                         />
                     </a>

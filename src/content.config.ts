@@ -28,5 +28,15 @@ const projects = defineCollection({
     }),
  });
 
+const services = defineCollection({ 
+    loader: file("src/content/services.json"),
+    schema:  z.object({
+        title: z.string(),
+        description: z.string(),
+        features: z.array(z.string()),
+        "long-description": z.string(),
+    }),
+ });
+
 // 4. Export a single `collections` object to register your collection(s)
-export const collections = { team, projects };
+export const collections = { team, projects, services };
