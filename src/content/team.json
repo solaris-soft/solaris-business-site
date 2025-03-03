@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "Sam Frahm",
+        "role": "Principal Software Engineer",
+        "image": "../assets/sam-profile.webp",
+        "bio": "Sam is a Principal Software Engineer and co-founder of SOLARIS. He has a passion for building software that is both functional and maintainable."
+    },
+    {
+        "id": 2,
+        "name": "Joshua Macmaster",
+        "role": "Principal Software Engineer",
+        "image": "../assets/josh-profile.webp",
+        "bio": "Josh is a Principal Software Engineer and co-founder of SOLARIS. He has a passion for building software that is both functional and maintainable."
+    }
+]
