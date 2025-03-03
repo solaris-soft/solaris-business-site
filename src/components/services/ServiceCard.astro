@@ -7,8 +7,9 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
+<a href="/services">
 <div 
-    class="group relative rounded-2xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#ff3d00]/10 focus-within:outline-none isolate cursor-pointer" 
+    class="group relative rounded-2xl p-8 mx-2 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#ff3d00]/10 focus-within:outline-none isolate cursor-pointer" 
     tabindex="0"
 >
     <!-- Animated gradient border -->
@@ -59,7 +60,7 @@ const { title, description } = Astro.props;
         </div>
     </div>
 </div>
-
+</a>
 <style>
     @keyframes borderGlow {
         0%, 100% { opacity: 0.2; }

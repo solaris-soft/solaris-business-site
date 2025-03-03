@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import ServiceCard from '@/components/services/ServiceCard.astro';
+import ServiceFeatureCard from '@/components/services/ServiceFeatureCard.astro';
 
 const services = [
     {
@@ -62,12 +62,13 @@ const services = [
             </section>
 
             <!-- Services Grid -->
-            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-24" id="services-grid">
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-24" id="services-grid">
                 {services.map(service => (
                     <a href={`/services/${service.id}`} class="opacity-0">
-                        <ServiceCard 
+                        <ServiceFeatureCard 
                             title={service.title}
                             description={service.description}
+                            id={service.id}
                         />
                     </a>
                 ))}
