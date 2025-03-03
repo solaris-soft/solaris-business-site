@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "S&S Preserves",
+        "description": "S&S Preserves is a family-owned business that specializes in making delicious preserves. We ensured to provide a website that was both functional and aesthetically pleasing. We went through our workflow of consistent iteration delivery so that S&S Preserves could get a website that reflected their brand and business.",
+        "link": "https://s-s-preserves.pages.dev/"
+    },
+    {
+        "id": 2,
+        "title": "Wardens Court AI Summariser",
+        "description": "A project to utilise Go, HTMX, Alpine, and SQLite for providing an interface for Warden's Court decisions to be categorised and summarised by AI. The current website for searching decisions doesn't yield expected results, so we are building a new one. The project is currently still being developed and does not yet have a live demo.",
+        "link": "https://github.com/solaris-soft/wardens-court-ai"
+    },
+    {
+        "id": 3,
+        "title": "Lawton Macmaster Legal Website",
+        "description": "A boutique law firm website built by us using the Astro framework. The website is fully responsive and features a modern design with a focus on user experience. The website is built with the intention of being professional and modern, while also being functional and easy to use.",
+        "link": "https://astro-lawmac.pages.dev/"
+    }
+]
