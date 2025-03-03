@@ -7,43 +7,182 @@ interface Props {
 const { id, title } = Astro.props;
 ---
 
-<h2 class="text-lg tracking-widest text-white/70 font-medium m-0 mb-6 flex items-center gap-4 before:content-[''] before:block before:w-8 before:h-px before:bg-[#ff3d00] animate-heading animate-line" id={id}>
-    {title}
+<h2 
+    class="text-lg tracking-widest text-white/70 font-medium m-0 mb-6 flex items-center gap-4" 
+    id={id}
+    data-section-heading
+>
+    <span class="section-line w-0 h-px bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] relative overflow-hidden">
+        <!-- Glow effect -->
+        <span class="absolute inset-0 bg-[#ff3d00] blur-sm opacity-0 section-glow"></span>
+    </span>
+    <span class="section-text opacity-0 transform translate-y-2">{title}</span>
 </h2>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const headings = document.querySelectorAll('[data-section-heading]');
+        
+        // Set up Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateHeading(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        });
+        
+        // Observe all headings
+        headings.forEach(heading => observer.observe(heading));
+        
+        // Animation function
+        function animateHeading(heading) {
+            const line = heading.querySelector('.section-line');
+            const text = heading.querySelector('.section-text');
+            const glow = heading.querySelector('.section-glow');
+            
+            // Animate line
+            setTimeout(() => {
+                line.style.transition = 'width 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+                line.style.width = '2rem';
+            }, 100);
+            
+            // Animate text
+            setTimeout(() => {
+                text.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                text.style.opacity = '1';
+                text.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Animate glow
+            setTimeout(() => {
+                glow.style.transition = 'opacity 1s ease-in-out';
+                glow.style.opacity = '0.6';
+                
+                // Add pulse animation after initial reveal
+                setTimeout(() => {
+                    glow.classList.add('pulse-glow');
+                }, 1000);
+            }, 600);
+            
+            // Add hover effect after animation completes
+            setTimeout(() => {
+                heading.classList.add('animation-complete');
+            }, 1200);
+        }
+    });
+    
+    // Handle Astro view transitions
+    document.addEventListener('astro:after-swap', () => {
+        const headings = document.querySelectorAll('[data-section-heading]:not(.animation-complete)');
+        
+        headings.forEach(heading => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateHeading(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.3,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            observer.observe(heading);
+        });
+        
+        function animateHeading(heading) {
+            const line = heading.querySelector('.section-line');
+            const text = heading.querySelector('.section-text');
+            const glow = heading.querySelector('.section-glow');
+            
+            // Reset elements
+            line.style.width = '0';
+            text.style.opacity = '0';
+            text.style.transform = 'translateY(8px)';
+            glow.style.opacity = '0';
+            
+            // Animate line
+            setTimeout(() => {
+                line.style.transition = 'width 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+                line.style.width = '2rem';
+            }, 100);
+            
+            // Animate text
+            setTimeout(() => {
+                text.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                text.style.opacity = '1';
+                text.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Animate glow
+            setTimeout(() => {
+                glow.style.transition = 'opacity 1s ease-in-out';
+                glow.style.opacity = '0.6';
+                
+                // Add pulse animation after initial reveal
+                setTimeout(() => {
+                    glow.classList.add('pulse-glow');
+                }, 1000);
+            }, 600);
+            
+            // Add hover effect after animation completes
+            setTimeout(() => {
+                heading.classList.add('animation-complete');
+            }, 1200);
+        }
+    });
+</script>
+
 <style>
-@keyframes lineHighlight {
-    0%, 100% {
+    /* Hover effect for completed animations */
+    .animation-complete:hover .section-line {
+        width: 3rem !important;
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    
+    .animation-complete:hover .section-text {
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* Pulse animation for glow */
+    @keyframes pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.8; }
+    }
+    
+    .pulse-glow {
+        animation: pulse 3s ease-in-out infinite;
+    }
+    
+    /* Fallback for no-js */
+    @media (prefers-reduced-motion: reduce) {
+        .section-line {
+            width: 2rem !important;
+        }
+        
+        .section-text {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        .section-glow {
+            display: none;
+        }
+    }
+    
+    /* Ensure elements are visible without JS */
+    html:not(.js) [data-section-heading] .section-line {
+        width: 2rem;
+    }
+    
+    html:not(.js) [data-section-heading] .section-text {
         opacity: 1;
-        box-shadow: 0 0 0 rgba(255, 61, 0, 0);
-        transform: scaleX(1);
+        transform: none;
     }
-    50% {
-        opacity: 1;
-        box-shadow: 0 0 25px rgba(255, 61, 0, 0.8);
-        transform: scaleX(1.3);
-    }
-}
-
-@keyframes textHighlight {
-    0%, 100% {
-        color: rgba(255, 255, 255, 0.7);
-        transform: scale(1);
-    }
-    50% {
-        color: rgba(255, 61, 0, 1);
-        transform: scale(1.05);
-        text-shadow: 0 0 20px rgba(255, 61, 0, 0.4);
-    }
-}
-
-.animate-heading {
-    animation: textHighlight 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: left;
-}
-
-.animate-line::before {
-    animation: lineHighlight 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
 </style> 

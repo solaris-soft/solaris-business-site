@@ -12,7 +12,7 @@ const { href, label } = Astro.props;
     <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
     <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00]/0 to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
     <div class="relative">
-        <span class="block text-[#ff3d00] text-xs uppercase tracking-widest mb-2 transition-colors duration-300 group-hover:text-[#ff8a00]">{label}</span>
+        <span class="block text-[#ff3d00] text-md font-bold uppercase tracking-widest mb-2 transition-colors duration-300 group-hover:text-[#ff8a00]">{label}</span>
         {
             href ? (
                 <a href={href} class="text-white no-underline transition-colors duration-300 hover:text-[#ff8a00] focus:outline-none focus:text-[#ff8a00]">

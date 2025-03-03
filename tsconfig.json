@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
@@ -11,7 +12,8 @@
     "moduleResolution": "bundler",
     "module": "ESNext",
     "target": "ESNext",
-    "strict": true
+    "strict": true,
+    "strictNullChecks": true
   },
   "include": [".astro/types.d.ts", "src/**/*"],
   "exclude": ["dist"]

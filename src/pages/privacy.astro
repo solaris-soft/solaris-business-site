@@ -1,0 +1,114 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const sections = [
+    {
+        title: "1. Open Source Development",
+        content: "By default, we develop projects under open-source licenses unless explicitly agreed otherwise in writing. This means that project code may be publicly accessible and reusable under the terms of the chosen open-source license. Clients who require private repositories must specify this requirement during project negotiation."
+    },
+    {
+        title: "2. Project Showcase Rights",
+        content: "Unless otherwise agreed in writing, SOLARIS reserves the right to showcase completed projects in our portfolio, website, and other marketing materials. This includes project descriptions, screenshots, and technical details. We respect confidentiality agreements and will obtain explicit permission before showcasing projects covered by such agreements."
+    },
+    {
+        title: "3. Information Collection",
+        content: "We collect and process only necessary information required for project delivery and communication. This may include contact details, project requirements, and communication records. We do not collect personal information beyond what is essential for providing our services."
+    },
+    {
+        title: "4. Data Security",
+        content: "We implement industry-standard security measures to protect client information and project data. While we prioritize data security, please note that no method of electronic storage or transmission is 100% secure. We recommend clients to also maintain their own backups of critical project assets."
+    },
+    {
+        title: "5. Third-Party Services",
+        content: "Our development process may involve third-party services and tools. While we carefully select these services, each has its own privacy policy and terms of service. We encourage clients to review the privacy policies of any third-party services integrated into their projects."
+    },
+    {
+        title: "6. Client Data Protection",
+        content: "For projects requiring private development or handling sensitive data, we implement additional security measures and sign necessary confidentiality agreements. We handle all client data in accordance with relevant data protection regulations."
+    },
+    {
+        title: "7. Website Analytics",
+        content: "Our website uses analytics tools to improve user experience and service quality. These tools may collect anonymous usage data, including IP addresses, browser type, and visit duration. Users can opt out of analytics tracking through their browser settings."
+    },
+    {
+        title: "8. Communication",
+        content: "By engaging with our services, clients agree to receive project-related communications. We may also send occasional updates about our services, but clients can opt out of non-essential communications at any time."
+    }
+];
+---
+
+<Layout title="Privacy Policy | SOLARIS">
+    <main class="relative min-h-screen pt-24">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-[120%] h-[120%] -left-[10%] -top-[10%] bg-gradient-radial from-[#ff3d00]/5 via-transparent to-transparent opacity-30 blur-3xl"></div>
+            <div class="absolute w-full h-px top-1/2 left-0 bg-gradient-to-r from-transparent via-[#ff3d00]/10 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 md:px-8 max-w-4xl relative z-10">
+            <!-- Header Section -->
+            <section class="flex flex-col items-center justify-center py-16 text-center">
+                <h1 class="text-[clamp(2.5rem,5vw,3.5rem)] font-black relative mb-6">
+                    <span class="animate-slideFromLeft">Privacy</span>
+                    <span class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight ml-4">Policy</span>
+                </h1>
+                
+                <p class="text-[clamp(1rem,1.2vw,1.1rem)] text-white/70 leading-relaxed max-w-[60ch] animate-slideUp">
+                    We are committed to protecting your privacy and ensuring transparency in how we handle information. This policy outlines our practices regarding data collection, usage, and project development.
+                </p>
+            </section>
+
+            <!-- Privacy Sections -->
+            <section class="pb-24 space-y-12">
+                {sections.map((section) => (
+                    <div class="opacity-0 animate-slideUp bg-white/5 rounded-lg p-6 hover:bg-white/10 transition-colors duration-300">
+                        <h2 class="text-xl font-bold mb-4 text-[#ff3d00]">{section.title}</h2>
+                        <p class="text-white/70 leading-relaxed">{section.content}</p>
+                    </div>
+                ))}
+            </section>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    @keyframes slideFromLeft {
+        from { transform: translateX(-100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideFromRight {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-slideFromLeft {
+        animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-slideFromRight {
+        animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-slideUp {
+        animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    section > div {
+        animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    section > div:nth-child(1) { animation-delay: 0.3s; }
+    section > div:nth-child(2) { animation-delay: 0.4s; }
+    section > div:nth-child(3) { animation-delay: 0.5s; }
+    section > div:nth-child(4) { animation-delay: 0.6s; }
+    section > div:nth-child(5) { animation-delay: 0.7s; }
+    section > div:nth-child(6) { animation-delay: 0.8s; }
+    section > div:nth-child(7) { animation-delay: 0.9s; }
+    section > div:nth-child(8) { animation-delay: 1.0s; }
+</style>
