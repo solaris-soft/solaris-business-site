@@ -2,15 +2,17 @@
     {
         "id": 1,
         "name": "Sam Frahm",
-        "role": "Principal Software Engineer",
+        "role": "Principal Software Engineer, BPsych.",
         "image": "../assets/sam-profile.webp",
-        "bio": "Sam is a Principal Software Engineer and co-founder of SOLARIS. He has a passion for building software that is both functional and maintainable."
+        "github": "https://github.com/primary-github",
+        "bio": "Sam is a Principal Software Engineer and co-founder of SOLARIS. With a strong foundation in software architecture, he specializes in building scalable and maintainable solutions. His focus on clean code and system reliability helps deliver robust applications that stand the test of time."
     },
     {
         "id": 2,
         "name": "Joshua Macmaster",
-        "role": "Principal Software Engineer",
+        "role": "Principal Software Engineer, LLB.",
         "image": "../assets/josh-profile.webp",
-        "bio": "Josh is a Principal Software Engineer and co-founder of SOLARIS. He has a passion for building software that is both functional and maintainable."
+        "github": "https://github.com/joshuamurd",
+        "bio": "Josh is a Principal Software Engineer and co-founder of SOLARIS. With 5 years of experience as a law clerk, he brings unique insights into process automation and workflow optimization. His self-taught programming journey and legal background enable him to create innovative solutions that bridge technical and business needs."
     }
 ]

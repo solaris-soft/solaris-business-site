@@ -10,8 +10,9 @@ const team = defineCollection({
     schema: ({image}) => z.object({
         name: z.string(),
         role: z.string(),
-        image: image(), // This will be a key to reference the image
+        image: image(),
         bio: z.string(),
+        github: z.string().optional(),
         linkedin: z.string().optional(),
         twitter: z.string().optional(),
     }),
