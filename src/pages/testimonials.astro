@@ -1,0 +1,170 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import projectSS from '@/assets/project-ss.webp';
+
+const testimonials = [
+    {
+        quote: "We couldn't be happier with the website Solaris Software built for us! From the very beginning, Joshua and Sam were professional, responsive, and truly understood our vision. They took the time to understand our needs and delivered a sleek, modern, and user-friendly website that exceeded our expectations.\n\nTheir attention to detail, technical expertise, and commitment to quality were evident throughout the entire process. Any questions or adjustments we had were handled quickly and efficiently. Thanks to their hard work, we now have a website that not only looks great but also functions flawlessly.\n\nWe highly recommend Solaris Software to anyone looking for a reliable and talented website partner. They made the entire experience seamless and enjoyable!",
+        author: "Seth & Sandra",
+        company: "S&S Preserves",
+        link: "https://www.sspreserves.com.au/",
+        image: projectSS
+    }
+];
+---
+
+<Layout title="Testimonials | SOLARIS">
+    <main class="pt-24 min-h-screen bg-black">
+        <!-- Hero Section -->
+        <section class="relative w-full py-24 scroll-mt-16 overflow-hidden">
+            <div class="container mx-auto px-6 md:px-8 max-w-7xl relative z-10">
+                <!-- Section Title -->
+                <div class="text-center mb-20">
+                    <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center relative">
+                        <span class="animate-slideFromLeft inline-block">Client</span>
+                        <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-2 md:ml-4">
+                            Testimonials
+                        </div>
+                    </h1>
+                    
+                    <div class="flex flex-col items-center gap-2 relative py-8 opacity-0 animate-slideUp">
+                        <p class="text-[clamp(1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed px-4 md:px-0">
+                            Don't just take our word for it.
+                        </p>
+                        <p class="text-[clamp(1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed relative px-4 md:px-0">
+                            Here's what our clients have to say about working with us.
+                            <span class="hidden md:block absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"></span>
+                            <span class="hidden md:block absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"></span>
+                        </p>
+                    </div>
+                </div>
+                    
+                <!-- Testimonials Grid -->
+                <div class="grid grid-cols-1 gap-8 mx-auto max-w-[800px]">
+                    {testimonials.map((testimonial, index) => (
+                        <div 
+                            class="group relative opacity-0 w-full max-w-[800px] animate-cardEntrance" 
+                            style={`animation-delay: ${index * 150}ms`}
+                        >
+                            <!-- Background layers -->
+                            <div class="absolute inset-[1px] rounded-2xl bg-black/90 backdrop-blur-sm"></div>
+                            <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
+                            
+                            <!-- Hover glow effect -->
+                            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#ff3d00]/30 via-[#ff8a00]/20 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+
+                            <!-- Main Card Content -->
+                            <div class="relative p-4 md:p-8 transition-all duration-500 group-hover:-translate-y-2 h-full flex flex-col">
+                                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+                                    <!-- Project Image -->
+                                    <div class="relative w-24 h-24 md:w-28 md:h-28 shrink-0 mb-4 md:mb-0">
+                                        <!-- Orbital rings -->
+                                        <div class="absolute inset-0 w-full h-full rounded-xl border border-[#ff3d00]/20 animate-orbit" style="animation-duration: 15s;"></div>
+                                        <div class="absolute inset-0 w-full h-full rounded-xl border border-[#ff8a00]/20 animate-orbit" style="animation-duration: 10s; animation-direction: reverse;"></div>
+                                        
+                                        <!-- Image container -->
+                                        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
+                                            <div class="w-full h-full rounded-xl bg-black/90 overflow-hidden">
+                                                <Image
+                                                    src={testimonial.image}
+                                                    alt={`${testimonial.company} project`}
+                                                    width={224}
+                                                    height={224}
+                                                    class="w-full h-full object-cover rounded-xl relative z-10 transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="flex-1 text-center md:text-left">
+                                        <h3 class="text-2xl font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
+                                            {testimonial.company}
+                                        </h3>
+                                        <p class="text-[#ff3d00] font-medium mt-2 mb-4">{testimonial.author}</p>
+                                        <div class="text-white/70 leading-relaxed">
+                                            {testimonial.quote.split('\n\n').map((paragraph) => (
+                                                <p class="mb-4 text-sm md:text-base">{paragraph}</p>
+                                            ))}
+                                        </div>
+                                        
+                                        <!-- Project Link -->
+                                        <a 
+                                            href={testimonial.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="inline-flex items-center justify-center md:justify-start gap-2 mt-4 w-full md:w-auto group text-sm font-medium"
+                                        >
+                                            <span class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
+                                                View Project
+                                            </span>
+                                            <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <defs>
+                                                    <linearGradient id="gradient" x1="4" y1="12" x2="20" y2="12" gradientUnits="userSpaceOnUse">
+                                                        <stop stop-color="#ff3d00"/>
+                                                        <stop offset="1" stop-color="#ff8a00"/>
+                                                    </linearGradient>
+                                                </defs>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    @keyframes slideFromLeft {
+        from { transform: translateX(-50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideFromRight {
+        from { transform: translateX(50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes cardEntrance {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes orbit {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .animate-slideFromLeft {
+        opacity: 0;
+        animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-slideFromRight {
+        opacity: 0;
+        animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-slideUp {
+        animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-cardEntrance {
+        animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-orbit {
+        animation: orbit 8s linear infinite;
+    }
+</style> 

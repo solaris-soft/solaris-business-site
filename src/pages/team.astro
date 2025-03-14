@@ -21,9 +21,19 @@ const teamMembers = await getCollection('team');
                         </div>
                     </h1>
                     
-                    <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed mt-6 opacity-0 animate-slideUp">
-                        A lawyer and psychologist who became self-taught programmers with a passion for technology and innovation. We aim to bring insight from our experience in law and psychology in addressing our clients' needs. As part of our mission, we are dedicated to providing exceptional solutions that drive business success through analysis of their business and industry. We make tailored solutions.
-                    </p>
+                    <div class="flex flex-col items-center gap-6 mt-6 opacity-0 animate-slideUp">
+                        <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed max-w-[65ch] text-center">
+                            As a lawyer and a psychology graduate who became self-taught programmers, we share a passion for technology and innovation.
+                        </p>
+                        <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed max-w-[65ch] text-center relative">
+                            Drawing on our backgrounds in law and psychology, we provide valuable insights to address our clients' needs. Our mission is to deliver exceptional solutions that drive business success through in-depth analysis of each client's business and industry.
+                            <span class="hidden md:block absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"></span>
+                            <span class="hidden md:block absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"></span>
+                        </p>
+                        <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed max-w-[65ch] text-center">
+                            We create tailored solutions designed to solve unique challenges.
+                        </p>
+                    </div>
                 </div>
                     
                 <!-- Team Grid -->
