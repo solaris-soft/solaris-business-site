@@ -64,7 +64,9 @@
         <a href="/projects" class="mobile-nav-link">Projects</a>
         <a href="/testimonials" class="mobile-nav-link">Testimonials</a>
         <a href="/team" class="mobile-nav-link">Our Team</a>
-        <a href="/contact" class="mobile-contact-button">Contact Us</a>
+        <a href="/#contact" class="mobile-contact-button">
+            <span class="relative z-10">Contact Us</span>
+        </a>
     </div>
 </nav>
 
@@ -190,9 +192,28 @@
     /* Mobile contact button */
     .mobile-contact-button {
         @apply relative mt-4 px-6 py-2.5 text-base tracking-wider text-white no-underline font-medium rounded-full overflow-hidden inline-flex items-center justify-center;
-        @apply before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#ff3d00] before:to-[#ff8a00] before:transition-transform before:duration-300;
-        @apply after:content-[''] after:absolute after:inset-0 after:bg-black/20 after:opacity-0 after:transition-opacity after:duration-300;
-        @apply hover:before:scale-110 hover:after:opacity-100;
+    }
+    
+    .mobile-contact-button::before {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-transform duration-300;
+    }
+    
+    .mobile-contact-button:hover::before {
+        @apply scale-110;
+    }
+    
+    .mobile-contact-button::after {
+        content: '';
+        @apply absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300;
+    }
+    
+    .mobile-contact-button:hover::after {
+        @apply opacity-100;
+    }
+    
+    .mobile-contact-button span {
+        @apply relative z-10;
     }
     
     /* Menu icon animation */
