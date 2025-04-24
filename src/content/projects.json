@@ -1,20 +1,26 @@
 [
     {
         "id": 1,
-        "title": "S&S Preserves",
+        "title": "S&S Preserves - Company Site",
         "description": "S&S Preserves is a family-owned business that specializes in making delicious preserves. We ensured to provide a website that was both functional and aesthetically pleasing. We went through our workflow of consistent iteration delivery so that S&S Preserves could get a website that reflected their brand and business.",
         "link": "https://www.sspreserves.com.au/"
     },
     {
         "id": 2,
-        "title": "Wardens Court AI Summariser",
-        "description": "A project to utilise Go, HTMX, Alpine, and SQLite for providing an interface for Warden's Court decisions to be categorised and summarised by AI. The current website for searching decisions doesn't yield expected results, so we are building a new one. The project is currently still being developed and does not yet have a live demo.",
-        "link": "https://github.com/solaris-soft/wardens-court-ai"
+        "title": "Wardens AI - NextJS Webapp",
+        "description": "A NextJS project that utilises the OpenAI API to provide a summariser for Warden's Court decisions. This project aims to provide better resurfacing of relevant decisions and improved searchability of decisions in the Western Australian Wardens Court",
+        "link": "https://wcai-kthhf.ondigitalocean.app/"
     },
     {
         "id": 3,
-        "title": "Lawton Macmaster Legal Website",
+        "title": "Lawton Macmaster Legal Website - Company Site",
         "description": "A boutique law firm website built by us using the Astro framework. The website is fully responsive and features a modern design with a focus on user experience. The website is built with the intention of being professional and modern, while also being functional and easy to use.",
         "link": "https://astro-lawmac.pages.dev/"
+    },
+    {
+        "id": 4,
+        "title": "Wizard Plumbing and Gas - Company Site",
+        "description": "A website built by us using the Astro framework. The website showcases our ability to capture a unique and interesting brand identity and bring it to life in a website. Wizard Plumbing and Gas is a local business operating in Perth, Australia and have a range of home and commercial plumbing services.",
+        "link": "https://wizard-business-site.pages.dev/"
     }
 ]
