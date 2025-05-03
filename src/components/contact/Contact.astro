@@ -23,6 +23,12 @@ const phoneNumbers: ContactInfo[] = [
         href: 'tel:+61415267117'
     }
 ];
+
+const meetingTypes = [
+    { id: 'quick-chat', label: 'Quick Chat' },
+    { id: 'short-meeting', label: 'Short Meeting' },
+    { id: 'long-discussion', label: 'Long Discussion' }
+];
 ---
 
 <section id="contact" class="py-8 scroll-mt-16">
@@ -39,5 +45,54 @@ const phoneNumbers: ContactInfo[] = [
                 </ContactCard>
             ))}
         </div>
+
+        <div class="mt-24">
+            <SectionHeading id="booking-heading" title="SCHEDULE A MEETING" />
+            <div class="w-full max-w-4xl mx-auto mt-8">
+                <div class="mb-6">
+                    <label for="meeting-type" class="block text-sm font-medium text-gray-300 mb-2">Select Meeting Duration</label>
+                    <select id="meeting-type" class="w-full max-w-xs bg-gray-800 border border-gray-700 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                        {meetingTypes.map((type) => (
+                            <option value={type.id}>{type.label}</option>
+                        ))}
+                    </select>
+                </div>
+                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline"></div>
+            </div>
+        </div>
     </div>
-</section> 
+</section>
+
+<script>
+    // Initialize Cal.com
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+    // Function to initialize calendar with selected meeting type
+    function initializeCalendar(meetingType) {
+        // Clear any existing calendar
+        const container = document.getElementById('my-cal-inline');
+        if (container) {
+            container.innerHTML = '';
+        }
+
+        // Initialize new calendar with selected type
+        Cal("init", meetingType, {origin:"https://cal.com"});
+
+        Cal.ns[meetingType]("inline", {
+            elementOrSelector:"#my-cal-inline",
+            config: {"layout":"month_view","theme":"dark"},
+            calLink: `solaris-software-bookings/${meetingType}`,
+        });
+
+        Cal.ns[meetingType]("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"});
+    }
+
+    // Initialize with default meeting type
+    initializeCalendar('30min');
+
+    // Add event listener for meeting type selection
+    document.getElementById('meeting-type')?.addEventListener('change', (e) => {
+        const selectedType = (e.target as HTMLSelectElement).value;
+        initializeCalendar(selectedType);
+    });
+</script> 
