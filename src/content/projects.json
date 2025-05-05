@@ -22,5 +22,11 @@
         "title": "Wizard Plumbing and Gas - Company Site",
         "description": "A website built by us using the Astro framework. The website showcases our ability to capture a unique and interesting brand identity and bring it to life in a website. Wizard Plumbing and Gas is a local business operating in Perth, Australia and have a range of home and commercial plumbing services.",
         "link": "https://wizard-business-site.pages.dev/"
+    },
+    {
+        "id": 5,
+        "title": "Solaris Chat App",
+        "description": "A project experimenting with websockets powered by Golang and React. The project is a simple chat application that allows users to chat with each other. The project was built for educational purposes.",
+        "link": "https://chat-app-r9xg6.ondigitalocean.app/"
     }
 ]
