@@ -2,12 +2,12 @@ export const sections = [
   {
     title: "Acceptance of Terms",
     content:
-      "By engaging Solaris Software, you agree to be bound by these terms and conditions. All services are subject to these terms and conditions. Acceptance may be constituted by the completion of a project, or the signing of a contract, or by continuing to engage or instruct Solaris Software after the terms and conditions have been provided.",
+      "By engaging Solaris Systems Pty Ltd (trading as Solaris Software), you agree to be bound by these terms and conditions. All services are subject to these terms and conditions. Acceptance may be constituted by the completion of a project, or the signing of a contract, or by continuing to engage or instruct Solaris Software after the terms and conditions have been provided.",
   },
   {
     title: "Services Agreement",
     content:
-      "SOLARIS provides web development, business automation, UI/UX design, branding, digital consulting, and MVP development services. All services are provided on an 'as is' basis, subject to the terms outlined in individual project agreements.",
+      "Solaris Systems Pty Ltd (trading as Solaris Software) provides web development, business automation, UI/UX design, branding, digital consulting, and MVP development services. All services are provided on an 'as is' basis, subject to the terms outlined in individual project agreements.",
   },
   {
     title: "Intellectual Property",
@@ -52,7 +52,7 @@ export const sections = [
   {
     title: "Liabilities",
     content:
-      "Any party contracting with Solaris Software acknowledges and agrees that any potential claims against Solaris Software, or its partners or officers or employees, is strictly limited to the total amount that has been paid for the services the subject of the claim.",
+      "Any party contracting with Solaris Systems Pty Ltd (trading as Solaris Software) acknowledges and agrees that any potential claims against Solaris Systems Pty Ltd, or its partners or officers or employees, is strictly limited to the total amount that has been paid for the services the subject of the claim.",
   },
   {
     title: "Governing Law",
@@ -67,31 +67,31 @@ export const sections = [
   {
     title: "Guarantees",
     content:
-      "Solaris Software provides no guarantees that the services rendered will achieve any specific or desired outcome.  All services are provided on an 'as is' basis. No software is guaranteed to be free of bugs or errors. No software is guaranteed to be free of security vulnerabilities. No software is guaranteed to be free of performance issues. No software is guaranteed to be free of technical debt. No software is guaranteed to not have any issues arise or deteriorate.",
+      "Solaris Systems Pty Ltd (trading as Solaris Software) provides no guarantees that the services rendered will achieve any specific or desired outcome. All services are provided on an 'as is' basis. No software is guaranteed to be free of bugs or errors. No software is guaranteed to be free of security vulnerabilities. No software is guaranteed to be free of performance issues. No software is guaranteed to be free of technical debt. No software is guaranteed to not have any issues arise or deteriorate.",
   },
   {
     title: "Refund Policy",
     content:
-      "Solaris Software provides no refunds for any services rendered.  All services are non-refundable.",
+      "Solaris Systems Pty Ltd (trading as Solaris Software) provides no refunds for any services rendered. All services are non-refundable.",
   },
   {
     title: "SEO Guarantees",
     content:
-      "Solaris Software provides no guarantees that any SEO services rendered will achieve any specific or desired outcome.",
+      "Solaris Systems Pty Ltd (trading as Solaris Software) provides no guarantees that any SEO services rendered will achieve any specific or desired outcome.",
   },
   {
     title: "Cancellation Policy",
     content:
-      "Clients can cancel at any time.  However, any fees paid are non-refundable. Partial project completions are subject to have invoices issued for the work completed up to the point of cancellation.",
+      "Clients can cancel at any time. However, any fees paid are non-refundable. Partial project completions are subject to have invoices issued for the work completed up to the point of cancellation.",
   },
   {
     title: "Force Majeure",
     content:
-      "Solaris Software is not liable for any delays or issues arising from Force Majeure events.  Force Majeure events include but are not limited to natural disasters, pandemics, wars, and acts of terrorism.",
+      "Solaris Systems Pty Ltd (trading as Solaris Software) is not liable for any delays or issues arising from Force Majeure events. Force Majeure events include but are not limited to natural disasters, pandemics, wars, and acts of terrorism.",
   },
   {
     title: "Indemnification",
     content:
-      "The client agrees to indemnify and hold harmless Solaris Software from and against any and all claims, costs, damages, losses, liabilities, and expenses (including attorneys' fees and costs) arising out of or in connection with the client's use of the services.",
+      "The client agrees to indemnify and hold harmless Solaris Systems Pty Ltd (trading as Solaris Software) from and against any and all claims, costs, damages, losses, liabilities, and expenses (including attorneys' fees and costs) arising out of or in connection with the client's use of the services.",
   }
 ];
