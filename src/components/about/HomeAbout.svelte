@@ -1,9 +1,31 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
+  import { fade, crossfade } from 'svelte/transition';
+  import { quintOut } from 'svelte/easing';
 
   let isVisible = $state(false);
+  let currentStage = $state(0);
   let container: HTMLElement;
+  let isTransitioning = $state(false);
+  let direction = $state(1); // 1 for forward, -1 for backward
+
+  const [send, receive] = crossfade({
+    duration: 400,
+    easing: quintOut,
+    fallback(node, params) {
+      const style = getComputedStyle(node);
+      const transform = style.transform === 'none' ? '' : style.transform;
+      
+      return {
+        duration: 400,
+        easing: quintOut,
+        css: t => `
+          transform: ${transform} translate(${(1 - t) * (direction * 100)}%);
+          opacity: ${t}
+        `
+      };
+    }
+  });
 
   const stages = [
     {
@@ -22,6 +44,30 @@
       icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
     }
   ];
+
+  function nextStage() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    direction = 1;
+    currentStage = (currentStage + 1) % stages.length;
+    setTimeout(() => isTransitioning = false, 400);
+  }
+
+  function prevStage() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    direction = -1;
+    currentStage = (currentStage - 1 + stages.length) % stages.length;
+    setTimeout(() => isTransitioning = false, 400);
+  }
+
+  function goToStage(index: number) {
+    if (isTransitioning || index === currentStage) return;
+    isTransitioning = true;
+    direction = index > currentStage ? 1 : -1;
+    currentStage = index;
+    setTimeout(() => isTransitioning = false, 400);
+  }
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -46,7 +92,7 @@
 
 <div 
   bind:this={container}
-  class="relative py-24"
+  class="relative py-12 md:py-24"
 >
   <!-- Background Elements -->
   <div class="absolute inset-0 overflow-hidden">
@@ -66,64 +112,123 @@
     {#if isVisible}
       <div 
         in:fade={{ duration: 800 }}
-        class="text-center mb-20 space-y-4"
+        class="text-center mb-12 md:mb-20 space-y-4"
       >
         <h2 class="text-2xl lg:text-3xl font-semibold tracking-wider text-orange-200/90">
           OUR PROCESS
         </h2>
-        <p class="text-xl text-white/60 max-w-2xl mx-auto">
+        <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto">
           A streamlined approach to delivering exceptional software solutions
         </p>
       </div>
 
-      <!-- Process Steps -->
-      <div class="grid md:grid-cols-3 gap-8">
-        {#each stages as stage, index}
-          <div 
-            in:fade={{ duration: 800, delay: 200 * index }}
-            class="relative group"
-          >
-            <!-- Card Background -->
-            <div class="absolute inset-0 rounded-3xl backdrop-blur-sm bg-white/[0.02] border border-white/[0.05] transition-all duration-300 group-hover:bg-white/[0.04]">
-              <!-- Shine effect -->
-              <div class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-              </div>
-            </div>
+      <!-- Interactive Stage Display -->
+      <div class="relative max-w-4xl mx-auto">
+        <!-- Stage Content -->
+        <div class="relative bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-3xl p-6 md:p-12 overflow-hidden group">
+          <!-- Navigation Buttons - Mobile -->
+          <div class="flex justify-between md:hidden mb-6">
+            <button
+              class="p-2 text-white/60 hover:text-white transition-colors disabled:opacity-30"
+              onclick={prevStage}
+              disabled={isTransitioning}
+              aria-label="Previous stage"
+            >
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            
+            <button
+              class="p-2 text-white/60 hover:text-white transition-colors disabled:opacity-30"
+              onclick={nextStage}
+              disabled={isTransitioning}
+              aria-label="Next stage"
+            >
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
 
-            <!-- Card Content -->
-            <div class="relative p-8 h-full flex flex-col items-center text-center gap-6">
-              <!-- Icon -->
-              <div class="relative w-16 h-16">
-                <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] blur-lg opacity-50"></div>
-                <div class="relative w-full h-full rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
-                  <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
-                    <svg 
-                      class="w-8 h-8 text-orange-500 transform group-hover:scale-110 transition-transform duration-300"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d={stage.icon}/>
-                    </svg>
+          <!-- Content Container with Fixed Height -->
+          <div class="h-[50vh] md:h-[320px] relative">
+            {#key currentStage}
+              <div
+                class="absolute inset-0 flex flex-col items-center gap-6 md:gap-8"
+                in:receive={{key: currentStage}}
+                out:send={{key: currentStage}}
+              >
+                <!-- Icon -->
+                <div class="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
+                  <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] blur-lg opacity-50"></div>
+                  <div class="relative w-full h-full rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
+                    <div class="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                      <!-- Solar prominences -->
+                      <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] via-[#ff8a00] to-[#ff3d00] opacity-40 scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
+                      <svg 
+                        class="w-8 h-8 md:w-10 md:h-10 text-orange-500 transform group-hover:scale-110 transition-transform duration-300 relative z-10"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d={stages[currentStage].icon}/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Text Content -->
-              <h3 class="text-xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
-                {stage.title}
-              </h3>
-              
-              <p class="text-white/60 leading-relaxed">
-                {stage.description}
-              </p>
-            </div>
+                <!-- Text Content -->
+                <div class="text-center space-y-4">
+                  <h3 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+                    {stages[currentStage].title}
+                  </h3>
+                  <p class="text-base md:text-lg text-white/60 leading-relaxed max-w-2xl">
+                    {stages[currentStage].description}
+                  </p>
+                </div>
+              </div>
+            {/key}
           </div>
-        {/each}
+        </div>
+
+        <!-- Navigation Buttons - Desktop -->
+        <button
+          class="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 lg:-translate-x-16 p-3 text-white/60 hover:text-white transition-colors disabled:opacity-30"
+          onclick={prevStage}
+          disabled={isTransitioning}
+          aria-label="Previous stage"
+        >
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        
+        <button
+          class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 lg:translate-x-16 p-3 text-white/60 hover:text-white transition-colors disabled:opacity-30"
+          onclick={nextStage}
+          disabled={isTransitioning}
+          aria-label="Next stage"
+        >
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <!-- Stage Indicators -->
+        <div class="flex justify-center gap-3 mt-6 md:mt-8">
+          {#each stages as _, index}
+            <button
+              class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 {index === currentStage ? 'bg-orange-500 scale-125' : 'bg-white/20 hover:bg-white/40'}"
+              onclick={() => goToStage(index)}
+              disabled={isTransitioning}
+              aria-label="Go to stage {index + 1}"
+            ></button>
+          {/each}
+        </div>
       </div>
     {/if}
   </div>
@@ -139,5 +244,15 @@
   h2, h3, p {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Prevent layout shifts during transitions */
+  div {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
   }
 </style> 
