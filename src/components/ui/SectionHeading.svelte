@@ -1,109 +1,52 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
-  import { cubicOut, elasticOut } from 'svelte/easing';
+  import { onMount } from 'svelte';
 
   const { id, title, subtitle } = $props();
 
   let headingElement: HTMLElement;
-  let lineElement: HTMLElement;
-  let textElement: HTMLElement;
-  let subtitleElement: HTMLElement | null = $state(null);
   let isVisible = $state(false);
-  let isAnimationComplete = $state(false);
-  let glowOpacity = $state(0);
-  let lineWidth = $state(0);
-  let textPosition = $state({ x: 0, y: 20 });
-  let subtitleOpacity = $state(0);
-
-  function handleIntersection(entries: IntersectionObserverEntry[]) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !isVisible) {
-        isVisible = true;
-        animateIn();
-      }
-    });
-  }
-
-  async function animateIn() {
-    lineWidth = 60;
-    await tick();
-
-    for (let i = 0; i <= 1; i += 0.05) {
-      textPosition = {
-        x: 0,
-        y: 30 * (1 - elasticOut(i))
-      };
-      glowOpacity = cubicOut(i);
-      await new Promise(resolve => setTimeout(resolve, 15));
-    }
-
-    subtitleOpacity = 1;
-
-    setTimeout(() => {
-      isAnimationComplete = true;
-    }, 1200);
-  }
-
-  function handleHover() {
-    if (!isAnimationComplete) return;
-    lineWidth = 80;
-  }
-
-  function handleHoverEnd() {
-    if (!isAnimationComplete) return;
-    lineWidth = 40;
-  }
 
   onMount(() => {
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.3,
-      rootMargin: "0px 0px -10% 0px"
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          isVisible = true;
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3, rootMargin: "0px 0px -10% 0px" }
+    );
 
     if (headingElement) {
       observer.observe(headingElement);
     }
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   });
 </script>
 
 <div 
-  class="flex flex-col gap-4 mb-16 relative group"
+  class="section-heading"
+  class:visible={isVisible}
   bind:this={headingElement}
-  onmouseenter={handleHover}
-  onmouseleave={handleHoverEnd}
   role="presentation"
 >
   <h2
-    class="text-2xl md:text-4xl tracking-widest text-white/90 font-bold m-0 flex items-center gap-6"
+    class="heading"
     id={id}
   >
-    <div 
-      class="relative h-[3px] overflow-hidden transition-all duration-700 ease-out"
-      bind:this={lineElement}
-      style:width="{lineWidth}px"
-    >
-      <div class="absolute inset-0 bg-gradient-to-r from-[#ff3d00] via-[#ff6b00] to-[#ff8a00] animate-pulse"></div>
-      <div class="absolute inset-0 bg-[#ff3d00] blur-[3px] transition-opacity duration-700"
-        style:opacity={glowOpacity * 0.4}></div>
+    <div class="line">
+      <div class="line-gradient"></div>
+      <div class="line-glow"></div>
     </div>
 
-    <div 
-      class="relative group-hover:scale-105 transition-transform duration-500"
-      bind:this={textElement}
-      style:transform="translate({textPosition.x}px, {textPosition.y}px)"
-      style:transition="all 0.7s cubic-bezier(0.16, 1, 0.3, 1)"
-    >
-      <span class="relative z-10 bg-gradient-to-r from-white via-white/95 to-white/90 bg-clip-text text-transparent">
+    <div class="title-wrapper">
+      <span class="title">
         {title}
       </span>
       
       <span 
-        class="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/90 bg-clip-text text-transparent blur-[2px] transition-opacity duration-700"
-        style:opacity={glowOpacity * 0.5}
+        class="title-glow"
         aria-hidden="true"
       >
         {title}
@@ -112,55 +55,157 @@
   </h2>
 
   {#if subtitle}
-    <p 
-      class="text-lg md:text-xl text-white/70 max-w-3xl leading-relaxed transition-all duration-700 ease-out group-hover:text-white/80"
-      bind:this={subtitleElement}
-      style:opacity={subtitleOpacity}
-      style:transform="translateY({20 * (1 - subtitleOpacity)}px)"
-    >
+    <p class="subtitle">
       {subtitle}
     </p>
   {/if}
 </div>
 
 <style>
-  .relative {
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    position: relative;
     transform: translateZ(0);
-    will-change: transform, opacity;
+    will-change: transform;
   }
 
-  h2, p {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  .heading {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
   }
 
-  .transition-all {
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  .line {
+    height: 3px;
+    width: 0;
+    position: relative;
+    overflow: hidden;
+    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .visible .line {
+    width: 60px;
+  }
+
+  .section-heading:hover .line {
+    width: 80px;
+  }
+
+  .line-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #ff3d00, #ff6b00, #ff8a00);
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .line-glow {
+    position: absolute;
+    inset: 0;
+    background: #ff3d00;
+    filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .visible .line-glow {
+    opacity: 0.4;
+  }
+
+  .title-wrapper {
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .visible .title-wrapper {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-heading:hover .title-wrapper {
+    transform: scale(1.05);
+  }
+
+  .title {
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(to right, white, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .title-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, white, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .visible .title-glow {
+    opacity: 0.5;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 48rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .visible .subtitle {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-heading:hover .subtitle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (min-width: 768px) {
+    .heading {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+    .subtitle {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .transition-all,
-    .transition-opacity,
-    .transition-transform {
+    .line,
+    .title-wrapper,
+    .subtitle,
+    .line-glow,
+    .title-glow {
       transition: none !important;
     }
-
-    .relative {
-      transform: none !important;
+    .line-gradient {
+      animation: none !important;
     }
-  }
-
-  :global(html:not(.js)) .relative {
-    opacity: 1 !important;
-    transform: none !important;
   }
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.8; }
-  }
-
-  .animate-pulse {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 </style> 
