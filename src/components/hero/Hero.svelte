@@ -17,6 +17,9 @@
 	let isLoaded = $state(false);
 	let staggerIndex = $state(0);
 	let titleChars = $state<string[]>([]);
+	let rafId: number;
+	let lastScrollY = 0;
+	let ticking = false;
 	
 	// Split text animation helper
 	function splitText(text: string): string[] {
@@ -215,68 +218,87 @@
 		requestAnimationFrame(render);
 	}
 
-	// Animation loop
+	// Scroll handling with throttling and RAF
+	function handleScroll() {
+		lastScrollY = window.scrollY;
+		if (!ticking) {
+			rafId = requestAnimationFrame(() => {
+				const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+				scrollProgress = Math.min(lastScrollY / scrollMax, 1);
+				ticking = false;
+			});
+			ticking = true;
+		}
+	}
+
+	// Mouse tracking with improved performance
+	function handleMouseMove(event: MouseEvent) {
+		const rect = canvas.getBoundingClientRect();
+		const newX = (event.clientX - rect.left) / rect.width;
+		const newY = 1.0 - (event.clientY - rect.top) / rect.height;
+		
+		// Smooth mouse movement
+		mousePos = {
+			x: mousePos.x + (newX - mousePos.x) * 0.1,
+			y: mousePos.y + (newY - mousePos.y) * 0.1
+		};
+		
+		// Calculate velocity with damping
+		mouseVelocity = {
+			x: (newX - mousePos.x) * 0.05,
+			y: (newY - mousePos.y) * 0.05
+		};
+	}
+
+	// Animation loop with RAF
 	$effect(() => {
 		const start = performance.now();
 		let lastTime = start;
-		let rafId: number;
 
-		const animate = (now: number) => {
+		function animate(now: number) {
 			const delta = now - lastTime;
 			lastTime = now;
 			time = now - start;
 			
-			// Update mouse velocity decay
+			// Update mouse velocity with decay
 			mouseVelocity = {
 				x: mouseVelocity.x * 0.95,
 				y: mouseVelocity.y * 0.95
 			};
 
 			rafId = requestAnimationFrame(animate);
-		};
+		}
 
 		rafId = requestAnimationFrame(animate);
-		return () => cancelAnimationFrame(rafId);
+		return () => {
+			cancelAnimationFrame(rafId);
+			if (ticking) {
+				cancelAnimationFrame(rafId);
+				ticking = false;
+			}
+		};
 	});
-
-	// Mouse tracking
-	function handleMouseMove(event: MouseEvent) {
-		const rect = canvas.getBoundingClientRect();
-		const newX = (event.clientX - rect.left) / rect.width;
-		const newY = 1.0 - (event.clientY - rect.top) / rect.height;
-		
-		// Reduce velocity sensitivity and add smoothing
-		mouseVelocity = {
-			x: (newX - mousePos.x) / 32, // Reduced from 16 to 32
-			y: (newY - mousePos.y) / 32
-		};
-		
-		// Add position smoothing
-		mousePos = {
-			x: mousePos.x + (newX - mousePos.x) * 0.1,
-			y: mousePos.y + (newY - mousePos.y) * 0.1
-		};
-	}
-
-	// Scroll tracking
-	function handleScroll() {
-		const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
-		scrollProgress = Math.min(window.scrollY / scrollMax, 1);
-	}
 
 	// Resize handling
 	function updateDimensions() {
 		if (!canvas) return;
-		const dpr = window.devicePixelRatio;
-		dimensions = {
-			width: window.innerWidth,
-			height: window.innerHeight
-		};
 		
-		canvas.width = dimensions.width * dpr;
-		canvas.height = dimensions.height * dpr;
-		canvas.style.width = `${dimensions.width}px`;
-		canvas.style.height = `${dimensions.height}px`;
+		requestAnimationFrame(() => {
+			const dpr = Math.min(window.devicePixelRatio, 2); // Cap DPR for better performance
+			dimensions = {
+				width: window.innerWidth,
+				height: window.innerHeight
+			};
+			
+			canvas.width = dimensions.width * dpr;
+			canvas.height = dimensions.height * dpr;
+			canvas.style.width = `${dimensions.width}px`;
+			canvas.style.height = `${dimensions.height}px`;
+			
+			if (gl) {
+				gl.viewport(0, 0, canvas.width, canvas.height);
+			}
+		});
 	}
 
 	// Enhanced stagger transition
@@ -333,8 +355,10 @@
 	onMount(() => {
 		updateDimensions();
 		initWebGL();
+		
+		// Add passive flag for better scroll performance
+		window.addEventListener('scroll', handleScroll, { passive: true });
 		window.addEventListener('resize', updateDimensions);
-		window.addEventListener('scroll', handleScroll);
 		
 		// Split the title text
 		titleChars = splitText('SOLARIS');
@@ -353,8 +377,11 @@
 		}, 200);
 
 		return () => {
-			window.removeEventListener('resize', updateDimensions);
 			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', updateDimensions);
+			if (rafId) {
+				cancelAnimationFrame(rafId);
+			}
 		};
 	});
 </script>
@@ -400,15 +427,16 @@
 							{/each}
 						</span>
 						<span 
-							class="text-[#ff3d00] block relative"
+							class="text-[#ff5500] block relative"
 							style="
-								background: linear-gradient(to bottom, #ff7e3d 0%, #ff3d00 100%);
+								background: linear-gradient(to bottom, #ff8c1a 0%, #ff4800 100%);
 								-webkit-background-clip: text;
 								background-clip: text;
 								color: transparent;
 								text-shadow: 
-									0 1px 1px rgba(0,0,0,0.6),
-									0 -1px 1px rgba(255,255,255,0.2);
+									0 1px 2px rgba(0,0,0,0.8),
+									0 -1px 1px rgba(255,255,255,0.2),
+									0 0 20px rgba(255,69,0,0.3);
 								letter-spacing: 0.02em;
 								position: relative;
 								z-index: 2;
@@ -424,12 +452,12 @@
 								class="absolute inset-0 z-[-1]"
 								aria-hidden="true"
 								style="
-									background: linear-gradient(to bottom, #ff7e3d 0%, #ff3d00 100%);
+									background: linear-gradient(to bottom, #ff8c1a 0%, #ff4800 100%);
 									-webkit-background-clip: text;
 									background-clip: text;
 									color: transparent;
-									filter: blur(4px);
-									opacity: 0.5;
+									filter: blur(6px);
+									opacity: 0.6;
 									transform: translateY(2px);
 								"
 							>SOFTWARE</span>
@@ -480,13 +508,19 @@
 
 				{#if staggerIndex >= 2}
 					<p 
-						class="text-base md:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto mb-8 md:mb-12 leading-relaxed font-light px-4 md:px-0"
+						class="text-base md:text-lg lg:text-xl max-w-3xl mx-auto mb-8 md:mb-12 leading-relaxed font-light px-4 md:px-0"
 						style="
-							text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-							background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+							color: rgba(255, 255, 255, 0.92);
+							text-shadow: 
+								0 2px 4px rgba(0,0,0,0.5),
+								0 1px 2px rgba(0,0,0,0.8);
+							background: linear-gradient(
+								to bottom,
+								rgba(255,255,255,1) 0%,
+								rgba(255,255,255,0.95) 100%
+							);
 							-webkit-background-clip: text;
 							background-clip: text;
-							color: transparent;
 						"
 						in:staggerTransition={{ 
 							delay: titleChars.length * 30 + 300,
@@ -495,7 +529,9 @@
 							scale: 0.95
 						}}
 					>
-						Transforming ideas into reality through cutting-edge software solutions that push the boundaries of what's possible.
+						<span class="relative z-10">
+							Transforming ideas into reality through cutting-edge software solutions that push the boundaries of what's possible.
+						</span>
 					</p>
 				{/if}
 
