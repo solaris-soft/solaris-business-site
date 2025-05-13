@@ -1,5 +1,5 @@
 ---
-import ServiceCard from "./ServiceCard.astro";
+import ServiceCard from "./ServiceCard.svelte";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 interface Service {
@@ -45,13 +45,16 @@ const services: Service[] = [
   <div class="relative w-full">
     <SectionHeading id="services-heading" title="OUR SERVICES & APPROACH" />
 
-    <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-12 md:gap-16 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 md:px-8">
       {
         services.map((service: Service) => (
-          <ServiceCard
-            title={service.title}
-            description={service.description}
-          />
+          <div class="relative">
+            <ServiceCard
+              client:visible
+              title={service.title}
+              description={service.description}
+            />
+          </div>
         ))
       }
     </div>
