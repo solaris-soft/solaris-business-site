@@ -1,18 +1,18 @@
 [
-    {
-        "id": 1,
-        "name": "Sam Frahm",
-        "role": "Principal Software Engineer, BPsych.",
-        "image": "../assets/sam-profile.webp",
-        "github": "https://github.com/primary-github",
-        "bio": "Sam Frahm is a Principal Software Engineer and co-founder of SOLARIS. With a background in business and the software industry, he focuses on building technology that aligns with how people think, work, and make decisions. By applying psychological research to software design, he aims to develop digital systems that are intuitive, effective, and practical. His expertise lies in creating technically sound solutions that deliver real-world value."
-    },
-    {
-        "id": 2,
-        "name": "Joshua Macmaster",
-        "role": "Principal Software Engineer, LLB.",
-        "image": "../assets/josh-profile.webp",
-        "github": "https://github.com/joshuamurd",
-        "bio": "Josh is a Principal Software Engineer and co-founder of SOLARIS. With 5 years of experience as a law clerk and being a recently admitted lawyer, he brings unique insights into process automation and workflow optimization. His self-taught programming journey and legal background enable him to create innovative solutions that bridge technical and business needs."
-    }
+  {
+    "id": 1,
+    "name": "Sam Frahm",
+    "role": "Principal Software Engineer, BPsych.",
+    "image": "../assets/sam-profile.webp",
+    "github": "https://github.com/primary-github",
+    "bio": "Sam Frahm is a Principal Software Engineer and co-founder of SOLARIS. With a background in business and the software industry, he focuses on building technology that aligns with how people think, work, and make decisions. By applying psychological research to software design, he aims to develop digital systems that are intuitive, effective, and practical. His expertise lies in creating technically sound solutions that deliver real-world value."
+  },
+  {
+    "id": 2,
+    "name": "Joshua Macmaster",
+    "role": "Principal Software Engineer, LLB.",
+    "image": "../assets/josh-profile.webp",
+    "github": "https://github.com/joshuamurd",
+    "bio": "Josh is a Principal Software Engineer and co-founder of SOLARIS. With 5 years of experience as a law clerk and being a recently admitted lawyer, he brings unique insights into process automation and workflow optimization. His self-taught programming journey and legal background enable him to create innovative solutions that bridge technical and business needs."
+  }
 ]

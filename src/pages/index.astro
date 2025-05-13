@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/navigation/Navbar.astro";
 import Hero from "../components/hero/Hero.svelte";
 import Services from "../components/services/Services.astro";
 import Contact from "../components/contact/Contact.astro";
@@ -8,18 +7,18 @@ import "../styles/animations.css";
 ---
 
 <Layout>
-	<main class="min-h-screen bg-black relative z-10">
-		<Hero client:load />
-		<div class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8">
-			<div class="max-w-[1200px] mx-auto flex flex-col gap-8">
-				<Services />
-				<Contact />
-			</div>
-		</div>
-	</main>
+  <main class="min-h-screen bg-black relative z-10">
+    <Hero client:load />
+    <div class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[1200px] mx-auto flex flex-col gap-8">
+        <Services />
+        <Contact />
+      </div>
+    </div>
+  </main>
 </Layout>
 
 <script>
-	import { initSmoothScroll } from "../scripts/smoothScroll";
-	initSmoothScroll();
+  import { initSmoothScroll } from "../scripts/smoothScroll";
+  initSmoothScroll();
 </script>

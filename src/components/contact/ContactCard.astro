@@ -1,26 +1,41 @@
 ---
 interface Props {
-    href?: string;
-    label: string;
-    children: any;
+  href?: string;
+  label: string;
+  children: any;
 }
 
 const { href, label } = Astro.props;
 ---
 
-<div class="group bg-gradient-to-br from-white/[0.02] via-transparent to-transparent border-0 rounded-2xl p-8 relative overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-1">
-    <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
-    <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00]/0 to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-    <div class="relative">
-        <span class="block text-[#ff3d00] text-md font-bold uppercase tracking-widest mb-2 transition-colors duration-300 group-hover:text-[#ff8a00]">{label}</span>
-        {
-            href ? (
-                <a href={href} class="text-white no-underline transition-colors duration-300 hover:text-[#ff8a00] focus:outline-none focus:text-[#ff8a00]">
-                    <slot />
-                </a>
-            ) : (
-                <slot />
-            )
-        }
-    </div>
-</div> 
+<div
+  class="group bg-gradient-to-br from-white/[0.02] via-transparent to-transparent border-0 rounded-2xl p-8 relative overflow-hidden backdrop-blur-sm transition-all duration-500 hover:-translate-y-1"
+>
+  <div
+    class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"
+  >
+  </div>
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-[#ff3d00]/0 to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500"
+  >
+  </div>
+  <div class="relative">
+    <span
+      class="block text-[#ff3d00] text-md font-bold uppercase tracking-widest mb-2 transition-colors duration-300 group-hover:text-[#ff8a00]"
+      >{label}</span
+    >
+    {
+      href ? (
+        <a
+          href={href}
+          class="text-white no-underline transition-colors duration-300 hover:text-[#ff8a00] focus:outline-none focus:text-[#ff8a00]"
+        >
+          <slot />
+        </a>
+      ) : (
+        <slot />
+      )
+    }
+  </div>
+</div>
+
