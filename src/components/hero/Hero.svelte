@@ -42,7 +42,7 @@
 			<div in:fade={{ duration: 800 }} class="flex flex-col gap-8">
 				<div class="space-y-6">
 					<h2 class="text-2xl lg:text-3xl font-semibold tracking-wider text-orange-200/90">
-						EMPOWERING INNOVATION
+						IGNITING INNOVATION
 					</h2>
 					<h1 class="text-6xl lg:text-8xl font-black tracking-tight">
 						<span class="bg-gradient-to-b from-white via-orange-50 to-orange-200/90 bg-clip-text text-transparent">
@@ -56,7 +56,7 @@
 
 				<div class="space-y-12">
 					<p class="text-xl lg:text-2xl max-w-2xl mx-auto text-orange-100/90 font-medium leading-relaxed">
-						Harnessing the power of innovation to illuminate the future of software development
+						Your partners in bringing your business to the modern market.
 					</p>
 
 					<a

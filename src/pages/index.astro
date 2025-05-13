@@ -2,9 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/hero/Hero.svelte";
 import Services from "../components/services/Services.astro";
-import Contact from "../components/contact/Contact.astro";
 import "../styles/animations.css";
-
+import HomeAbout from "../components/about/HomeAbout.svelte";
 ---
 
 <Layout>
@@ -12,8 +11,8 @@ import "../styles/animations.css";
     <Hero client:load />
     <div class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
       <div class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24">
-        <Services />
-        <Contact />
+        <Services/>
+        <HomeAbout client:visible/>
       </div>
     </div>
   </main>
