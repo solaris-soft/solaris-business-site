@@ -1,6 +1,6 @@
 ---
 import ContactCard from "./ContactCard.astro";
-import SectionHeading from "../ui/SectionHeading.astro";
+import SectionHeading from "../ui/SectionHeading.svelte";
 
 interface ContactInfo {
   type: string;
@@ -32,8 +32,8 @@ const meetingTypes = [
 ];
 ---
 
-<section id="contact" class="py-8 scroll-mt-16">
-  <SectionHeading id="contact-heading" title="CONTACT US" />
+<section id="contact" class="mb-24 mt-10">
+  <SectionHeading id="contact-heading" title="CONTACT US" client:load/>
   <div class="w-full max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <ContactCard href="mailto:admin@solaris.software" label="Email">
@@ -49,8 +49,8 @@ const meetingTypes = [
       }
     </div>
 
-    <div class="mt-24">
-      <SectionHeading id="booking-heading" title="SCHEDULE A MEETING" />
+    <div class="mt-48">
+      <SectionHeading id="booking-heading" title="SCHEDULE A MEETING" client:load/>
       <div class="w-full max-w-6xl mx-auto mt-0">
         <div class="relative">
           <!-- Background layers -->
