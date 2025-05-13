@@ -10,8 +10,6 @@
 	
 	// Animation State
 	let time = $state(0);
-	let mousePos = $state({ x: 0.5, y: 0.5 });
-	let mouseVelocity = $state({ x: 0, y: 0 });
 	let dimensions = $state({ width: 0, height: 0 });
 	let scrollProgress = $state(0);
 	let isLoaded = $state(false);
@@ -39,13 +37,13 @@
 		precision highp float;
 		uniform float time;
 		uniform vec2 resolution;
-		uniform vec2 mousePos;
-		uniform vec2 mouseVelocity;
 		uniform float scrollProgress;
 
-		// Noise functions
+		// Enhanced noise functions
 		float hash(vec2 p) {
-			return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+			vec3 p3 = fract(vec3(p.xyx) * vec3(.1031, .1030, .0973));
+			p3 += dot(p3, p3.yxz + 33.33);
+			return fract((p3.x + p3.y) * p3.z);
 		}
 
 		float noise(vec2 p) {
@@ -59,56 +57,82 @@
 			);
 		}
 
+		float voronoi(vec2 x) {
+			vec2 p = floor(x);
+			vec2 f = fract(x);
+			float min_dist = 1.0;
+			
+			for(int i = -1; i <= 1; i++) {
+				for(int j = -1; j <= 1; j++) {
+					vec2 b = vec2(float(i), float(j));
+					vec2 r = b - f + hash(p + b);
+					float d = dot(r, r);
+					min_dist = min(min_dist, d);
+				}
+			}
+			
+			return sqrt(min_dist);
+		}
+
 		float fbm(vec2 p) {
 			float value = 0.0;
 			float amplitude = 0.5;
 			float frequency = 1.0;
+			float lacunarity = 2.0;
+			float gain = 0.5;
+			mat2 rotation = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+			
 			for(int i = 0; i < 6; i++) {
 				value += amplitude * noise(p * frequency);
-				amplitude *= 0.5;
+				p = rotation * p * lacunarity;
+				amplitude *= gain;
 				frequency *= 2.0;
-				p = p * 1.1 + vec2(3.3, 2.8);
 			}
 			return value;
 		}
 
 		vec3 plasma(vec2 uv, float t) {
-			// Base plasma effect
+			// Enhanced base plasma effect
 			float v1 = sin((uv.x + t * 0.1) * 10.0);
 			float v2 = cos((uv.y + t * 0.15) * 8.0);
-			float v3 = sin(sqrt(pow(uv.x - mousePos.x, 2.0) + pow(uv.y - mousePos.y, 2.0)) * 12.0);
+			float v3 = sin(sqrt(pow(uv.x - 0.5, 2.0) + pow(uv.y - 0.5, 2.0)) * 12.0);
 			
-			// Dynamic flow field
+			// Dynamic flow field with curl noise
 			vec2 flow = vec2(
-				sin(uv.y * 4.0 + t * 0.2) * 0.2,
-				cos(uv.x * 4.0 + t * 0.15) * 0.2
+				sin(uv.y * 4.0 + t * 0.2 + fbm(uv * 2.0)) * 0.3,
+				cos(uv.x * 4.0 + t * 0.15 + fbm(uv * 2.0)) * 0.3
 			);
 			
-			// Fractal noise
-			float noise = fbm(uv * 2.5 + flow + t * 0.08);
+			// Layered effects
+			float noise1 = fbm(uv * 2.5 + flow + t * 0.08);
+			float noise2 = fbm(uv * 4.0 - flow * 0.5 + t * 0.12);
+			float voronoiEffect = voronoi(uv * 8.0 + vec2(t * 0.2, t * 0.1));
 			
-			// Combine effects
-			float plasma = v1 + v2 + v3 + noise;
+			// Combine effects with more complexity
+			float plasma = v1 + v2 + v3 + noise1 * 0.8 + noise2 * 0.4 + voronoiEffect * 0.3;
 			
-			// Color mapping
-			vec3 col1 = vec3(1.0, 0.2, 0.0); // Orange
-			vec3 col2 = vec3(1.0, 0.4, 0.1); // Light orange
-			vec3 col3 = vec3(0.9, 0.1, 0.0); // Deep red
+			// Enhanced color mapping with more sophisticated palette
+			vec3 col1 = vec3(0.5 + 0.5 * sin(t * 0.1), 0.2, 0.0); // Dynamic orange
+			vec3 col2 = vec3(1.0, 0.4 + 0.2 * cos(t * 0.15), 0.1); // Pulsing light orange
+			vec3 col3 = vec3(0.9, 0.1 + 0.1 * sin(t * 0.2), 0.0); // Animated deep red
 			
 			vec3 color = mix(
 				mix(col1, col2, plasma),
 				col3,
-				sin(plasma * 3.14159) * 0.5 + 0.5
+				sin(plasma * 3.14159 + t * 0.1) * 0.5 + 0.5
 			);
 			
-			// Add mouse interaction glow with reduced intensity
-			float mouseDist = length(uv - mousePos);
-			float mouseGlow = exp(-mouseDist * 6.0) * length(mouseVelocity) * 1.0;
-			color += vec3(1.0, 0.3, 0.1) * mouseGlow;
-			
-			// Add scroll-based effects with smoother transition
+			// Scroll-based effects with more sophistication
 			float scrollEffect = smoothstep(0.0, 1.0, scrollProgress);
-			color = mix(color, color * (1.0 + noise * 0.4), scrollEffect);
+			vec3 scrollColor = mix(
+				color,
+				color * (1.0 + noise1 * 0.6 + voronoiEffect * 0.4),
+				scrollEffect
+			);
+			
+			// Add subtle color variations based on position
+			color = mix(color, scrollColor, 0.8);
+			color += vec3(0.1, 0.05, 0.0) * fbm(uv * 10.0 + t * 0.05);
 			
 			return color;
 		}
@@ -117,16 +141,30 @@
 			vec2 uv = gl_FragCoord.xy / resolution;
 			float t = time * 0.001;
 			
-			// Main plasma effect
+			// Main plasma effect with enhanced detail
 			vec3 color = plasma(uv, t);
 			
-			// Vignette effect
-			float vignette = 1.0 - length((uv - 0.5) * 2.0);
-			vignette = smoothstep(0.0, 1.0, pow(vignette, 1.5));
+			// Advanced vignette effect
+			float vignette = length((uv - 0.5) * 2.0);
+			vignette = smoothstep(1.2, 0.4, vignette) * (0.8 + 0.2 * sin(t * 0.5));
 			color *= vignette;
 			
-			// Output with gamma correction
+			// Add subtle scanlines
+			float scanline = sin(uv.y * resolution.y * 0.5 - t * 10.0) * 0.02 + 0.98;
+			color *= scanline;
+			
+			// Add chromatic aberration
+			float aberration = 0.01 * (1.0 + sin(t * 0.2)) * (1.0 - vignette);
+			vec3 colorShift = vec3(
+				plasma(uv + vec2(aberration, 0.0), t).r,
+				plasma(uv, t).g,
+				plasma(uv - vec2(aberration, 0.0), t).b
+			);
+			color = mix(color, colorShift, 0.3);
+			
+			// Enhanced gamma correction and tone mapping
 			color = pow(color, vec3(0.8));
+			color = color / (1.0 + color); // Soft tone mapping
 			gl_FragColor = vec4(color, 1.0);
 		}
 	`;
@@ -208,8 +246,6 @@
 		// Update uniforms
 		gl.uniform1f(gl.getUniformLocation(program, 'time'), time);
 		gl.uniform2f(gl.getUniformLocation(program, 'resolution'), gl.canvas.width, gl.canvas.height);
-		gl.uniform2f(gl.getUniformLocation(program, 'mousePos'), mousePos.x, mousePos.y);
-		gl.uniform2f(gl.getUniformLocation(program, 'mouseVelocity'), mouseVelocity.x, mouseVelocity.y);
 		gl.uniform1f(gl.getUniformLocation(program, 'scrollProgress'), scrollProgress);
 		
 		// Draw
@@ -231,25 +267,6 @@
 		}
 	}
 
-	// Mouse tracking with improved performance
-	function handleMouseMove(event: MouseEvent) {
-		const rect = canvas.getBoundingClientRect();
-		const newX = (event.clientX - rect.left) / rect.width;
-		const newY = 1.0 - (event.clientY - rect.top) / rect.height;
-		
-		// Smooth mouse movement
-		mousePos = {
-			x: mousePos.x + (newX - mousePos.x) * 0.1,
-			y: mousePos.y + (newY - mousePos.y) * 0.1
-		};
-		
-		// Calculate velocity with damping
-		mouseVelocity = {
-			x: (newX - mousePos.x) * 0.05,
-			y: (newY - mousePos.y) * 0.05
-		};
-	}
-
 	// Animation loop with RAF
 	$effect(() => {
 		const start = performance.now();
@@ -259,13 +276,6 @@
 			const delta = now - lastTime;
 			lastTime = now;
 			time = now - start;
-			
-			// Update mouse velocity with decay
-			mouseVelocity = {
-				x: mouseVelocity.x * 0.95,
-				y: mouseVelocity.y * 0.95
-			};
-
 			rafId = requestAnimationFrame(animate);
 		}
 
@@ -351,6 +361,58 @@
 		};
 	}
 
+	// Add particle system
+	interface Particle {
+		x: number;
+		y: number;
+		size: number;
+		speedX: number;
+		speedY: number;
+		life: number;
+	}
+
+	let particles: Particle[] = [];
+	const PARTICLE_COUNT = 50;
+
+	function initParticles() {
+		particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+			x: Math.random() * dimensions.width,
+			y: Math.random() * dimensions.height,
+			size: Math.random() * 2 + 1,
+			speedX: (Math.random() - 0.5) * 2,
+			speedY: (Math.random() - 0.5) * 2,
+			life: Math.random() * 0.5 + 0.5
+		}));
+	}
+
+	function updateParticles(ctx: CanvasRenderingContext2D) {
+		ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+		
+		particles.forEach(particle => {
+			particle.x += particle.speedX;
+			particle.y += particle.speedY;
+			particle.life -= 0.002;
+			
+			if (particle.life <= 0 || 
+				particle.x < 0 || particle.x > dimensions.width ||
+				particle.y < 0 || particle.y > dimensions.height) {
+				particle.x = Math.random() * dimensions.width;
+				particle.y = Math.random() * dimensions.height;
+				particle.life = 1;
+			}
+			
+			const alpha = particle.life * 0.5;
+			ctx.globalAlpha = alpha;
+			ctx.beginPath();
+			ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+			ctx.fill();
+		});
+	}
+
+	// Create overlay canvas for particles
+	let overlayCanvas: HTMLCanvasElement;
+	let overlayCtx: CanvasRenderingContext2D;
+
 	// Initialization
 	onMount(() => {
 		updateDimensions();
@@ -376,11 +438,39 @@
 			}, staggerInterval);
 		}, 200);
 
+		// Initialize particle system
+		overlayCanvas = document.createElement('canvas');
+		overlayCanvas.style.position = 'absolute';
+		overlayCanvas.style.top = '0';
+		overlayCanvas.style.left = '0';
+		overlayCanvas.style.pointerEvents = 'none';
+		overlayCanvas.style.zIndex = '1';
+		canvas.parentElement?.appendChild(overlayCanvas);
+		
+		overlayCtx = overlayCanvas.getContext('2d') as CanvasRenderingContext2D;
+		initParticles();
+		
+		function animateParticles() {
+			if (!overlayCanvas || !overlayCtx) return;
+			
+			overlayCanvas.width = dimensions.width;
+			overlayCanvas.height = dimensions.height;
+			overlayCtx.clearRect(0, 0, dimensions.width, dimensions.height);
+			
+			updateParticles(overlayCtx);
+			requestAnimationFrame(animateParticles);
+		}
+		
+		animateParticles();
+
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 			window.removeEventListener('resize', updateDimensions);
 			if (rafId) {
 				cancelAnimationFrame(rafId);
+			}
+			if (overlayCanvas) {
+				overlayCanvas.remove();
 			}
 		};
 	});
@@ -388,7 +478,6 @@
 
 <div 
 	class="relative min-h-screen max-w-screen flex items-center justify-center overflow-hidden bg-black"
-	on:mousemove={handleMouseMove}
 >
 	<!-- WebGL Canvas -->
 	<canvas
@@ -415,15 +504,49 @@
 					>
 						<span class="relative inline-flex overflow-hidden">
 							{#each titleChars as char, i}
-								<span
-									class="inline-block"
-									in:charStaggerTransition={{
-										delay: i * 30,
-										duration: 600,
-										y: 30,
-										x: (i - titleChars.length / 2) * 8
-									}}
-								>{char}</span>
+								{#if char === 'O'}
+									<span
+										class="inline-block relative"
+										in:charStaggerTransition={{
+											delay: i * 30,
+											duration: 600,
+											y: 30,
+											x: (i - titleChars.length / 2) * 8
+										}}
+									>
+										<div class="relative w-[0.85em] h-[0.85em] inline-block align-middle -translate-y-[0.075em]">
+											<!-- Main dot with gradient -->
+											<div
+												class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-full animate-mainDot will-change-transform"
+											>
+												<div
+													class="absolute inset-[2px] bg-gradient-to-br from-white/30 to-transparent rounded-full"
+												>
+												</div>
+											</div>
+											<!-- Single optimized orbital ring -->
+											<div
+												class="absolute inset-0 w-full h-full animate-orbit will-change-transform"
+											>
+												<div class="absolute inset-[-2px] rounded-full ring-1 ring-[#ff3d00]/10"></div>
+												<div
+													class="absolute w-[0.1em] h-[0.1em] bg-[#ff3d00] rounded-full -top-[1px] left-1/2 -translate-x-1/2"
+												>
+												</div>
+											</div>
+										</div>
+									</span>
+								{:else}
+									<span
+										class="inline-block"
+										in:charStaggerTransition={{
+											delay: i * 30,
+											duration: 600,
+											y: 30,
+											x: (i - titleChars.length / 2) * 8
+										}}
+									>{char}</span>
+								{/if}
 							{/each}
 						</span>
 						<span 
@@ -649,5 +772,91 @@
 			background: none !important;
 			color: #ffffff !important;
 		}
+	}
+
+	@keyframes sunPulse {
+		0%, 100% {
+			transform: scale(1);
+			opacity: 0.9;
+		}
+		50% {
+			transform: scale(1.1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes sunGlow {
+		0%, 100% {
+			transform: scale(1);
+			opacity: 0.3;
+		}
+		50% {
+			transform: scale(1.2);
+			opacity: 0.5;
+		}
+	}
+
+	.sun-rays {
+		position: absolute;
+		inset: -50%;
+		background: conic-gradient(
+			from 0deg,
+			transparent 0deg,
+			rgba(255, 107, 0, 0.2) 20deg,
+			transparent 40deg,
+			rgba(255, 61, 0, 0.2) 60deg,
+			transparent 80deg,
+			rgba(255, 107, 0, 0.2) 100deg,
+			transparent 120deg,
+			rgba(255, 61, 0, 0.2) 140deg,
+			transparent 160deg,
+			rgba(255, 107, 0, 0.2) 180deg,
+			transparent 200deg,
+			rgba(255, 61, 0, 0.2) 220deg,
+			transparent 240deg,
+			rgba(255, 107, 0, 0.2) 260deg,
+			transparent 280deg,
+			rgba(255, 61, 0, 0.2) 300deg,
+			transparent 320deg,
+			rgba(255, 107, 0, 0.2) 340deg,
+			transparent 360deg
+		);
+		animation: rotate 10s linear infinite;
+		z-index: -1;
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes mainDot {
+		0%, 100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(0.95);
+		}
+	}
+
+	@keyframes orbit {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	.animate-mainDot {
+		animation: mainDot 3s ease-in-out infinite;
+	}
+
+	.animate-orbit {
+		animation: orbit 10s linear infinite;
 	}
 </style>
