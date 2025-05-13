@@ -207,6 +207,16 @@
     resetAnimation();
   }
 
+  function handleClick() {
+    goto('/services');
+  }
+
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      handleClick();
+    }
+  }
+
   onMount(() => {
     if (!canvas || !cardElement) return;
     
@@ -244,79 +254,82 @@
   });
 </script>
 
-<div
-  class="relative w-full h-[400px] group pointer-events-auto"
-  bind:this={cardElement}
-  onmousemove={handleMouseMove}
-  onmouseleave={handleMouseLeave}
-  role="button"
-  tabindex="0"
+<a
+  href="/services"
+  class="block relative w-full h-[400px] group pointer-events-auto no-underline"
 >
-  <!-- Canvas background -->
-  <canvas
-    bind:this={canvas}
-    class="absolute inset-0 w-full h-full rounded-3xl"
-  ></canvas>
-  
-  <!-- Glass card -->
-  <div class="absolute inset-0 rounded-3xl backdrop-blur-sm bg-white/[0.02] border border-white/[0.05]">
-    <!-- Shine effect -->
-    <div class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-    </div>
-  </div>
-  
-  <!-- Content container with magnetic effect -->
   <div
-    bind:this={contentElement}
-    class="relative h-full flex flex-col justify-between p-8 transition-transform duration-300 ease-out"
+    bind:this={cardElement}
+    onmousemove={handleMouseMove}
+    onmouseleave={handleMouseLeave}
+    class="relative w-full h-full"
   >
-    <!-- Title -->
-    <div class="space-y-6">
-      <div class="relative w-16 h-16">
-        <!-- Glowing orb -->
-        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] blur-lg opacity-50 animate-pulse"></div>
-        <div class="relative w-full h-full rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
-          <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] transform group-hover:scale-110 transition-transform duration-300"></div>
-          </div>
-        </div>
+    <!-- Canvas background -->
+    <canvas
+      bind:this={canvas}
+      class="absolute inset-0 w-full h-full rounded-3xl"
+    ></canvas>
+    
+    <!-- Glass card -->
+    <div class="absolute inset-0 rounded-3xl backdrop-blur-sm bg-white/[0.02] border border-white/[0.05]">
+      <!-- Shine effect -->
+      <div class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
       </div>
-      
-      <h3 class="text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
-        {title}
-      </h3>
     </div>
     
-    <!-- Description and link -->
-    <div class="space-y-6">
-      <p class="text-white/60 leading-relaxed">
-        {description}
-      </p>
+    <!-- Content container with magnetic effect -->
+    <div
+      bind:this={contentElement}
+      class="relative h-full flex flex-col justify-between p-8 transition-transform duration-300 ease-out"
+    >
+      <!-- Title -->
+      <div class="space-y-6">
+        <div class="relative w-16 h-16">
+          <!-- Glowing orb -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] blur-lg opacity-50 animate-pulse"></div>
+          <div class="relative w-full h-full rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
+            <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] transform group-hover:scale-110 transition-transform duration-300"></div>
+            </div>
+          </div>
+        </div>
+        
+        <h3 class="text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+          {title}
+        </h3>
+      </div>
       
-      <div class="flex items-center gap-3 text-[#ff3d00] font-medium">
-        <span class="relative">
-          Explore
-          <div class="absolute inset-x-0 h-px -bottom-1 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-        </span>
-        <svg
-          class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4 12H20M20 12L14 6M20 12L14 18"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+      <!-- Description and link -->
+      <div class="space-y-6">
+        <p class="text-white/60 leading-relaxed">
+          {description}
+        </p>
+        
+        <div class="flex items-center gap-3 text-[#ff3d00] font-medium">
+          <span class="relative">
+            Explore
+            <div class="absolute inset-x-0 h-px -bottom-1 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+          </span>
+          <svg
+            class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 12H20M20 12L14 6M20 12L14 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</a>
 
 <style>
   /* Optimize performance */
