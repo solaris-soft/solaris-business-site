@@ -9,10 +9,14 @@ import HomeAbout from "../components/about/HomeAbout.svelte";
 <Layout>
   <main class="min-h-screen bg-black relative z-10 overflow-x-hidden">
     <Hero client:load />
-    <div class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
-      <div class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24">
-        <Services/>
-        <HomeAbout client:visible/>
+    <div
+      class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24"
+    >
+      <div
+        class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24"
+      >
+        <Services />
+        <HomeAbout client:visible />
       </div>
     </div>
   </main>

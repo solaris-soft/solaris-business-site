@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
-  import { cubicOut } from 'svelte/easing';
+  import { onMount} from 'svelte';
 
   const { title, description } = $props();
 
@@ -205,16 +204,6 @@
     };
 
     resetAnimation();
-  }
-
-  function handleClick() {
-    goto('/services');
-  }
-
-  function handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      handleClick();
-    }
   }
 
   onMount(() => {

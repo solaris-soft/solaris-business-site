@@ -1,88 +1,148 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import ServiceFeatureCard from '@/components/services/ServiceFeatureCard.astro';
-import { getCollection } from 'astro:content';
+import Layout from "@/layouts/Layout.astro";
+import ServiceFeatureCard from "@/components/services/ServiceFeatureCard.astro";
+import { getCollection } from "astro:content";
 
-const services = await getCollection('services');
+type ServiceId =
+  | "web-development"
+  | "business-automation"
+  | "ui-ux"
+  | "branding"
+  | "consulting"
+  | "mvp";
+const services = await getCollection("services");
 ---
 
 <Layout title="Services | SOLARIS">
-    <main class="relative min-h-screen pt-24 overflow-x-hidden">
-        <!-- Background Effects -->
-        <div class="fixed inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute w-[120%] h-[120%] -left-[10%] -top-[10%] bg-gradient-radial from-[#ff3d00]/15 via-[#ff6b00]/5 to-transparent opacity-50 blur-3xl"></div>
-            <div class="absolute w-full h-px top-1/2 left-0 bg-gradient-to-r from-transparent via-[#ff3d00]/20 to-transparent"></div>
-            <div class="absolute w-full h-full bg-gradient-to-b from-[#ff3d00]/5 via-transparent to-[#ff6b00]/5 opacity-30"></div>
-        </div>
+  <main class="relative min-h-screen pt-24 overflow-x-hidden">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        class="absolute w-[120%] h-[120%] -left-[10%] -top-[10%] bg-gradient-radial from-[#ff3d00]/15 via-[#ff6b00]/5 to-transparent opacity-50 blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute w-full h-px top-1/2 left-0 bg-gradient-to-r from-transparent via-[#ff3d00]/20 to-transparent"
+      >
+      </div>
+      <div
+        class="absolute w-full h-full bg-gradient-to-b from-[#ff3d00]/5 via-transparent to-[#ff6b00]/5 opacity-30"
+      >
+      </div>
+    </div>
 
-        <div class="container mx-auto px-6 md:px-8 max-w-7xl relative z-10">
-            <!-- Hero Section -->
-            <section class="flex flex-col items-center justify-center py-16 md:py-24 text-center">
-                <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black relative mb-6">
-                    <span class="animate-slideFromLeft inline-block">Our</span>
-                    <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-4">
-                        Services
-                    </div>
-                </h1>
-                
-                <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed max-w-[44ch] relative py-8 opacity-0 animate-slideUp">
-                    We combine technical expertise with creative innovation to deliver exceptional digital solutions.
-                    <span class="absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"></span>
-                    <span class="absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"></span>
-                </p>
-            </section>
+    <div class="container mx-auto px-6 md:px-8 max-w-7xl relative z-10">
+      <!-- Hero Section -->
+      <section
+        class="flex flex-col items-center justify-center py-16 md:py-24 text-center"
+      >
+        <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black relative mb-6">
+          <span class="animate-slideFromLeft inline-block">Our</span>
+          <div
+            class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-4"
+          >
+            Services
+          </div>
+        </h1>
 
-            <!-- Services Grid -->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-24" id="services-grid">
-                {services.map(service => (
-                    <a href={`/services/${service.id}`} class="opacity-0">
-                        <ServiceFeatureCard 
-                            title={service.data.title}
-                            description={service.data.description}
-                            id={service.id}
-                        />
-                    </a>
-                ))}
-            </section>
-        </div>
-    </main>
+        <p
+          class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed max-w-[44ch] relative py-8 opacity-0 animate-slideUp"
+        >
+          We combine technical expertise with creative innovation to deliver
+          exceptional digital solutions.
+          <span
+            class="absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"
+          ></span>
+          <span
+            class="absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"
+          ></span>
+        </p>
+      </section>
+
+      <!-- Services Grid -->
+      <section
+        class="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-24"
+        id="services-grid"
+      >
+        {
+          services.map((service) => (
+            <a href={`/services/${service.id}`} class="opacity-0">
+              <ServiceFeatureCard
+                title={service.data.title}
+                description={service.data.description}
+                id={service.id as ServiceId}
+              />
+            </a>
+          ))
+        }
+      </section>
+    </div>
+  </main>
 </Layout>
 
 <style>
-    @keyframes slideFromLeft {
-        from { transform: translateX(-100px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+  @keyframes slideFromLeft {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
     }
-
-    @keyframes slideFromRight {
-        from { transform: translateX(100px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+    to {
+      transform: translateX(0);
+      opacity: 1;
     }
+  }
 
-    @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
+  @keyframes slideFromRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
     }
-
-    .animate-slideFromLeft {
-        animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    to {
+      transform: translateX(0);
+      opacity: 1;
     }
+  }
 
-    .animate-slideFromRight {
-        animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
     }
-
-    .animate-slideUp {
-        animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    to {
+      transform: translateY(0);
+      opacity: 1;
     }
+  }
 
-    #services-grid > a {
-        animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
+  .animate-slideFromLeft {
+    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 
-    #services-grid > a:nth-child(1) { animation-delay: 0.3s; }
-    #services-grid > a:nth-child(2) { animation-delay: 0.4s; }
-    #services-grid > a:nth-child(3) { animation-delay: 0.5s; }
-    #services-grid > a:nth-child(4) { animation-delay: 0.6s; }
-    #services-grid > a:nth-child(5) { animation-delay: 0.7s; }
+  .animate-slideFromRight {
+    animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  #services-grid > a {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  #services-grid > a:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+  #services-grid > a:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  #services-grid > a:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+  #services-grid > a:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  #services-grid > a:nth-child(5) {
+    animation-delay: 0.7s;
+  }
 </style>

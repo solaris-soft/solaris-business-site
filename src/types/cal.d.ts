@@ -1,4 +1,4 @@
-declare module '@cal/*' {
+declare module "@cal/*" {
   interface CalApi {
     (action: string, ...args: any[]): void;
     loaded?: boolean;
@@ -10,4 +10,4 @@ declare module '@cal/*' {
       Cal?: CalApi;
     }
   }
-} 
+}

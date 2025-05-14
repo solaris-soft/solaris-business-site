@@ -1,6 +1,5 @@
 ---
 import ContactCard from "./ContactCard.svelte";
-import SectionHeading from "../ui/SectionHeading.svelte";
 
 interface ContactInfo {
   type: string;
@@ -33,10 +32,13 @@ const meetingTypes = [
 ---
 
 <section id="contact" class="mb-24 mt-10">
-  <SectionHeading id="contact-heading" title="CONTACT US" client:load/>
   <div class="w-full max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <ContactCard href="mailto:admin@solaris.software" label="Email" client:load>
+      <ContactCard
+        href="mailto:admin@solaris.software"
+        label="Email"
+        client:load
+      >
         <span>admin@solaris.software</span>
       </ContactCard>
 
@@ -48,5 +50,5 @@ const meetingTypes = [
         ))
       }
     </div>
-
+  </div>
 </section>

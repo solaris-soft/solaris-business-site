@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/navigation/Navbar.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
@@ -143,7 +142,7 @@ const teamMembers = await getCollection('team');
                     <p class="text-white/70 mb-8 max-w-2xl mx-auto">
                         We're always looking for talented individuals to join our team. If you're passionate about technology and innovation, we'd love to hear from you.
                     </p>
-                    <a href="/#contact" class="inline-block px-8 py-3 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 transform hover:-translate-y-1">
+                    <a href="/contact" class="inline-block px-8 py-3 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 transform hover:-translate-y-1">
                         View Open Positions
                     </a>
                 </div>

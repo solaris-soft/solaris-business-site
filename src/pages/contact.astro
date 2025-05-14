@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactSection from "../components/contact/Contact.astro";
+import CalBooking from "../components/contact/CalBooking.svelte";
+import "../styles/animations.css";
+---
+
+<Layout title="Contact Us - Solaris">
+  <main class="min-h-screen bg-black relative z-10 overflow-x-hidden">
+    <div
+      class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24"
+    >
+      <div
+        class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24"
+      >
+        <ContactSection />
+
+        <div class="w-full">
+          <h2
+            class="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent"
+          >
+            Schedule a Meeting
+          </h2>
+          <CalBooking client:load />
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
