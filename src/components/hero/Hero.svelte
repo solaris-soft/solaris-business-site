@@ -12,17 +12,17 @@
 </script>
 
 <div 
-	class="relative min-h-[110vh] max-w-screen flex items-center justify-center overflow-hidden bg-black"
+	class="relative min-h-[110vh] max-w-screen flex items-center justify-center overflow-hidden bg-black rounded-full"
 >
 	<!-- Artistic solar background -->
-	<div class="absolute inset-0 overflow-hidden">
+	<div class="absolute inset-0 overflow-hidden rounded-full">
 		<!-- Animated gradient background -->
-		<div class="absolute inset-0 bg-gradient-to-b from-[#0a0500] via-black to-black opacity-30"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-[#0a0500] via-black to-black opacity-30 rounded-full"></div>
 		
 		<!-- Minimal sun animation -->
-		<div class="absolute inset-0">
+		<div class="absolute inset-0 rounded-full">
 			<div class="absolute top-0 left-0 w-full h-full animate-orbital">
-				<div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] aspect-square">
+				<div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[min(900px,90vw)] aspect-square rounded-full bg-black/80">
 					<div class="absolute inset-0 rounded-full bg-gradient-radial from-orange-500/30 via-orange-500/10 to-transparent blur-3xl"></div>
 					<div class="absolute inset-[-2px] rounded-full border-t-2 border-orange-500/20"></div>
 					<div class="absolute inset-[-1px] rounded-full border-t border-orange-500/10"></div>
@@ -41,22 +41,22 @@
 		{#if isLoaded}
 			<div in:fade={{ duration: 800 }} class="flex flex-col gap-8">
 				<div class="space-y-6">
-					<h2 class="text-2xl lg:text-3xl font-semibold tracking-wider text-orange-200/90">
-						IGNITING INNOVATION
-					</h2>
-					<h1 class="text-6xl lg:text-8xl font-black tracking-tight">
+					<h1 class="text-7xl lg:text-9xl font-black tracking-tight">
 						<span class="bg-gradient-to-b from-white via-orange-50 to-orange-200/90 bg-clip-text text-transparent">
 							SOLARIS
 						</span>
-						<div class="flex items-center justify-center gap-1 text-3xl lg:text-4xl font-bold tracking-widest text-orange-500/90">
-							S<div class="w-5 h-5 lg:w-6 lg:h-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 inline-block mx-0.5"></div>FTWARE
+						<div class="mt-2 flex items-center justify-center gap-2 text-4xl lg:text-5xl font-bold tracking-widest text-orange-500">
+							S<div class="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 inline-block mx-1"></div>FTWARE
 						</div>
 					</h1>
+					<div class="text-xl lg:text-2xl font-medium tracking-wider text-orange-200/60">
+						IGNITING INNOVATION
+					</div>
 				</div>
 
 				<div class="space-y-12">
 					<p class="text-xl lg:text-2xl max-w-2xl mx-auto text-orange-100/90 font-medium leading-relaxed">
-						Your partners in bringing your business to the modern market.
+						Pioneering the future of business through innovative software solutions.
 					</p>
 
 					<a
