@@ -9,6 +9,7 @@
   let width = $state(0);
   let height = $state(0);
   let isVisible = $state(false);
+  let scrollIndicatorVisible = $state(true);
 
   class Particle {
     x: number;
@@ -73,7 +74,12 @@
   function handleResize() {
     if (!canvas) return;
     width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight * 0.7;
+    const parent = canvas.parentElement;
+    if (parent) {
+      height = canvas.height = parent.clientHeight;
+    } else {
+      height = canvas.height = Math.max(window.innerHeight * 0.7, 500);
+    }
     initParticles();
   }
 
@@ -93,10 +99,20 @@
     requestAnimationFrame(animate);
   }
 
+  // Add scroll handler to hide indicator when scrolling starts
+  function handleScroll() {
+    if (window.scrollY > 50) {
+      scrollIndicatorVisible = false;
+    } else {
+      scrollIndicatorVisible = true;
+    }
+  }
+
   onMount(() => {
     ctx = canvas.getContext('2d');
     handleResize();
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
     animate();
     
     // Add visibility transition
@@ -106,11 +122,12 @@
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
     };
   });
 </script>
 
-<div class="relative w-full h-[70vh] overflow-hidden">
+<div class="relative min-h-[70vh] w-full overflow-hidden">
   <canvas
     bind:this={canvas}
     on:mousemove={handleMouseMove}
@@ -118,32 +135,44 @@
   />
   
   {#if isVisible}
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-16">
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-24 md:py-16">
       <!-- Main Title -->
-      <div in:fly={{ y: 50, duration: 800, delay: 200 }} class="mb-8">
-        <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black text-center relative">
+      <div in:fly={{ y: 50, duration: 800, delay: 200 }} class="mb-6 md:mb-8">
+        <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center relative">
           <span class="animate-slideFromLeft inline-block">Transform Your</span>
           <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block">Digital Presence</div>
         </h1>
       </div>
       
       <!-- Description -->
-      <div in:fly={{ y: 50, duration: 800, delay: 400 }} class="max-w-[65ch] mb-12">
-        <p class="text-[clamp(1.1rem,1.3vw,1.25rem)] text-white/70 leading-relaxed">
+      <div in:fly={{ y: 50, duration: 800, delay: 400 }} class="max-w-[65ch] mb-8 md:mb-12">
+        <p class="text-[clamp(1rem,1.3vw,1.25rem)] text-white/70 leading-relaxed">
           We craft innovative digital solutions that help businesses thrive in the modern world. From stunning websites to powerful automation tools, we're here to elevate your business.
         </p>
       </div>
       
       <!-- CTA Buttons -->
-      <div in:fly={{ y: 50, duration: 800, delay: 600 }} class="flex flex-wrap justify-center gap-6">
+      <div in:fly={{ y: 50, duration: 800, delay: 600 }} class="flex flex-wrap justify-center gap-6 mb-24">
         <a 
           href="/contact"
-          class="px-8 py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
+          class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
         >
           Start Your Project
         </a>
       </div>
       
+      <!-- Scroll Indicator -->
+      {#if scrollIndicatorVisible}
+        <div 
+          in:fly={{ y: 50, duration: 800, delay: 800 }}
+          class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <div class="text-white/50 text-sm font-medium">Scroll to explore</div>
+          <div class="w-[30px] h-[50px] rounded-full border-2 border-white/20 relative">
+            <div class="scroll-dot"></div>
+          </div>
+        </div>
+      {/if}
     </div>
   {/if}
 </div>
@@ -195,5 +224,32 @@
   .animate-slideUp {
     opacity: 0;
     animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .scroll-dot {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #ff3d00, #ff8a00);
+    animation: scrollAnimation 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  @keyframes scrollAnimation {
+    0% {
+      top: 6px;
+      opacity: 1;
+    }
+    70% {
+      top: 36px;
+      opacity: 1;
+    }
+    100% {
+      top: 36px;
+      opacity: 0;
+    }
   }
 </style> 
