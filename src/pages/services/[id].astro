@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import services from "@/content/services.json";
 import ServiceHero from "@/components/services/ServiceHero.svelte";
-import ServiceFeatureCard from "@/components/services/ServiceFeatureCard.svelte";
+import ServiceFeatures from "@/components/services/ServiceFeatures.svelte";
 import ServiceDetails from "@/components/services/ServiceDetails.svelte";
 
 export function getStaticPaths() {
@@ -43,7 +43,7 @@ const sections = service["long-description"].split(/(?<=\.) (?=[A-Z])/);
         description={service.description}
       />
 
-      <ServiceFeatureCard client:visible features={service.features} />
+      <ServiceFeatures client:visible features={service.features} />
 
       <ServiceDetails client:visible sections={sections} />
     </div>
