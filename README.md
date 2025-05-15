@@ -1,48 +1,84 @@
-# Astro Starter Kit: Basics
+# SOLARIS - Innovative Web Solutions
 
-```sh
-npm create astro@latest -- --template basics
+## 🌟 About Us
+
+SOLARIS is a dynamic web development company founded by professionals with unique backgrounds in law and psychology who transitioned into self-taught programmers. Our diverse expertise allows us to approach web development with a distinctive perspective, combining technical excellence with deep insights into user behavior and business requirements.
+
+## 💼 What We Do
+
+We specialize in creating modern, high-performance web solutions using cutting-edge technologies:
+
+- **Custom Business Websites**
+- **Web Applications**
+- **AI Integration**
+- **Modern UI/UX Design**
+- **Full-Stack Development**
+
+## 🚀 Featured Projects
+
+### S&S Preserves
+A beautifully crafted website for a family-owned preserves business, focusing on brand identity and user experience.
+[Visit Site](https://www.sspreserves.com.au/)
+
+### Wardens AI
+An innovative NextJS application leveraging OpenAI API to summarize and improve searchability of Warden's Court decisions.
+[Visit Site](https://wcai-kthhf.ondigitalocean.app/)
+
+### Lawton Macmaster Legal
+A professional, modern website for a boutique law firm built with Astro framework.
+[Visit Site](https://astro-lawmac.pages.dev/)
+
+View more of our work in our [portfolio section](#).
+
+## 🛠️ Tech Stack
+
+- Astro
+- React
+- NextJS
+- TailwindCSS
+- Node.js
+- OpenAI Integration
+- And more...
+
+## 🚀 Getting Started
+
+To run this project locally:
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 📦 Project Structure
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
+│   └── assets/
 ├── src/
+│   ├── components/
 │   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
+│   ├── pages/
+│   ├── content/
+│   └── styles/
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🤝 Let's Connect
 
-## 🧞 Commands
+We're passionate about creating exceptional web solutions that drive business success. Whether you need a modern website, a complex web application, or AI integration, we're here to help.
 
-All commands are run from the root of the project, from a terminal:
+[Contact Us](#) | [Portfolio](#) | [About Us](#)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 📄 License
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+© 2024 SOLARIS. All rights reserved.
