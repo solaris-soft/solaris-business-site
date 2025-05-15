@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
   
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D | null = $state(null);
@@ -121,9 +121,9 @@
     <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-16">
       <!-- Main Title -->
       <div in:fly={{ y: 50, duration: 800, delay: 200 }} class="mb-8">
-        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-black mb-4">
-          <span class="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">Transform Your</span>
-          <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">Digital Presence</div>
+        <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black text-center relative">
+          <span class="animate-slideFromLeft inline-block">Transform Your</span>
+          <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block">Digital Presence</div>
         </h1>
       </div>
       
@@ -137,16 +137,10 @@
       <!-- CTA Buttons -->
       <div in:fly={{ y: 50, duration: 800, delay: 600 }} class="flex flex-wrap justify-center gap-6">
         <a 
-          href="#contact"
+          href="/contact"
           class="px-8 py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
         >
           Start Your Project
-        </a>
-        <a 
-          href="#services"
-          class="px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white/90 font-medium hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-        >
-          Explore Services
         </a>
       </div>
       
@@ -157,7 +151,7 @@
 <style>
   @keyframes slideFromLeft {
     from {
-      transform: translateX(-100px);
+      transform: translateX(-50px);
       opacity: 0;
     }
     to {
@@ -168,7 +162,7 @@
 
   @keyframes slideFromRight {
     from {
-      transform: translateX(100px);
+      transform: translateX(50px);
       opacity: 0;
     }
     to {

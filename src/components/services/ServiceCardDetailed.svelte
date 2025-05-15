@@ -1,15 +1,13 @@
 <script lang="ts">
   import { slide, fade } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+
+  let {title, description, features} = $props();
   
-  export let title: string = '';
-  export let description: string = '';
-  export let features: string[] = [];
-  
-  let isModalOpen = false;
-  let rippleX = 0;
-  let rippleY = 0;
-  let showRipple = false;
+  let isModalOpen = $state(false);
+  let rippleX = $state(0);
+  let rippleY = $state(0);
+  let showRipple = $state(false);
 
   function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -40,8 +38,8 @@
 <div 
   class="group relative p-8 bg-black/40 border border-white/5 rounded-lg transition-all duration-500 cursor-pointer
          hover:bg-black/50 hover:border-[#ff3d00]/20"
-  on:click={handleClick}
-  on:keydown={handleKeydown}
+  onclick={handleClick}
+  onkeydown={handleKeydown}
   role="button"
   tabindex="0"
   aria-expanded={isModalOpen}
@@ -88,8 +86,10 @@
 {#if isModalOpen}
   <div 
     class="fixed inset-0 z-50 flex items-center justify-center px-4"
-    on:click|self={closeModal}
+    onclick={closeModal}
+    onkeydown={(e) => e.key === 'Escape' && closeModal()}
     transition:fade={{duration: 200}}
+    role="presentation"
   >
     <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
@@ -102,7 +102,7 @@
       <!-- Close button -->
       <button
         class="absolute top-4 right-4 p-2 text-white/50 hover:text-white/90 transition-colors duration-200"
-        on:click={closeModal}
+        onclick={closeModal}
         aria-label="Close modal"
       >
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -139,7 +139,7 @@
       <!-- CTA Button -->
       <div class="mt-10 flex justify-center">
         <a
-          href="#contact"
+          href="/contact"
           class="px-8 py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
         >
           Get Started
