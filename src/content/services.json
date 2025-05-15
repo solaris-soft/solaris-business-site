@@ -10,7 +10,7 @@
       "API Development",
       "Performance Optimization"
     ],
-    "long-description": "Our web development services leverage the latest technologies and best practices to create powerful, scalable digital solutions. We specialize in building: Custom Web Applications Tailored solutions that   perfectly match your business needs and workflows. E-commerce Solutions Secure, scalable online stores with seamless payment integration and inventory management. Progressive Web Apps Fast, reliable, and engaging web applications that work offline and feel like native apps. API Development Robust and well-documented APIs that enable seamless integration and data exchange. Performance Optimization Speed optimization, caching strategies, and best practices implementation for maximum performance."
+    "long-description": "Our web development services leverage the latest technologies and best practices to create powerful, scalable digital solutions that drive business growth. We utilize modern frameworks and architectures that ensure your web applications are future-proof, maintainable, and scalable. Our team of experienced developers create solutions that not only meet your current requirements but anticipate future needs. We specialize in building: Custom Web Applications that perfectly match your business needs and workflows with intuitive interfaces and powerful backend systems. E-commerce Solutions with secure, scalable online stores featuring seamless payment integration, inventory management, and optimized checkout flows. Progressive Web Apps that deliver fast, reliable, and engaging experiences that work offline and feel like native apps while improving conversion rates. API Development with robust and well-documented APIs enabling seamless integration and data exchange between systems. Performance Optimization through speed enhancement, caching strategies, and best practices implementation for maximum performance and improved user experience."
   },
   {
     "id": "business-automation",
@@ -19,23 +19,37 @@
     "features": [
       "Automated Workflow",
       "Data Integration",
-      "AI-Driven Insights"
+      "Process Optimization",
+      "AI-Driven Insights",
+      "Custom Automation Tools"
     ],
-    "long-description": "Our business automation services help you streamline operations, reduce errors, and increase productivity. We specialize in building: Automated Workflow Streamlined processes that automate repetitive tasks, freeing up your team to focus on strategic initiatives. Data Integration Seamless integration of data from various sources, ensuring consistency and accuracy across your systems. AI-Driven Insights Advanced AI-powered tools that analyze data and provide actionable insights to drive business growth."
+    "long-description": "Our business automation services transform manual, time-consuming processes into streamlined, efficient workflows that scale with your business. We analyze your existing processes, identify bottlenecks, and implement intelligent automation solutions that deliver measurable ROI. By automating routine tasks, we free your team to focus on high-value activities that drive innovation and growth. We specialize in building: Automated Workflows that eliminate repetitive tasks, reduce human error, and ensure consistent execution of business processes. Data Integration systems that connect disparate data sources, ensuring data consistency and accuracy across your organization while enabling real-time decision making. Process Optimization solutions that identify and eliminate inefficiencies, reducing operational costs and improving service delivery. AI-Driven Insights tools that analyze patterns in your business data to provide actionable intelligence for strategic decision-making. Custom Automation Tools tailored to your specific business challenges, with intuitive interfaces that make complex processes simple for your team."
   },
   {
     "id": "ui-ux",
     "title": "UI/UX Design",
     "description": "Human-centered design that balances beautiful aesthetics with intuitive functionality to create engaging digital experiences.",
-    "features": ["User-Centered Design", "Responsive Design", "Accessibility"],
-    "long-description": "Our UI/UX design services focus on creating engaging and intuitive digital experiences. We specialize in designing: User-Centered Design Tailored designs that perfectly match your business needs and workflows. Responsive Design Designs that adapt to different devices and screen sizes, ensuring optimal user experience. Accessibility Designs that are compatible with assistive technologies, making your digital products accessible to all users."
+    "features": [
+      "User-Centered Design", 
+      "Responsive Design", 
+      "Accessibility",
+      "User Research",
+      "Prototyping"
+    ],
+    "long-description": "Our UI/UX design services blend aesthetic excellence with user psychology to create digital experiences that delight and convert. We begin with comprehensive user research to understand your audience's needs, behaviors, and pain points, ensuring every design decision is strategic and purposeful. Our designs are not just beautiful—they're engineered to drive specific business outcomes while providing exceptional user experiences. We specialize in designing: User-Centered Design solutions that put your users' needs first, creating intuitive interfaces that minimize learning curves and maximize engagement. Responsive Design that adapts seamlessly to different devices and screen sizes, ensuring consistent experiences across desktop, tablet, and mobile. Accessibility-focused interfaces that follow WCAG guidelines, making your digital products usable by people with diverse abilities and ensuring compliance with accessibility regulations. User Research including user interviews, usability testing, and analytics analysis to validate design decisions and continuously improve user experience. Interactive Prototypes that allow stakeholders to experience and test the product before development begins, saving time and reducing costly changes during development."
   },
   {
     "id": "branding",
     "title": "Branding",
     "description": "Strategic brand development that helps businesses establish a unique and memorable presence in the digital landscape.",
-    "features": ["Brand Strategy", "Visual Identity", "Brand Consistency"],
-    "long-description": "Our branding services help businesses establish a unique and memorable presence in the digital landscape. We specialize in developing: Brand Strategy Comprehensive brand strategy that aligns your brand with your business goals and objectives. Visual Identity Creative and cohesive visual identity that reflects your brand's personality and values. Brand Consistency Consistent branding across all digital and physical touchpoints, ensuring a unified brand experience."
+    "features": [
+      "Brand Strategy", 
+      "Visual Identity", 
+      "Brand Consistency",
+      "Brand Messaging",
+      "Brand Experience"
+    ],
+    "long-description": "Our branding services create compelling brand identities that resonate with your target audience and differentiate you in crowded markets. We believe effective branding goes beyond logos and colors—it's about crafting a cohesive story and experience that builds emotional connections with your customers. Through strategic thinking and creative execution, we help businesses of all sizes establish memorable brands that drive loyalty and growth. We specialize in developing: Brand Strategy that aligns your brand with your business objectives, target audience, and market positioning to create a foundation for all brand decisions. Visual Identity systems including logo design, color palettes, typography, and visual elements that express your brand personality and values across all touchpoints. Brand Consistency frameworks and guidelines that ensure your brand is presented cohesively across digital platforms, print materials, and customer interactions. Brand Messaging frameworks that articulate your value proposition, key messages, and tone of voice to communicate effectively with your audience. Brand Experience strategies that ensure every customer interaction reinforces your brand promise and builds lasting relationships."
   },
   {
     "id": "consulting",
@@ -44,9 +58,11 @@
     "features": [
       "Digital Transformation",
       "Technology Adoption",
-      "Strategic Innovation"
+      "Strategic Innovation",
+      "Digital Roadmapping",
+      "Technology Assessment"
     ],
-    "long-description": "Our digital consulting services provide expert guidance on digital transformation, technology adoption, and strategic innovation for future-ready businesses. We specialize in providing: Digital Transformation Comprehensive digital transformation strategies that align your business with your digital goals and objectives. Technology Adoption Cutting-edge technology adoption that keeps your business ahead of the curve. Strategic Innovation Innovative strategies that drive business growth and competitiveness."
+    "long-description": "Our digital consulting services provide strategic guidance to organizations navigating the complex digital landscape. We bring deep expertise in emerging technologies, industry trends, and digital best practices to help you make informed decisions that drive competitive advantage. Our consultants work as partners, understanding your business challenges and opportunities to develop tailored strategies that deliver tangible results. We specialize in providing: Digital Transformation strategies that reimagine your business processes, customer experiences, and operational models using digital technologies to create new value and business models. Technology Adoption frameworks that help you evaluate, select, and implement the right technologies for your specific business needs, ensuring successful integration and ROI. Strategic Innovation approaches that identify opportunities for differentiation and growth through digital products, services, and business models. Digital Roadmapping that creates clear, actionable plans for your digital initiatives with prioritized milestones, resource requirements, and success metrics. Technology Assessment services that evaluate your current technology ecosystem, identify gaps and opportunities, and recommend strategic investments to achieve your business objectives."
   },
   {
     "id": "mvp",
@@ -54,9 +70,50 @@
     "description": "We help you build your MVP quickly and efficiently. We can help you build your MVP in a matter of weeks, rather than months.",
     "features": [
       "Quick and Efficient",
-      "MVP Development",
-      "Focus on Core Features"
+      "Focus on Core Features",
+      "User Testing",
+      "Iterative Development",
+      "Scalable Architecture"
     ],
-    "long-description": "Our MVP development services help you build your MVP quickly and efficiently. We specialize in building: Quick and Efficient We can help you build your MVP in a matter of weeks, rather than months. MVP Development Tailored solutions that perfectly match your business needs and workflows. Focus on Core Features We focus on building the core features of your MVP, rather than adding unnecessary features."
+    "long-description": "Our MVP development services help startups and enterprises validate ideas quickly and cost-effectively. We follow a lean approach that focuses on building only what's necessary to test your core value proposition with real users. This strategy minimizes risk and investment while providing valuable market feedback to guide future development. Our experienced team balances speed with quality, ensuring your MVP is robust enough to deliver a meaningful user experience while being developed in record time. We specialize in building: Quick and Efficient development processes that can deliver your MVP in weeks rather than months, using agile methodologies and focused feature prioritization. Core Feature Development that identifies and implements the minimum set of features needed to solve your users' problems and test your business hypotheses. User Testing frameworks integrated throughout the development process to gather feedback early and often, ensuring the product meets user needs. Iterative Development approaches that allow for continuous refinement based on user feedback and performance data, maximizing the learning value of your MVP. Scalable Architecture that provides a solid foundation for future growth, ensuring your product can evolve beyond the MVP stage without requiring a complete rebuild."
+  },
+  {
+    "id": "custom-software",
+    "title": "Custom Software",
+    "description": "Tailor-made software solutions designed to address your unique business challenges and requirements with precision and efficiency.",
+    "features": [
+      "Bespoke Solutions",
+      "Scalable Architecture",
+      "Industry-Specific Expertise",
+      "Legacy System Integration",
+      "Ongoing Support"
+    ],
+    "long-description": "Our custom software development services create purpose-built applications that solve your specific business challenges. Unlike off-the-shelf solutions that require your business to adapt to their limitations, our custom software is designed around your unique workflows, processes, and objectives. We collaborate closely with your team to understand your requirements in depth, then craft solutions that provide exactly what you need—nothing more, nothing less. We specialize in developing: Bespoke Solutions tailored to your exact specifications, eliminating the compromises and workarounds required by generic software. Scalable Architecture designed to grow with your business, accommodating increasing users, data, and functionality without performance degradation. Industry-Specific Expertise applied to your solutions, incorporating best practices and compliance requirements relevant to your sector. Legacy System Integration that connects your new software with existing systems, preserving your technology investments while enhancing capabilities. Ongoing Support and maintenance services that ensure your custom software continues to operate optimally and evolves as your business needs change."
+  },
+  {
+    "id": "business-systems",
+    "title": "Business Systems",
+    "description": "Integrated business systems that connect your operations, streamline workflows, and provide actionable insights for improved decision-making.",
+    "features": [
+      "ERP Solutions",
+      "CRM Implementation",
+      "Business Intelligence",
+      "Workflow Management",
+      "Cloud Migration"
+    ],
+    "long-description": "Our business systems services create integrated operational environments that unify your data and processes across departments. We help organizations move beyond disconnected software silos to cohesive ecosystems that enhance visibility, efficiency, and collaboration. By implementing the right combination of systems and ensuring they work together seamlessly, we enable your business to operate as a coordinated whole rather than separate parts. We specialize in implementing: ERP Solutions that centralize your core business functions—from finance and HR to inventory and supply chain—providing a single source of truth for operational data. CRM Implementation services that transform customer relationship management with systems that track interactions, automate sales processes, and enhance customer service capabilities. Business Intelligence platforms that convert your raw data into visual dashboards and actionable insights, empowering informed decision-making at all levels. Workflow Management systems that digitize and automate complex business processes, reducing manual work and ensuring consistent execution. Cloud Migration strategies that transition your on-premise systems to secure, scalable cloud environments, increasing flexibility and reducing infrastructure costs."
+  },
+  {
+    "id": "e-commerce",
+    "title": "E-Commerce Solutions",
+    "description": "End-to-end e-commerce solutions that deliver exceptional online shopping experiences, optimize conversions, and scale with your business growth.",
+    "features": [
+      "Custom E-Commerce Platforms",
+      "Payment Processing",
+      "Inventory Management",
+      "Mobile Commerce",
+      "Conversion Optimization"
+    ],
+    "long-description": "Our e-commerce solutions create digital storefronts that blend compelling user experiences with robust backend systems to drive sales and customer loyalty. We understand that successful e-commerce goes beyond attractive product pages—it requires seamless integration of payment processing, inventory management, shipping logistics, and customer service. Our comprehensive approach ensures every aspect of your online store contributes to business success. We specialize in building: Custom E-Commerce Platforms designed to showcase your brand and products in unique ways that differentiate you from competitors using cookie-cutter templates. Payment Processing integrations that offer your customers secure, frictionless checkout experiences with multiple payment options to maximize conversion rates. Inventory Management systems that synchronize online and offline inventory, automate reordering, and provide real-time visibility into product availability. Mobile Commerce experiences optimized for smartphones and tablets, ensuring your customers can shop conveniently from any device with fast, intuitive interfaces. Conversion Optimization strategies that analyze user behavior, identify abandonment points, and implement data-driven improvements to increase sales and average order values."
   }
 ]

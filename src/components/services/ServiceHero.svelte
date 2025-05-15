@@ -1,65 +1,205 @@
-<script>
-  export let title;
-  export let description;
-  import { fade, fly } from 'svelte/transition';
-  import { cubicOut } from 'svelte/easing';
+<script lang="ts">
   import { onMount } from 'svelte';
+  import { fade, fly } from 'svelte/transition';
   
-  let visible = false;
+  let canvas: HTMLCanvasElement;
+  let ctx: CanvasRenderingContext2D | null = $state(null);
+  let particles: Particle[] = $state([]);
+  let mousePos = $state({ x: 0, y: 0 });
+  let width = $state(0);
+  let height = $state(0);
+  let isVisible = $state(false);
+
+  class Particle {
+    x: number;
+    y: number;
+    size: number;
+    speedX: number;
+    speedY: number;
+    opacity: number;
+
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      this.opacity = Math.random() * 0.5;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      // Mouse interaction
+      const dx = mousePos.x - this.x;
+      const dy = mousePos.y - this.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < 100) {
+        this.speedX += dx * 0.001;
+        this.speedY += dy * 0.001;
+      }
+
+      // Boundaries
+      if (this.x < 0 || this.x > width) this.speedX *= -1;
+      if (this.y < 0 || this.y > height) this.speedY *= -1;
+
+      // Speed limit
+      const maxSpeed = 2;
+      const currentSpeed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
+      if (currentSpeed > maxSpeed) {
+        this.speedX = (this.speedX / currentSpeed) * maxSpeed;
+        this.speedY = (this.speedY / currentSpeed) * maxSpeed;
+      }
+    }
+
+    draw() {
+      if (!ctx) return;
+      ctx.fillStyle = `rgba(255, 61, 0, ${this.opacity})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function handleMouseMove(event: MouseEvent) {
+    const rect = canvas.getBoundingClientRect();
+    mousePos = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+  }
+
+  function handleResize() {
+    if (!canvas) return;
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight * 0.7;
+    initParticles();
+  }
+
+  function initParticles() {
+    particles = Array(50).fill(null).map(() => new Particle());
+  }
+
+  function animate() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+    
+    particles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+
+    requestAnimationFrame(animate);
+  }
+
   onMount(() => {
-    visible = true;
+    ctx = canvas.getContext('2d');
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    animate();
+    
+    // Add visibility transition
+    setTimeout(() => {
+      isVisible = true;
+    }, 100);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   });
 </script>
 
-{#if visible}
-<section class="relative py-20 md:py-32">
-  <!-- Subtle gradient background -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/50 to-black pointer-events-none" />
+<div class="relative w-full h-[70vh] overflow-hidden">
+  <canvas
+    bind:this={canvas}
+    on:mousemove={handleMouseMove}
+    class="absolute inset-0 w-full h-full"
+  />
   
-  <div class="relative z-10 max-w-4xl mx-auto px-6">
-    <a
-      href="/services"
-      class="inline-flex items-center text-sm text-zinc-400 hover:text-white mb-16 group transition-colors duration-300"
-      in:fade={{ duration: 300 }}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 mr-2 transform transition-transform duration-300 group-hover:-translate-x-1"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L4.414 9H17a1 1 0 110 2H4.414l5.293 5.293a1 1 0 010 1.414z"
-          clip-rule="evenodd"
-        />
-      </svg>
-      Back to Services
-    </a>
-
-    <div class="space-y-6">
-      <h1
-        in:fly={{ y: -20, duration: 800, delay: 200, easing: cubicOut }}
-        class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
-      >
-        {title}
-      </h1>
-      <p
-        in:fly={{ y: 20, duration: 800, delay: 400 }}
-        class="text-lg md:text-xl text-zinc-400 max-w-2xl"
-      >
-        {description}
-      </p>
+  {#if isVisible}
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-16">
+      <!-- Main Title -->
+      <div in:fly={{ y: 50, duration: 800, delay: 200 }} class="mb-8">
+        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-black mb-4">
+          <span class="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">Transform Your</span>
+          <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">Digital Presence</div>
+        </h1>
+      </div>
+      
+      <!-- Description -->
+      <div in:fly={{ y: 50, duration: 800, delay: 400 }} class="max-w-[65ch] mb-12">
+        <p class="text-[clamp(1.1rem,1.3vw,1.25rem)] text-white/70 leading-relaxed">
+          We craft innovative digital solutions that help businesses thrive in the modern world. From stunning websites to powerful automation tools, we're here to elevate your business.
+        </p>
+      </div>
+      
+      <!-- CTA Buttons -->
+      <div in:fly={{ y: 50, duration: 800, delay: 600 }} class="flex flex-wrap justify-center gap-6">
+        <a 
+          href="#contact"
+          class="px-8 py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
+        >
+          Start Your Project
+        </a>
+        <a 
+          href="#services"
+          class="px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white/90 font-medium hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+        >
+          Explore Services
+        </a>
+      </div>
+      
     </div>
-  </div>
-</section>
-{/if}
+  {/if}
+</div>
 
 <style>
-  h1 {
-    background: linear-gradient(to right, #fff 20%, rgba(255, 255, 255, 0.7));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  @keyframes slideFromLeft {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideFromRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slideFromLeft {
+    opacity: 0;
+    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideFromRight {
+    opacity: 0;
+    animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideUp {
+    opacity: 0;
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 </style> 

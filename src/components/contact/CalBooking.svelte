@@ -52,8 +52,6 @@
           },
           elements: {
             calendar: {
-              borderRadius: "12px",
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
               backgroundColor: "rgba(0, 0, 0, 0.3)",
               width: "1px",
               minWidth: "100%",
@@ -89,17 +87,11 @@
             buttonText: "#ffffff",
             button: {
               backgroundColor: "rgba(255, 61, 0, 0.1)",
-              borderRadius: "6px",
-              border: "1px solid rgba(255, 61, 0, 0.2)",
               color: "#ff3d00",
               fontSize: "14px",
               padding: "6px 12px",
               textTransform: "none",
               fontWeight: "500",
-              "&:hover": {
-                backgroundColor: "rgba(255, 61, 0, 0.2)",
-                borderColor: "rgba(255, 61, 0, 0.3)"
-              }
             }
           }
         }
@@ -191,7 +183,7 @@
       <div class="relative">
         <select
           id="meeting-type"
-          class="w-full bg-black/50 border border-[#ff3d00]/20 text-gray-200 text-base rounded-lg focus:ring-2 focus:ring-[#ff3d00]/50 focus:border-[#ff3d00] block p-3 pr-10 transition-all duration-200 appearance-none hover:border-[#ff3d00]/40"
+          class="w-full bg-black/50 border border-[#ff3d00]/20 text-gray-200 text-base rounded-lg focus:ring-2 focus:ring-[#ff3d00]/50  block p-3 pr-10 transition-all duration-200 appearance-none"
         >
           {#each meetingTypes as type}
             <option value={type.id}>{type.label}</option>
@@ -205,10 +197,10 @@
       </div>
     </div>
 
-    <div class="calendar-outer-wrapper">
+    <div class="calendar-outer-wrapper mt-10">
       {#if isLoading}
         <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
-          <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#ff3d00]"></div>
+          <div class="animate-spin rounded-full h-12 w-12"></div>
         </div>
       {/if}
       <div class="calendar-inner-wrapper">
@@ -239,9 +231,6 @@
     max-width: 100%;
     position: relative;
     background: rgba(0, 0, 0, 0.3);
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: rgba(255, 255, 255, 0.1);
     overflow: hidden;
   }
 
