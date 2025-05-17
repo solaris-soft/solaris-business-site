@@ -1,0 +1,226 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactSection from "../components/contact/Contact.astro";
+import CalBooking from "../components/contact/CalBooking.svelte";
+import "../styles/animations.css";
+---
+
+<Layout title="Contact Us - Solaris">
+  <main class="min-h-screen bg-black relative z-10 overflow-x-hidden pt-20">
+    <!-- Animated background grid -->
+    <div class="absolute inset-0 z-0">
+      <div class="relative w-full h-full">
+        <div
+          class="absolute inset-0 opacity-[0.15]"
+          style="background-image: linear-gradient(#ff3d00 1px, transparent 1px), linear-gradient(to right, #ff3d00 1px, transparent 1px); background-size: 50px 50px;"
+        >
+        </div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div
+      class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 relative z-10"
+    >
+      <div class="max-w-[1200px] mx-auto">
+        <!-- Page Title -->
+        <div class="text-center mb-16 relative">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4"
+          >
+            <span
+              class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromLeft inline-block"
+            >
+              Let's
+            </span>
+            <span
+              class="animate-slideFromRight inline-block ml-2 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent"
+            >
+              Connect
+            </span>
+          </h1>
+          <p
+            class="text-white/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed opacity-0 animate-slideUp"
+          >
+            Ready to transform your digital presence? We're here to turn your
+            vision into reality.
+          </p>
+
+          <!-- Animated tech elements -->
+          <div
+            class="absolute -top-4 -left-4 w-20 h-20 border border-[#ff3d00]/20 rounded-full animate-spin-slow"
+          >
+          </div>
+          <div
+            class="absolute -bottom-4 -right-4 w-16 h-16 border border-[#ff8a00]/20 rounded-full animate-reverse-spin"
+          >
+          </div>
+        </div>
+
+        <!-- Contact Cards Section with enhanced styling -->
+        <div
+          class="relative mb-24 opacity-0 animate-slideUp"
+          style="animation-delay: 0.3s;"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-[#ff3d00]/5 to-[#ff8a00]/5 rounded-3xl blur-3xl"
+          >
+          </div>
+          <ContactSection />
+        </div>
+
+        <!-- Calendar Section -->
+        <div
+          class="relative opacity-0 animate-slideUp"
+          style="animation-delay: 0.5s;"
+        >
+          <!-- Section background with tech pattern -->
+          <div class="absolute inset-0 rounded-3xl overflow-hidden">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-black/90 to-black/95"
+            >
+            </div>
+            <div
+              class="absolute inset-0 opacity-[0.03]"
+              style="background-image: radial-gradient(#ff3d00 1px, transparent 1px); background-size: 20px 20px;"
+            >
+            </div>
+          </div>
+
+          <div class="relative p-8 sm:p-12">
+            <!-- Section Title -->
+            <div class="flex items-center gap-4 mb-8">
+              <div class="relative w-12 h-12">
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-full animate-pulse-slow"
+                >
+                </div>
+                <div
+                  class="absolute inset-[2px] bg-black rounded-full flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 text-[#ff3d00]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <h2
+                class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent"
+              >
+                Schedule a Meeting
+              </h2>
+            </div>
+
+            <!-- Calendar Component -->
+            <div class="relative w-full">
+              <CalBooking client:load />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes reverse-spin {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(0.95);
+    }
+  }
+
+  @keyframes slideFromLeft {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideFromRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  .animate-reverse-spin {
+    animation: reverse-spin 15s linear infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+
+  .animate-slideFromLeft {
+    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideFromRight {
+    animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>

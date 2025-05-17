@@ -93,5 +93,5 @@ export const sections = [
     title: "Indemnification",
     content:
       "The client agrees to indemnify and hold harmless Solaris Systems Pty Ltd (trading as Solaris Software) from and against any and all claims, costs, damages, losses, liabilities, and expenses (including attorneys' fees and costs) arising out of or in connection with the client's use of the services.",
-  }
+  },
 ];

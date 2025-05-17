@@ -1,118 +1,54 @@
 ---
-import ContactCard from './ContactCard.astro';
-import SectionHeading from '../ui/SectionHeading.astro';
+import ContactCard from "./ContactCard.svelte";
 
 interface ContactInfo {
-    type: string;
-    label: string;
-    value: string;
-    href: string;
+  type: string;
+  label: string;
+  value: string;
+  href: string;
 }
 
 const phoneNumbers: ContactInfo[] = [
-    {
-        type: 'General Enquiries',
-        label: 'General Enquiries',
-        value: '+61 432 258 128',
-        href: 'tel:+61432258128'
-    },
-    {
-        type: 'Technical Support',
-        label: 'Technical Support',
-        value: '+61 415 267 117',
-        href: 'tel:+61415267117'
-    }
+  {
+    type: "General Enquiries",
+    label: "General Enquiries",
+    value: "+61 432 258 128",
+    href: "tel:+61432258128",
+  },
+  {
+    type: "Technical Support",
+    label: "Technical Support",
+    value: "+61 415 267 117",
+    href: "tel:+61415267117",
+  },
 ];
 
 const meetingTypes = [
-    { id: 'initial-meeting', label: 'Initial Meeting' },
-    { id: 'express-meeting', label: 'Express Meeting' },
-    { id: 'standard-meeting', label: 'Standard Meeting' },
-    { id: 'extended-meeting', label: 'Extended Meeting' }
+  { id: "initial-meeting", label: "Initial Meeting" },
+  { id: "express-meeting", label: "Express Meeting" },
+  { id: "standard-meeting", label: "Standard Meeting" },
+  { id: "extended-meeting", label: "Extended Meeting" },
 ];
 ---
 
-<section id="contact" class="py-8 scroll-mt-16">
-    <SectionHeading id="contact-heading" title="CONTACT US" />
-    <div class="w-full max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ContactCard href="mailto:admin@solaris.software" label="Email">
-                <span>admin@solaris.software</span>
-            </ContactCard>
-            
-            {phoneNumbers.map((phone) => (
-                <ContactCard href={phone.href} label={phone.type}>
-                    <span>{phone.value}</span>
-                </ContactCard>
-            ))}
-        </div>
+<section id="contact" class="mb-24 mt-10">
+  <div class="w-full max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <ContactCard
+        href="mailto:admin@solaris.software"
+        label="Email"
+        client:load
+      >
+        <span>admin@solaris.software</span>
+      </ContactCard>
 
-        <div class="mt-24">
-            <SectionHeading id="booking-heading" title="SCHEDULE A MEETING" />
-            <div class="w-full max-w-6xl mx-auto mt-0">
-                <div class="relative">
-                    <!-- Background layers -->
-                    <div class="absolute inset-[1px] rounded-2xl bg-black/90 backdrop-blur-sm"></div>
-                    <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
-
-                    <!-- Main Content -->
-                    <div class="relative p-8">
-                        <p class="text-white/70 text-base mb-8">
-                            Choose your preferred meeting duration and select a time that works for you. Initial meetings are free of charge.
-                        </p>
-
-                        <div class="mb-8">
-                            <label for="meeting-type" class="block mb-2">
-                                <span class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent text-base font-normal">
-                                    Select Meeting Duration
-                                </span>
-                            </label>
-                            <select id="meeting-type" class="w-full max-w-md bg-black/50 border border-[#ff3d00]/20 text-gray-200 text-base rounded-lg focus:ring-[#ff3d00] focus:border-[#ff3d00] block p-3 transition-colors duration-200">
-                                {meetingTypes.map((type) => (
-                                    <option value={type.id}>{type.label}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div class="bg-black/30 rounded-xl p-4 border border-[#ff3d00]/20">
-                            <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline" class="w-full"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      {
+        phoneNumbers.map((phone) => (
+          <ContactCard href={phone.href} label={phone.type} client:load>
+            <span>{phone.value}</span>
+          </ContactCard>
+        ))
+      }
     </div>
+  </div>
 </section>
-
-<script>
-    // Initialize Cal.com
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-
-    // Function to initialize calendar with selected meeting type
-    function initializeCalendar(meetingType: string) {
-        // Clear any existing calendar
-        const container = document.getElementById('my-cal-inline');
-        if (container) {
-            container.innerHTML = '';
-        }
-
-        // Initialize new calendar with selected type
-        Cal("init", meetingType, {origin:"https://cal.com"});
-
-        Cal.ns[meetingType]("inline", {
-            elementOrSelector:"#my-cal-inline",
-            config: {"layout":"month_view","theme":"dark"},
-            calLink: `solaris-software-bookings/${meetingType}`,
-        });
-
-        Cal.ns[meetingType]("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"});
-    }
-
-    // Initialize with default meeting type
-    initializeCalendar('initial-meeting');
-
-    // Add event listener for meeting type selection
-    document.getElementById('meeting-type')?.addEventListener('change', (e) => {
-        const selectedType = (e.target as HTMLSelectElement).value;
-        initializeCalendar(selectedType);
-    });
-</script> 

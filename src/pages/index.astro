@@ -1,26 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/navigation/Navbar.astro';
-import Hero from '../components/hero/Hero.astro';
-import Services from '../components/services/Services.astro';
-import Contact from '../components/contact/Contact.astro';
-import '../styles/animations.css';
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/hero/Hero.svelte";
+import Services from "../components/services/Services.astro";
+import "../styles/animations.css";
+import HomeAbout from "../components/about/HomeAbout.svelte";
 ---
 
 <Layout>
-	<main class="min-h-screen bg-black relative z-10">
-		<div class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8">
-			<div class="max-w-[1200px] mx-auto flex flex-col gap-8">
-				<Hero />
-				<Services />
-				<Contact />
-			</div>
-		</div>
-	</main>
+  <main class="min-h-screen bg-black relative z-10 overflow-x-hidden">
+    <Hero client:load />
+    <div
+      class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24"
+    >
+      <div
+        class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24"
+      >
+        <Services />
+        <HomeAbout client:visible />
+      </div>
+    </div>
+  </main>
 </Layout>
-
-<script>
-	import { initSmoothScroll } from '../scripts/smoothScroll';
-	initSmoothScroll();
-</script>
-
