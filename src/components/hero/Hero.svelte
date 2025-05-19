@@ -60,7 +60,7 @@
 					</p>
 
 					<a
-						href="#contact"
+						href="/contact"
 						class="inline-flex items-center gap-3 px-8 py-4 text-white text-lg font-semibold rounded-full bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-orange-500/20"
 					>
 						<span>Begin Your Journey</span>
