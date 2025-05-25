@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import ServiceHero from "@/components/services/ServiceHero.svelte";
 import ServiceCardDetailed from "@/components/services/ServiceCardDetailed.svelte";
+import PackagesSection from "@/components/packages/PackagesSection.svelte";
 import "../styles/animations.css";
 
 const services = await getCollection("services");
@@ -73,6 +74,9 @@ const services = await getCollection("services");
           ))
         }
       </div>
+
+      <!-- Add Packages Section -->
+      <PackagesSection client:visible />
 
       <!-- Bottom CTA Section -->
       <div class="mt-24 text-center">
