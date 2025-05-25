@@ -4,6 +4,7 @@ import Hero from "../components/hero/Hero.svelte";
 import Services from "../components/services/Services.astro";
 import "../styles/animations.css";
 import HomeAbout from "../components/about/HomeAbout.svelte";
+import PackagesSection from "../components/packages/PackagesSection.svelte";
 ---
 
 <Layout>
@@ -17,6 +18,7 @@ import HomeAbout from "../components/about/HomeAbout.svelte";
       >
         <Services />
         <HomeAbout client:visible />
+        <PackagesSection client:visible />
       </div>
     </div>
   </main>

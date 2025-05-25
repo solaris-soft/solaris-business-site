@@ -6,20 +6,21 @@
     {
       name: "Company Starter",
       price: 1500,
-      description: "Complete digital presence setup for your company",
+      description: "Complete digital presence setup and ongoing support for your company",
       features: [
         "Company Website",
         "Booking System",
         "E-commerce Integration",
         "Social Media Setup",
         "Mobile Responsive Design",
-        "Basic SEO Optimization"
+        "Basic SEO Optimization",
+        "Brand identity recommendations"
       ]
     },
     {
-      name: "Systems Analysis",
-      price: 2000,
-      description: "Comprehensive business analysis with custom solutions",
+      name: "Systems Analysis Report + Solutions",
+      price: 3000,
+      description: "Discover inefficiencies in your business and receive a report with recommendations for custom programs and workflows to improve your business.",
       features: [
         "Business Process Analysis",
         "Custom Program Recommendations",
@@ -65,7 +66,7 @@
       Special Package Bundles
     </h2>
     <p class="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-      Choose from our carefully crafted packages designed to give your business the digital edge it needs
+      We offer packages represent starting estimates for certain sets of related services.
     </p>
   </div>
 
@@ -78,7 +79,7 @@
         style="transition: all 0.7s ease-out {i * 150}ms;"
       >
         <div
-          class="h-full p-8 rounded-2xl bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-sm border border-white/10 hover:border-[#ff3d00]/30 transition-all duration-300"
+          class="h-full p-8 rounded-2xl bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-sm border border-white/10 hover:border-[#ff3d00]/30 transition-all duration-300 flex flex-col"
         >
           <!-- Package Header -->
           <div class="mb-6">
@@ -91,7 +92,7 @@
           </div>
 
           <!-- Features List -->
-          <ul class="space-y-3">
+          <ul class="space-y-3 flex-grow">
             {#each pkg.features as feature}
               <li class="flex items-center gap-3 text-white/80">
                 <svg
