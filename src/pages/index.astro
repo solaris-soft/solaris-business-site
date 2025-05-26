@@ -5,9 +5,15 @@ import Services from "../components/services/Services.astro";
 import "../styles/animations.css";
 import HomeAbout from "../components/about/HomeAbout.svelte";
 import PackagesSection from "../components/packages/PackagesSection.svelte";
+
+const seoDescription = "SOLARIS SOFTWARE specializes in creating modern, high-performance web solutions. We offer custom business websites, web applications, AI integration, and modern UI/UX design services.";
 ---
 
-<Layout>
+<Layout 
+  title="SOLARIS SOFTWARE - Innovative Web Solutions"
+  description={seoDescription}
+  image="/og-home.jpg"
+>
   <main class="min-h-screen bg-black relative z-10 overflow-x-hidden">
     <Hero client:load />
     <div

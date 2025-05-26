@@ -7,9 +7,14 @@ import PackagesSection from "@/components/packages/PackagesSection.svelte";
 import "../styles/animations.css";
 
 const services = await getCollection("services");
+const seoDescription = "Explore SOLARIS SOFTWARE's comprehensive web services including custom web development, AI integration, modern UI/UX design, and business automation solutions.";
 ---
 
-<Layout title="Services | SOLARIS">
+<Layout 
+  title="Services | SOLARIS"
+  description={seoDescription}
+  image="/og-services.jpg"
+>
   <main
     class="min-h-screen bg-black relative z-10 overflow-x-hidden pt-16 sm:pt-32"
   >

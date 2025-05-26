@@ -1,0 +1,59 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
+  publishDate?: Date;
+}
+
+const {
+  title = "SOLARIS SOFTWARE - Innovative Web Solutions",
+  description = "SOLARIS is a dynamic web development company specializing in custom business websites, web applications, AI integration, and modern UI/UX design.",
+  image = "/og-image.jpg", // Default OG image
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  type = "website",
+  publishDate,
+} = Astro.props;
+---
+
+<!-- SEO -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.site)} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+<!-- Additional SEO -->
+<meta name="robots" content="index,follow" />
+{publishDate && <meta property="article:published_time" content={publishDate.toISOString()} />}
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": type === "article" ? "Article" : "Organization",
+  "name": "SOLARIS SOFTWARE",
+  "url": Astro.site,
+  "logo": new URL("/favicon.svg", Astro.site).href,
+  "description": description,
+  ...(type === "article" && publishDate ? {
+    "datePublished": publishDate.toISOString(),
+  } : {
+    "sameAs": [
+      "https://github.com/solaris-soft/",
+      // Add other social media URLs here
+    ]
+  })
+})} /> 

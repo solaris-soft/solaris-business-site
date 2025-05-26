@@ -3,9 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import ContactSection from "../components/contact/Contact.astro";
 import CalBooking from "../components/contact/CalBooking.svelte";
 import "../styles/animations.css";
+
+const seoDescription = "Get in touch with SOLARIS SOFTWARE for your web development needs. Schedule a consultation to discuss custom websites, web applications, or AI integration for your business.";
 ---
 
-<Layout title="Contact Us - Solaris">
+<Layout 
+  title="Contact Us - Solaris"
+  description={seoDescription}
+  image="/og-contact.jpg"
+>
   <main class="min-h-screen bg-black relative z-10 overflow-x-hidden pt-20">
     <!-- Animated background grid -->
     <div class="absolute inset-0 z-0">
