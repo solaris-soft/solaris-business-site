@@ -105,7 +105,7 @@
 
   <!-- Mobile: Enhanced compact cards -->
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6 max-w-3xl mx-auto"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6 max-w-3xl mx-auto px-4"
   >
     {#each keyServices.slice(0, 4) as service, i}
       <div

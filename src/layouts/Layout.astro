@@ -33,14 +33,13 @@ const {
       publishDate={publishDate}
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://api.fontshare.com/v2/css?f[]=chillax@400&display=swap" rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=general-sans@400,500,700&f[]=supreme@400,700&display=swap" rel="stylesheet">
+    <!-- Fontshare - Professional font collection -->
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=clash-display@400,600,700&f[]=general-sans@400,500,600,700&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet">
+    
+    <!-- Bunny Fonts - Privacy-focused alternative to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=source-sans-pro:300,400,600,700" rel="stylesheet" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <!-- Additional SEO meta tags -->
     <meta name="theme-color" content="#ff3d00" />
@@ -63,9 +62,18 @@ const {
     --text: #ffffff;
   }
 
-  .font-chillax {
-    font-family: "Chillax", sans-serif;
-    font-weight: 700;
+  
+  .font-display {
+    font-family: "Clash Display", "Source Sans Pro", sans-serif;
+    font-weight: 600;
+  }
+  
+  .font-mono {
+    font-family: "JetBrains Mono", "Source Sans Pro", monospace;
+  }
+  
+  .font-ui {
+    font-family: "General Sans", "Source Sans Pro", sans-serif;
   }
 
   * {
@@ -75,7 +83,7 @@ const {
   }
 
   html {
-    font-family: "Inter", sans-serif;
+    font-family: "Satoshi", "Source Sans Pro", sans-serif;
     background: var(--bg);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
@@ -85,19 +93,70 @@ const {
   body {
     overflow-x: hidden;
     line-height: 1.6;
-    font-family: "General Sans", sans-serif;
+    font-family: "Satoshi", "Source Sans Pro", sans-serif;
     font-size: 16px;
+    font-weight: 400;
   }
   
-  /* Improved typography scale for better readability */
+  /* Professional typography hierarchy */
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
-    font-family: "Clash Display", sans-serif;
+    font-family: "Clash Display", "Source Sans Pro", sans-serif;
+    font-weight: 600;
+  }
+  
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+  }
+  
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
   }
   
   p {
     line-height: 1.7;
     margin-bottom: 1.25rem;
+    font-weight: 400;
+  }
+  
+  /* Professional text styles for software company */
+  code, pre {
+    font-family: "JetBrains Mono", "Source Sans Pro", monospace;
+    font-size: 0.875rem;
+  }
+  
+  code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+  }
+  
+  pre {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  
+  /* Enhanced readability for professional content */
+  .text-professional {
+    font-family: "Satoshi", "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  
+  .text-technical {
+    font-family: "General Sans", "Source Sans Pro", sans-serif;
+    font-weight: 500;
   }
   
   /* Better text rendering for crisp fonts */
