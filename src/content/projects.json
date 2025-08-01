@@ -9,7 +9,7 @@
   {
     "id": 2,
     "title": "Wardens AI - NextJS Webapp",
-    "description": "A NextJS project that utilises the OpenAI API to provide a summariser for Warden's Court decisions. This project aims to provide better resurfacing of relevant decisions and improved searchability of decisions in the Western Australian Wardens Court",
+    "description": "A self-driven project to revolutionise the way that Wardens Court decisions are surfaced to the public. Our director, Joshua Macmaster, practices in the resource sector and has a keen interest in the way that research is currently driven in the Wardens Court. This project aims to provide better resurfacing of relevant decisions and improved searchability of decisions in the Western Australian Wardens Court",
     "link": "https://wcai-kthhf.ondigitalocean.app/",
     "image": "@/assets/projects/https---wcai-kthhf.ondigitalocean.app-443-.jpeg"
   },
@@ -29,9 +29,16 @@
   },
   {
     "id": 5,
-    "title": "The House Cafe",
+    "title": "The House Cafe - Company Site",
     "description": "A company site for a small cafe in Perth, Australia. The website is built with the intention of being professional and modern, while also being functional and easy to use. It also features a booking system for the cafe's play centre.",
     "link": "https://house-cafe.pages.dev/",
     "image": "@/assets/projects/house-cafe.jpeg"
+  },
+  {
+    "id": 6,
+    "title": "ArmourHub - Fortix Configuration",
+    "description": "We assisted Armourhub with the configution of their Fortix instance which included ensuring that they had the Gravity forms they required for contact creation, setting up tablet views and creating specific templates and workflows for their business.",
+    "link": "https://armourhub.com.au/",
+    "image": "@/assets/projects/https---armourhub.com.au-.jpeg"
   }
 ]

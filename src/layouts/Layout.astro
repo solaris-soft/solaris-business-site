@@ -13,7 +13,7 @@ interface Props {
 
 const { 
   title = "SOLARIS SOFTWARE",
-  description,
+  description = "a botique software agency based in Perth, Western Australia",
   image,
   type,
   publishDate
@@ -39,6 +39,8 @@ const {
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
+    <link href="https://api.fontshare.com/v2/css?f[]=chillax@400&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=general-sans@400,500,700&f[]=supreme@400,700&display=swap" rel="stylesheet">
     <link rel="sitemap" href="/sitemap-index.xml" />
     <!-- Additional SEO meta tags -->
     <meta name="theme-color" content="#ff3d00" />
@@ -61,6 +63,11 @@ const {
     --text: #ffffff;
   }
 
+  .font-chillax {
+    font-family: "Chillax", sans-serif;
+    font-weight: 700;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -77,7 +84,27 @@ const {
 
   body {
     overflow-x: hidden;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-family: "General Sans", sans-serif;
+    font-size: 16px;
+  }
+  
+  /* Improved typography scale for better readability */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-family: "Clash Display", sans-serif;
+  }
+  
+  p {
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Better text rendering for crisp fonts */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {

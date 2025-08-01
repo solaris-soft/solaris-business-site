@@ -1,28 +1,28 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/hero/Hero.svelte";
-import Services from "../components/services/Services.astro";
 import "../styles/animations.css";
 import HomeAbout from "../components/about/HomeAbout.svelte";
 import PackagesSection from "../components/packages/PackagesSection.svelte";
+import Services from "../components/services/Services.svelte";
 
 const seoDescription = "SOLARIS SOFTWARE specializes in creating modern, high-performance web solutions. We offer custom business websites, web applications, AI integration, and modern UI/UX design services.";
 ---
 
 <Layout 
-  title="SOLARIS SOFTWARE - Innovative Web Solutions"
+  title="SOLARIS SOFTWARE | Bespoke. Crafted. Custom."
   description={seoDescription}
   image="/og-home.jpg"
 >
   <main class="min-h-screen bg-black relative z-10 overflow-x-hidden">
     <Hero client:load />
+    <Services client:visible />
     <div
       class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24"
     >
       <div
         class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24"
       >
-        <Services />
         <HomeAbout client:visible />
         <PackagesSection client:visible />
       </div>
