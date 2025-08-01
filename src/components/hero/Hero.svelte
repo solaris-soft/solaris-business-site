@@ -16,6 +16,7 @@
     "there is no one-size fits all.",
     "every business is unique.",
     "to work the way you do.",
+    "that is purpose-built.",
   ];
 
   onMount(() => {
@@ -229,9 +230,9 @@
             </h2>
 
             <p class="text-lg text-orange-100 leading-relaxed">
-              Every business is different. We create
-              <span class="font-bold text-orange-300">tailored solutions</span>
-              that work the way you do.
+              What is your
+              <span class="font-bold text-orange-300">competitive edge?</span>
+              <br />We'll help you find it.
             </p>
           </div>
 
