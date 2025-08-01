@@ -134,12 +134,12 @@
       <div class="relative max-w-4xl mx-auto">
         <!-- Stage Content -->
         <div
-          class="relative bg-black/50 backdrop-blur-sm border border-white/[0.05] rounded-3xl p-6 md:p-12 overflow-hidden group"
+          class="relative bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-3xl p-6 md:p-12 overflow-hidden group"
         >
           <!-- Navigation Buttons - Mobile -->
           <div class="flex justify-between md:hidden mb-6">
             <button
-              class="p-2 bg-white hover:cursor-pointer"
+              class="p-2 text-white/60 hover:text-white transition-colors disabled:opacity-30"
               onclick={prevStage}
               disabled={isTransitioning}
               aria-label="Previous stage"
@@ -160,7 +160,7 @@
             </button>
 
             <button
-              class="p-2 text-white"
+              class="p-2 text-white/60 hover:text-white transition-colors disabled:opacity-30"
               onclick={nextStage}
               disabled={isTransitioning}
               aria-label="Next stage"
