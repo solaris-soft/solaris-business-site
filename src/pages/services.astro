@@ -7,13 +7,17 @@ import PackagesSection from "@/components/packages/PackagesSection.svelte";
 import "../styles/animations.css";
 
 const services = await getCollection("services");
-const seoDescription = "Explore SOLARIS SOFTWARE's comprehensive web services including custom web development, AI integration, modern UI/UX design, and business automation solutions.";
+const seoDescription = "Explore Solaris Software's comprehensive web services including custom development, AI integration, modern UI/UX design, and business automation solutions.";
+const seoKeywords = "web development services, custom software development, AI integration, UI/UX design, business automation, Perth developers, Western Australia, MVP development, Fortix configuration, CMS, e-commerce solutions";
 ---
 
 <Layout 
-  title="Services | SOLARIS"
+  title="Services | Solaris Software"
   description={seoDescription}
   image="/og-services.jpg"
+  type="service"
+  keywords={seoKeywords}
+  category="Web Development Services"
 >
   <main
     class="min-h-screen bg-black relative z-10 overflow-x-hidden pt-16 sm:pt-32"

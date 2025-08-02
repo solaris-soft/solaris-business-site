@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
-  
+  import { onMount } from "svelte";
+  import { fly } from "svelte/transition";
+
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D | null = $state(null);
   let particles: Particle[] = $state([]);
@@ -47,7 +47,9 @@
 
       // Speed limit
       const maxSpeed = 2;
-      const currentSpeed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
+      const currentSpeed = Math.sqrt(
+        this.speedX * this.speedX + this.speedY * this.speedY,
+      );
       if (currentSpeed > maxSpeed) {
         this.speedX = (this.speedX / currentSpeed) * maxSpeed;
         this.speedY = (this.speedY / currentSpeed) * maxSpeed;
@@ -67,7 +69,7 @@
     const rect = canvas.getBoundingClientRect();
     mousePos = {
       x: event.clientX - rect.left,
-      y: event.clientY - rect.top
+      y: event.clientY - rect.top,
     };
   }
 
@@ -84,14 +86,16 @@
   }
 
   function initParticles() {
-    particles = Array(50).fill(null).map(() => new Particle());
+    particles = Array(50)
+      .fill(null)
+      .map(() => new Particle());
   }
 
   function animate() {
     if (!ctx) return;
     ctx.clearRect(0, 0, width, height);
-    
-    particles.forEach(particle => {
+
+    particles.forEach((particle) => {
       particle.update();
       particle.draw();
     });
@@ -109,20 +113,20 @@
   }
 
   onMount(() => {
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext("2d");
     handleResize();
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
     animate();
-    
+
     // Add visibility transition
     setTimeout(() => {
       isVisible = true;
     }, 100);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
     };
   });
 </script>
@@ -133,42 +137,64 @@
     on:mousemove={handleMouseMove}
     class="absolute inset-0 w-full h-full"
   />
-  
+
   {#if isVisible}
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-24 md:py-16">
+    <div
+      class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-24 md:py-16"
+    >
       <!-- Main Title -->
       <div in:fly={{ y: 50, duration: 800, delay: 200 }} class="mb-6 md:mb-8">
-        <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center relative">
-          <span class="animate-slideFromLeft inline-block">Transform Your</span>
-          <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block">Digital Presence</div>
+        <h1
+          class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center relative"
+        >
+          <span class="animate-slideFromLeft inline-block"
+            >Solutions that fit.</span
+          >
+          <br />
+          <div
+            class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block"
+          >
+            Support that lasts.
+          </div>
         </h1>
       </div>
-      
+
       <!-- Description -->
-      <div in:fly={{ y: 50, duration: 800, delay: 400 }} class="max-w-[65ch] mb-8 md:mb-12">
-        <p class="text-[clamp(1rem,1.3vw,1.25rem)] text-white/70 leading-relaxed">
-          We craft innovative digital solutions that help businesses thrive in the modern world. From stunning websites to powerful automation tools, we're here to elevate your business.
+      <div
+        in:fly={{ y: 50, duration: 800, delay: 400 }}
+        class="max-w-[65ch] mb-8 md:mb-12"
+      >
+        <p
+          class="text-[clamp(1rem,1.3vw,1.25rem)] text-white/70 leading-relaxed"
+        >
+          You won't get a template. You'll get a solution that fits your
+          business.
         </p>
       </div>
-      
+
       <!-- CTA Buttons -->
-      <div in:fly={{ y: 50, duration: 800, delay: 600 }} class="flex flex-wrap justify-center gap-6 mb-24">
-        <a 
+      <div
+        in:fly={{ y: 50, duration: 800, delay: 600 }}
+        class="flex flex-wrap justify-center gap-6 mb-24"
+      >
+        <a
           href="/contact"
           class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
         >
           Start Your Project
         </a>
       </div>
-      
+
       <!-- Scroll Indicator -->
       {#if scrollIndicatorVisible}
-        <div 
+        <div
           in:fly={{ y: 50, duration: 800, delay: 800 }}
           class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <div class="text-white/50 text-sm font-medium">Scroll to explore</div>
-          <div class="w-[30px] h-[50px] rounded-full border-2 border-white/20 relative">
+          <div
+            class="w-[30px] h-[50px] rounded-full border-2 border-white/20 relative"
+          >
             <div class="scroll-dot"></div>
           </div>
         </div>
@@ -252,4 +278,4 @@
       opacity: 0;
     }
   }
-</style> 
+</style>

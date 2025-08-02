@@ -1,0 +1,20 @@
+{
+    "name": "SOLARIS SOFTWARE",
+    "short_name": "SOLARIS",
+    "description": "Perth-based web development company specializing in custom software development, web applications, and business analysis.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#ff3d00",
+    "orientation": "portrait-primary",
+    "categories": ["business", "productivity", "utilities"],
+    "lang": "en-AU",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://solaris.software",
-  trailingSlash: "never",
+  trailingSlash: "always",
   integrations: [tailwind(), svelte(), sitemap()],
   prefetch: {
     defaultStrategy: "hover",
