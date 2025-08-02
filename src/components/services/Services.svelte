@@ -99,7 +99,7 @@
       in:fly={{ delay: 1200, y: 20, duration: 800, easing: quintOut }}
       class="text-xl text-orange-200/90 max-w-2xl mx-auto leading-relaxed font-medium"
     >
-      We solve real business problems with technology that makes sense
+      We translate your point of difference into digital systems.
     </p>
   </div>
 
