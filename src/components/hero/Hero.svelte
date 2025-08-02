@@ -1,10 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
+  import gsap from "gsap";
+  import { SplitText } from "gsap/SplitText";
 
   let isLoaded = $state(false);
   let typedText = $state("");
   let showCursor = $state(true);
+  let sun = $state<HTMLElement | null>(null);
+  let titleElement = $state<HTMLElement | null>(null);
 
   const subheadings = [
     "Bespoke Software",
@@ -28,6 +32,89 @@
     setTimeout(
       () => {
         isLoaded = true;
+
+        // GSAP animation - only run after the element exists and motion is OK
+        if (!prefersReducedMotion) {
+          // Wait a bit for DOM to settle after isLoaded becomes true
+          setTimeout(() => {
+            if (sun) {
+              const sunTimeline = gsap.timeline({
+                defaults: { ease: "power2.inOut" },
+              });
+
+              // Initial burst: scale up, glow, and rotate
+              sunTimeline.to(sun, {
+                borderRadius: "40%",
+                scale: 4.5,
+                rotate: 30,
+                duration: 0.45,
+              });
+
+              // Snap back with a little bounce and glow pulse
+              sunTimeline.to(sun, {
+                borderRadius: "100%",
+                scale: 1.1,
+                rotate: -10,
+                duration: 1,
+                ease: "back.out(2)",
+              });
+
+              // Settle to normal, but with a subtle glow
+              sunTimeline.to(sun, {
+                scale: 1,
+                boxShadow: "0 0 32px 8px rgba(255,180,60,0.10)",
+                rotate: 0,
+                duration: 0.25,
+                ease: "power1.inOut",
+              });
+            }
+
+            if (titleElement) {
+              gsap.registerPlugin(SplitText);
+              const splitText = new SplitText(titleElement, {
+                type: "chars",
+              });
+
+              // Apply gradient styling to each character span
+              splitText.chars.forEach((char) => {
+                const element = char as HTMLElement;
+                element.style.background =
+                  "linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 251, 235), rgb(254, 215, 170, 0.9))";
+                element.style.backgroundClip = "text";
+                element.style.color = "transparent";
+                element.style.display = "inline-block";
+              });
+
+              // Improved: Subtle, organic entrance with each character coming from a different spot, no glow
+              splitText.chars.forEach((char, i) => {
+                // Assign a random x/y offset for each character
+                const randomX = (Math.random() - 0.5) * 80; // -40 to +40px
+                const randomY = (Math.random() - 0.5) * 80; // -40 to +40px
+
+                gsap.fromTo(
+                  char,
+                  {
+                    opacity: 0,
+                    x: randomX,
+                    y: randomY,
+                    scale: 0.96,
+                    filter: "blur(6px)",
+                  },
+                  {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    duration: 1.1,
+                    ease: "power2.out",
+                    delay: 0.18 + i * 0.045,
+                  },
+                );
+              });
+            }
+          }, 50);
+        }
       },
       prefersReducedMotion ? 0 : 100,
     );
@@ -52,11 +139,6 @@
     const erasingSpeed = 40; // milliseconds per character when erasing
     const pauseBetweenPhrases = 2000; // pause after typing before erasing
     const pauseBeforeTyping = 500; // pause after erasing before typing next
-
-    // Cursor blinking
-    const cursorInterval = setInterval(() => {
-      showCursor = !showCursor;
-    }, 530);
 
     function typePhrase() {
       const currentPhrase = textPhrases[currentPhraseIndex];
@@ -188,16 +270,14 @@
   <!-- Content Layer -->
   <div
     class="relative z-10 max-w-7xl mx-auto px-4 py-20 text-center flex flex-col gap-16 lg:gap-20"
-    class:opacity-0={!isLoaded}
-    class:opacity-100={isLoaded}
-    style:transition="opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
   >
     {#if isLoaded}
       <!-- Main Hero Content -->
-      <div in:fade={{ duration: 800 }} class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4">
         <div>
           <h1
             class="text-7xl lg:text-9xl font-black tracking-tight font-clash-display leading-none"
+            bind:this={titleElement}
           >
             <span
               class="bg-gradient-to-b from-white via-orange-50 to-orange-200/90 bg-clip-text text-transparent font-clash-display block"
@@ -210,6 +290,7 @@
               <span class="pr-0.5">S</span>
               <span
                 class="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 inline-block align-middle mx-[0.08em]"
+                bind:this={sun}
               ></span>
               <span class="pl-0.5">FTWARE</span>
             </span>
