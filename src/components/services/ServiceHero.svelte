@@ -178,7 +178,7 @@
         class="flex flex-wrap justify-center gap-6 mb-24"
       >
         <a
-          href="/contact"
+          href="/contact/"
           class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
         >
           Start Your Project

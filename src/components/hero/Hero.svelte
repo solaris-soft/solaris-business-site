@@ -349,7 +349,7 @@
             class="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <a
-              href="/contact"
+              href="/contact/"
               class="group inline-flex items-center gap-3 px-8 py-4 text-white text-lg font-semibold rounded-full bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-orange-500/20 active:scale-95"
             >
               <span>Begin Your Journey</span>
@@ -368,7 +368,7 @@
               </svg>
             </a>
             <a
-              href="/services"
+              href="/services/"
               class="inline-flex items-center gap-3 px-8 py-4 text-orange-100 text-lg font-semibold rounded-full border-2 border-orange-500/30 hover:border-orange-400 hover:bg-orange-500/10 transition-all duration-300"
             >
               <span>Explore Services</span>

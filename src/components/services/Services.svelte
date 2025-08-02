@@ -257,7 +257,7 @@
         Ready to transform your business with cutting-edge solutions?
       </p>
       <a
-        href="/services"
+        href="/services/"
         class="group inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-800 hover:from-orange-400 hover:to-orange-400 text-white font-semibold px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2 focus:ring-offset-transparent"
       >
         <span>View All Services</span>

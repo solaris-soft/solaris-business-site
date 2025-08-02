@@ -196,7 +196,7 @@
               <!-- CTA Button -->
               <div class="mt-8">
                 <a
-                  href="/contact"
+                  href="/contact/"
                   class="block w-full py-3 px-6 text-center rounded-full bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 group relative overflow-hidden"
                 >
                   <span class="relative z-10">Get Started</span>

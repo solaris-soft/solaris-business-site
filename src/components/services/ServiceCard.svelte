@@ -261,7 +261,7 @@
 </script>
 
 <a
-  href="/services"
+  href="/services/"
   class="block relative w-full h-[400px] group pointer-events-auto no-underline"
 >
   <div
