@@ -61,9 +61,9 @@
         "Custom reports",
         "Custom integrations",
         "Custom views",
-        "Custom dashboards",
-        "Invoicing",
-        "Customer date management",
+        "Inventory management",
+        "Invoicing system",
+        "Customer data management",
       ],
     },
   ];
