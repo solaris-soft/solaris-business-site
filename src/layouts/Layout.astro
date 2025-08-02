@@ -132,6 +132,14 @@ const {
     --secondary: #ff8a00;
     --bg: #000000;
     --text: #ffffff;
+    --vh: 1vh; /* Fallback for older browsers */
+  }
+
+  /* Support for dynamic viewport height on mobile */
+  @supports (height: 100dvh) {
+    :root {
+      --vh: 1dvh;
+    }
   }
 
   
@@ -168,6 +176,15 @@ const {
     font-family: "Satoshi", "Source Sans Pro", sans-serif;
     font-size: 16px;
     font-weight: 400;
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Main content should grow to fill available space, pushing footer down */
+  main {
+    flex: 1;
   }
   
   /* Critical typography only - keep minimal for initial render */
