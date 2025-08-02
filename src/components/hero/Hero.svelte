@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
-  import gsap from "gsap";
-  import { SplitText } from "gsap/SplitText";
+
+  // Lazy load GSAP and SplitText to reduce initial bundle size
+  let gsap: any;
+  let SplitText: any;
 
   let isLoaded = $state(false);
   let typedText = $state("");
@@ -23,7 +25,7 @@
     "that is purpose-built.",
   ];
 
-  onMount(() => {
+  onMount(async () => {
     // Respect user's motion preferences
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -33,87 +35,97 @@
       () => {
         isLoaded = true;
 
-        // GSAP animation - only run after the element exists and motion is OK
+        // Lazy load GSAP only when animations are needed and motion is OK
         if (!prefersReducedMotion) {
-          // Wait a bit for DOM to settle after isLoaded becomes true
-          setTimeout(() => {
-            if (sun) {
-              const sunTimeline = gsap.timeline({
-                defaults: { ease: "power2.inOut" },
-              });
+          // Dynamic import GSAP to reduce initial bundle size
+          Promise.all([import("gsap"), import("gsap/SplitText")])
+            .then(([gsapModule, splitTextModule]) => {
+              gsap = gsapModule.default;
+              SplitText = splitTextModule.SplitText;
 
-              // Initial burst: scale up, glow, and rotate
-              sunTimeline.to(sun, {
-                borderRadius: "40%",
-                scale: 4.5,
-                rotate: 30,
-                duration: 0.45,
-              });
+              // Wait a bit for DOM to settle after isLoaded becomes true
+              setTimeout(() => {
+                if (sun) {
+                  const sunTimeline = gsap.timeline({
+                    defaults: { ease: "power2.inOut" },
+                  });
 
-              // Snap back with a little bounce and glow pulse
-              sunTimeline.to(sun, {
-                borderRadius: "100%",
-                scale: 1.1,
-                rotate: -10,
-                duration: 1,
-                ease: "back.out(2)",
-              });
+                  // Initial burst: scale up, glow, and rotate
+                  sunTimeline.to(sun, {
+                    borderRadius: "40%",
+                    scale: 4.5,
+                    rotate: 30,
+                    duration: 0.45,
+                  });
 
-              // Settle to normal, but with a subtle glow
-              sunTimeline.to(sun, {
-                scale: 1,
-                boxShadow: "0 0 32px 8px rgba(255,180,60,0.10)",
-                rotate: 0,
-                duration: 0.25,
-                ease: "power1.inOut",
-              });
-            }
+                  // Snap back with a little bounce and glow pulse
+                  sunTimeline.to(sun, {
+                    borderRadius: "100%",
+                    scale: 1.1,
+                    rotate: -10,
+                    duration: 1,
+                    ease: "back.out(2)",
+                  });
 
-            if (titleElement) {
-              gsap.registerPlugin(SplitText);
-              const splitText = new SplitText(titleElement, {
-                type: "chars",
-              });
-
-              // Apply gradient styling to each character span
-              splitText.chars.forEach((char) => {
-                const element = char as HTMLElement;
-                element.style.background =
-                  "linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 251, 235), rgb(254, 215, 170, 0.9))";
-                element.style.backgroundClip = "text";
-                element.style.color = "transparent";
-                element.style.display = "inline-block";
-              });
-
-              // Improved: Subtle, organic entrance with each character coming from a different spot, no glow
-              splitText.chars.forEach((char, i) => {
-                // Assign a random x/y offset for each character
-                const randomX = (Math.random() - 0.5) * 80; // -40 to +40px
-                const randomY = (Math.random() - 0.5) * 80; // -40 to +40px
-
-                gsap.fromTo(
-                  char,
-                  {
-                    opacity: 0,
-                    x: randomX,
-                    y: randomY,
-                    scale: 0.96,
-                    filter: "blur(6px)",
-                  },
-                  {
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
+                  // Settle to normal, but with a subtle glow
+                  sunTimeline.to(sun, {
                     scale: 1,
-                    filter: "blur(0px)",
-                    duration: 1.1,
-                    ease: "power2.out",
-                    delay: 0.18 + i * 0.045,
-                  },
-                );
-              });
-            }
-          }, 50);
+                    boxShadow: "0 0 32px 8px rgba(255,180,60,0.10)",
+                    rotate: 0,
+                    duration: 0.25,
+                    ease: "power1.inOut",
+                  });
+                }
+
+                if (titleElement) {
+                  gsap.registerPlugin(SplitText);
+                  const splitText = new SplitText(titleElement, {
+                    type: "chars",
+                  });
+
+                  // Apply gradient styling to each character span
+                  splitText.chars.forEach((char: Element) => {
+                    const element = char as HTMLElement;
+                    element.style.background =
+                      "linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 251, 235), rgb(254, 215, 170, 0.9))";
+                    element.style.backgroundClip = "text";
+                    element.style.color = "transparent";
+                    element.style.display = "inline-block";
+                  });
+
+                  // Improved: Subtle, organic entrance with each character coming from a different spot, no glow
+                  splitText.chars.forEach((char: Element, i: number) => {
+                    // Assign a random x/y offset for each character
+                    const randomX = (Math.random() - 0.5) * 80; // -40 to +40px
+                    const randomY = (Math.random() - 0.5) * 80; // -40 to +40px
+
+                    gsap.fromTo(
+                      char,
+                      {
+                        opacity: 0,
+                        x: randomX,
+                        y: randomY,
+                        scale: 0.96,
+                        filter: "blur(6px)",
+                      },
+                      {
+                        opacity: 1,
+                        x: 0,
+                        y: 0,
+                        scale: 1,
+                        filter: "blur(0px)",
+                        duration: 1.1,
+                        ease: "power2.out",
+                        delay: 0.18 + i * 0.045,
+                      },
+                    );
+                  });
+                }
+              }, 50);
+            })
+            .catch((error) => {
+              console.warn("GSAP failed to load, animations disabled:", error);
+            });
         }
       },
       prefersReducedMotion ? 0 : 100,
