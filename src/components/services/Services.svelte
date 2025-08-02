@@ -1,6 +1,110 @@
 <script lang="ts">
-  import { fade, fly, scale } from "svelte/transition";
+  import { onMount } from "svelte";
+  import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  let titleRef: HTMLSpanElement;
+  let servicesGridRef: HTMLDivElement;
+  let mobileGridRef: HTMLDivElement;
+
+  onMount(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Title animation
+    if (titleRef) {
+      // Set initial CSS properties for 3D transforms
+      gsap.set(titleRef, {
+        transformPerspective: 1000,
+        transformOrigin: "center center",
+      });
+
+      gsap.fromTo(
+        titleRef,
+        {
+          opacity: 0,
+          y: 60,
+          rotateX: 60,
+          scale: 0.85,
+          filter: "blur(8px)",
+          transformOrigin: "center center",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.2,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: titleRef,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+            markers: false,
+          },
+        },
+      );
+    }
+
+    // Service cards stagger animation for desktop
+    if (servicesGridRef) {
+      const cards = servicesGridRef.querySelectorAll(".service-card");
+      gsap.set(cards, {
+        opacity: 0,
+        y: 80,
+        rotateX: 45,
+        scale: 0.9,
+        filter: "blur(5px)",
+      });
+
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: "power1.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: servicesGridRef,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    }
+
+    // Service cards stagger animation for mobile
+    if (mobileGridRef) {
+      const mobileCards = mobileGridRef.querySelectorAll(
+        ".mobile-service-card",
+      );
+      gsap.set(mobileCards, {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+        filter: "blur(3px)",
+      });
+
+      gsap.to(mobileCards, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: mobileGridRef,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    }
+  });
 
   // Key services to highlight in hero
   const keyServices = [
@@ -63,10 +167,7 @@
 </script>
 
 <!-- Services Preview Grid - Enhanced Design -->
-<div
-  in:fade={{ delay: 1200, duration: 800, easing: quintOut }}
-  class="mt-16 lg:mt-24 relative"
->
+<div class="mt-16 lg:mt-24 relative">
   <!-- Background decoration -->
   <div class="absolute inset-0 -z-10">
     <div
@@ -79,10 +180,7 @@
 
   <!-- Header Section -->
   <div class="mb-16 lg:mb-20 text-center relative">
-    <div
-      in:scale={{ delay: 1000, duration: 800, easing: quintOut, start: 0.8 }}
-      class="inline-block mb-4"
-    >
+    <div class="inline-block mb-4">
       <span
         class="text-orange-400 text-sm font-semibold uppercase tracking-wider bg-orange-400/10 px-4 py-2 rounded-full border border-orange-400/20"
       >
@@ -90,13 +188,13 @@
       </span>
     </div>
     <h2
-      in:fly={{ delay: 1100, y: 30, duration: 800, easing: quintOut }}
       class="text-3xl lg:text-5xl font-bold text-white mb-6 font-clash-display leading-tight"
     >
-      <span class="font-white"> What We Do </span>
+      <span class="text-white gsap-title" bind:this={titleRef}>
+        What We Do
+      </span>
     </h2>
     <p
-      in:fly={{ delay: 1200, y: 20, duration: 800, easing: quintOut }}
       class="text-xl text-orange-200/90 max-w-2xl mx-auto leading-relaxed font-medium"
     >
       We translate your point of difference into digital systems.
@@ -105,17 +203,12 @@
 
   <!-- Mobile: Enhanced compact cards -->
   <div
+    bind:this={mobileGridRef}
     class="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6 max-w-3xl mx-auto px-4"
   >
     {#each keyServices.slice(0, 4) as service, i}
       <div
-        in:fly={{
-          delay: 1400 + i * 150,
-          y: 30,
-          duration: 700,
-          easing: quintOut,
-        }}
-        class="group relative overflow-hidden bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-xl rounded-3xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2"
+        class="mobile-service-card group relative overflow-hidden bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-xl rounded-3xl p-6 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2"
       >
         <!-- Gradient overlay -->
         <div
@@ -146,16 +239,13 @@
   </div>
 
   <!-- Desktop: Enhanced detailed grid -->
-  <div class="hidden lg:grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+  <div
+    bind:this={servicesGridRef}
+    class="hidden lg:grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+  >
     {#each keyServices as service, i}
       <button
-        in:fly={{
-          delay: 1400 + i * 100,
-          y: 40,
-          duration: 700,
-          easing: quintOut,
-        }}
-        class="group relative overflow-hidden bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-xl rounded-3xl p-8 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2 cursor-pointer text-left w-full focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2 focus:ring-offset-transparent active:scale-[0.98]"
+        class="service-card group relative overflow-hidden bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-xl rounded-3xl p-8 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2 cursor-pointer text-left w-full focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2 focus:ring-offset-transparent active:scale-[0.98]"
         onclick={() => (window.location.href = `/services#${service.id}`)}
         type="button"
       >
@@ -256,6 +346,19 @@
 <style>
   .font-clash-display {
     font-family: "Clash Display", sans-serif;
+  }
+
+  /* GSAP animation setup */
+  .gsap-title {
+    display: inline-block;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  /* Service cards animation setup */
+  .service-card,
+  .mobile-service-card {
+    transform-style: preserve-3d;
   }
 
   /* Enhanced backdrop blur for better glass effect */
