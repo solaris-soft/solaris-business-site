@@ -6,8 +6,6 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   let titleRef: HTMLSpanElement;
-  let servicesGridRef: HTMLDivElement;
-  let mobileGridRef: HTMLDivElement;
 
   onMount(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -24,85 +22,27 @@
         titleRef,
         {
           opacity: 0,
-          y: 60,
-          rotateX: 60,
-          scale: 0.85,
-          filter: "blur(8px)",
+          y: 30,
+          scale: 0.98,
           transformOrigin: "center center",
         },
         {
           opacity: 1,
           y: 0,
-          rotateX: 0,
           scale: 1,
-          filter: "blur(0px)",
-          duration: 1.2,
-          ease: "power1.out",
+          duration: 1,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: titleRef,
             start: "top 80%",
-            end: "bottom 20%",
+            end: "top 20%",
             toggleActions: "play none none reverse",
             markers: false,
+            // More responsive scroll behavior
+            scrub: 0.5,
           },
         },
       );
-    }
-
-    // Service cards stagger animation for desktop
-    if (servicesGridRef) {
-      const cards = servicesGridRef.querySelectorAll(".service-card");
-      gsap.set(cards, {
-        opacity: 0,
-        y: 80,
-        rotateX: 45,
-        scale: 0.9,
-        filter: "blur(5px)",
-      });
-
-      gsap.to(cards, {
-        opacity: 1,
-        y: 0,
-        rotateX: 0,
-        scale: 1,
-        filter: "blur(0px)",
-        duration: 0.8,
-        ease: "power1.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: servicesGridRef,
-          start: "top 90%",
-          toggleActions: "play none none reverse",
-        },
-      });
-    }
-
-    // Service cards stagger animation for mobile
-    if (mobileGridRef) {
-      const mobileCards = mobileGridRef.querySelectorAll(
-        ".mobile-service-card",
-      );
-      gsap.set(mobileCards, {
-        opacity: 0,
-        y: 60,
-        scale: 0.95,
-        filter: "blur(3px)",
-      });
-
-      gsap.to(mobileCards, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: "blur(0px)",
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: mobileGridRef,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      });
     }
   });
 
@@ -195,7 +135,7 @@
       </span>
     </h2>
     <p
-      class="text-xl text-orange-200/90 max-w-2xl mx-auto leading-relaxed font-medium"
+      class="text-xl text-orange-200/90 max-w-2xl mx-auto leading-relaxed font-medium px-2 lg:px-0"
     >
       We translate your point of difference into digital systems.
     </p>
@@ -203,7 +143,6 @@
 
   <!-- Mobile: Enhanced compact cards -->
   <div
-    bind:this={mobileGridRef}
     class="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6 max-w-3xl mx-auto px-4"
   >
     {#each keyServices.slice(0, 4) as service, i}
@@ -239,14 +178,11 @@
   </div>
 
   <!-- Desktop: Enhanced detailed grid -->
-  <div
-    bind:this={servicesGridRef}
-    class="hidden lg:grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
-  >
+  <div class="hidden lg:grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
     {#each keyServices as service, i}
       <button
         class="service-card group relative overflow-hidden bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-xl rounded-3xl p-8 border border-orange-500/20 hover:border-orange-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2 cursor-pointer text-left w-full focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2 focus:ring-offset-transparent active:scale-[0.98]"
-        onclick={() => (window.location.href = `/services#${service.id}`)}
+        onclick={() => (window.location.href = `/services`)}
         type="button"
       >
         <!-- Animated gradient overlay -->
@@ -288,7 +224,7 @@
         <div
           class="flex items-center text-orange-400 text-sm font-semibold group-hover:text-orange-300 transition-all duration-300"
         >
-          <span class="mr-2">Explore Service</span>
+          <span class="mr-2">Explore Services</span>
           <div class="flex items-center overflow-hidden">
             <svg
               class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"

@@ -93,7 +93,7 @@
   });
 </script>
 
-<div bind:this={container} class="relative py-12 md:py-24">
+<div bind:this={container} class="relative py-48">
   <!-- Background Elements -->
   <div class="absolute inset-0 overflow-hidden">
     <div
@@ -182,7 +182,7 @@
           </div>
 
           <!-- Content Container with Fixed Height -->
-          <div class="h-[50vh] md:h-[320px] relative">
+          <div class="h-[40vh] md:h-[320px] relative">
             {#key currentStage}
               <div
                 class="absolute inset-0 flex flex-col items-center gap-6 md:gap-8"
