@@ -2,7 +2,7 @@
   {
     "id": "web-development",
     "title": "Web Development",
-    "description": "Modern, scalable web solutions crafted with cutting-edge technologies. From dynamic websites to complex applications, we build digital experiences that perform.",
+    "description": "Fast, modern websites and web apps built to work perfectly for your business. No templates—everything custom-made.",
     "features": [
       "Custom Web Applications",
       "E-commerce Solutions",
@@ -15,7 +15,7 @@
   {
     "id": "business-automation",
     "title": "Business Automation",
-    "description": "Automate your business processes to save time and improve efficiency. We help you streamline operations, reduce errors, and increase productivity.",
+    "description": "Stop doing the same tasks over and over. We build smart systems that handle repetitive work so you can focus on growing your business.",
     "features": [
       "Automated Workflow",
       "Data Integration",
@@ -28,7 +28,7 @@
   {
     "id": "ui-ux",
     "title": "UI/UX Design",
-    "description": "Human-centered design that balances beautiful aesthetics with intuitive functionality to create engaging digital experiences.",
+    "description": "Beautiful, easy-to-use interfaces that your customers will love. We design for real people, not just good looks.",
     "features": [
       "User-Centered Design", 
       "Responsive Design", 
@@ -41,7 +41,7 @@
   {
     "id": "branding",
     "title": "Branding",
-    "description": "Strategic brand development that helps businesses establish a unique and memorable presence in the digital landscape.",
+    "description": "Help people remember your business with clear, professional branding that tells your story and stands out from competitors.",
     "features": [
       "Brand Strategy", 
       "Visual Identity", 
@@ -54,7 +54,7 @@
   {
     "id": "consulting",
     "title": "Digital Consulting",
-    "description": "Expert guidance on digital transformation, technology adoption, and strategic innovation for future-ready businesses.",
+    "description": "Not sure what technology you need? We'll figure out what works best for your business and help you make smart decisions.",
     "features": [
       "Digital Transformation",
       "Technology Adoption",
@@ -67,7 +67,7 @@
   {
     "id": "mvp",
     "title": "MVP Development",
-    "description": "We help you build your MVP quickly and efficiently. We can help you build your MVP in a matter of weeks, rather than months.",
+    "description": "Test your business idea quickly with a working version. We build just enough to see if people want what you're offering.",
     "features": [
       "Quick and Efficient",
       "Focus on Core Features",
@@ -80,7 +80,7 @@
   {
     "id": "custom-software",
     "title": "Custom Software",
-    "description": "Tailor-made software solutions designed to address your unique business challenges and requirements with precision and efficiency.",
+    "description": "Software built exactly for your business needs. No forcing your way of working into someone else's system.",
     "features": [
       "Bespoke Solutions",
       "Scalable Architecture",
@@ -93,7 +93,7 @@
   {
     "id": "business-systems",
     "title": "Business Systems",
-    "description": "Integrated business systems that connect your operations, streamline workflows, and provide actionable insights for improved decision-making.",
+    "description": "Connect all your business tools so they work together. CRM, accounting, inventory—everything talking to each other.",
     "features": [
       "ERP Solutions",
       "CRM Implementation",
@@ -106,7 +106,7 @@
   {
     "id": "e-commerce",
     "title": "E-Commerce Solutions",
-    "description": "End-to-end e-commerce solutions that deliver exceptional online shopping experiences, optimize conversions, and scale with your business growth.",
+    "description": "Online stores that actually sell. Fast checkout, mobile-friendly, and easy to manage. Everything you need to sell online.",
     "features": [
       "Custom E-Commerce Platforms",
       "Payment Processing",
@@ -115,5 +115,16 @@
       "Conversion Optimization"
     ],
     "long-description": "Our e-commerce solutions create digital storefronts that blend compelling user experiences with robust backend systems to drive sales and customer loyalty. We understand that successful e-commerce goes beyond attractive product pages—it requires seamless integration of payment processing, inventory management, shipping logistics, and customer service. Our comprehensive approach ensures every aspect of your online store contributes to business success. We specialize in building: Custom E-Commerce Platforms designed to showcase your brand and products in unique ways that differentiate you from competitors using cookie-cutter templates. Payment Processing integrations that offer your customers secure, frictionless checkout experiences with multiple payment options to maximize conversion rates. Inventory Management systems that synchronize online and offline inventory, automate reordering, and provide real-time visibility into product availability. Mobile Commerce experiences optimized for smartphones and tablets, ensuring your customers can shop conveniently from any device with fast, intuitive interfaces. Conversion Optimization strategies that analyze user behavior, identify abandonment points, and implement data-driven improvements to increase sales and average order values."
+  },
+  {
+    "id": "fortix-configuration",
+    "title": "Fortix Configuration",
+    "description": "Get Fortix working exactly how your business needs it. We're official partners and will set everything up to match your workflow.",
+    "features": [
+      "Fortix Configuration",
+      "Fortix Integration",
+      "Fortix Customization"
+    ],
+    "long-description": "Our Fortix configuration services help businesses integrate their operations with the Fortix platform, enabling seamless and efficient business processes. We analyze your business model, identify key requirements, and develop tailored solutions that optimize your operations. Our team of experts ensures a smooth transition, from initial setup to ongoing support, to help you achieve your business goals. We specialize in configuring: Fortix Configuration that aligns your business processes with the Fortix platform, ensuring seamless integration and efficient operations. Fortix Integration that connects your systems and data to the Fortix platform, enabling real-time insights and improved decision-making. Fortix Customization that adapts the Fortix platform to your specific business needs, ensuring a tailored and efficient solution. We are partnered with Fortix and are authorised resellers of their products. We can help you configure your Fortix instance to your specific business needs. We analyse your business model and assist in creating a seamless and stress free integration with the Fortix platform."
   }
 ]

@@ -5,7 +5,12 @@ import { getCollection } from "astro:content";
 const projects = await getCollection("projects");
 ---
 
-<Layout title="Projects | SOLARIS">
+<Layout 
+  title="Projects | Solaris Software"
+  description="Discover SOLARIS SOFTWARE's portfolio of innovative web development projects including custom business websites, web applications, and AI solutions for Perth and Western Australian businesses."
+  keywords="web development portfolio, Perth software projects, custom websites, business applications, AI solutions, Western Australia web development"
+  category="Portfolio"
+>
   <main class="relative min-h-screen pt-24 bg-black">
     <!-- Background Effects -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -76,7 +81,7 @@ const projects = await getCollection("projects");
                 <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
                   {project.data.title}
                 </h2>
-                <p class="text-white/60 text-base leading-relaxed mb-6">
+                <p class="text-white text-base leading-relaxed mb-6">
                   {project.data.description}
                 </p>
 

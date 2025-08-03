@@ -5,14 +5,16 @@ import CalBooking from "../components/contact/CalBooking.svelte";
 import "../styles/animations.css";
 
 const seoDescription = "Get in touch with SOLARIS SOFTWARE for your web development needs. Schedule a consultation to discuss custom websites, web applications, or AI integration for your business.";
+const seoKeywords = "contact Perth web developers, SOLARIS SOFTWARE contact, web development consultation Perth, custom software inquiry, Western Australia web development";
 ---
 
 <Layout 
-  title="Contact Us - Solaris"
+  title="Contact | Solaris Software"
   description={seoDescription}
   image="/og-contact.jpg"
+  keywords={seoKeywords}
 >
-  <main class="min-h-screen bg-black relative z-10 overflow-x-hidden pt-20">
+  <main class="bg-black relative z-10 overflow-x-hidden pt-20">
     <!-- Animated background grid -->
     <div class="absolute inset-0 z-0">
       <div class="relative w-full h-full">
@@ -30,7 +32,7 @@ const seoDescription = "Get in touch with SOLARIS SOFTWARE for your web developm
 
     <!-- Main content -->
     <div
-      class="container mx-auto min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 relative z-10"
+      class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 relative z-10"
     >
       <div class="max-w-[1200px] mx-auto">
         <!-- Page Title -->
@@ -39,7 +41,7 @@ const seoDescription = "Get in touch with SOLARIS SOFTWARE for your web developm
             class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4"
           >
             <span
-              class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromLeft inline-block"
+              class="text-white animate-slideFromLeft inline-block"
             >
               Let's
             </span>

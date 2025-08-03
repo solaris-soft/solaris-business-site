@@ -2,223 +2,195 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
+import Section from '../components/Section.svelte';
 
 const teamMembers = await getCollection('team');
 ---
 
-<Layout title="Our Team | SOLARIS">
-    <main class="pt-24 min-h-screen bg-black">
-        <!-- Hero Section -->
-        <section class="relative flex flex-col items-center justify-center py-16 md:py-24 overflow-hidden">
-            <div class="w-full max-w-7xl mx-auto px-6 flex flex-col items-center gap-12 relative z-10">
-                <!-- Section Title -->
-                <div class="text-center max-w-3xl">
-                    <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black text-center relative">
-                        <span class="animate-slideFromLeft inline-block">Meet Our</span>
-                        <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block">
-                            Team
-                        </div>
-                    </h1>
-                    
-                    <div class="flex flex-col items-center gap-6 mt-6 opacity-0 animate-slideUp">
-                        <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed max-w-[65ch] text-center">
-                            As a lawyer and a psychology graduate who became self-taught programmers, we share a passion for technology and innovation.
-                        </p>
-                        <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed max-w-[65ch] text-center relative">
-                            Drawing on our backgrounds in law and psychology, we provide valuable insights to address our clients' needs. Our mission is to deliver exceptional solutions that drive business success through in-depth analysis of each client's business and industry.
-                            <span class="hidden md:block absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"></span>
-                            <span class="hidden md:block absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"></span>
-                        </p>
-                        <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/80 leading-relaxed max-w-[65ch] text-center">
-                            We create tailored solutions designed to solve unique challenges.
-                        </p>
-                    </div>
-                </div>
-                    
-                <!-- Team Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-8 md:gap-12 mt-12 w-full max-w-6xl mx-auto px-4">
-                    {teamMembers.map((member, index) => (
-                        <div 
-                            class="group relative opacity-0 w-full max-w-[400px] min-h-[500px] animate-cardEntrance" 
-                            style={`animation-delay: ${index * 150}ms`}
-                        >
-                            <!-- Background layers -->
-                            <div class="absolute inset-[1px] rounded-2xl bg-black/90 backdrop-blur-sm"></div>
-                            <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
-                            
-                            <!-- Hover glow effect -->
-                            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#ff3d00]/30 via-[#ff8a00]/20 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+<Layout 
+  title="Our Development Team | Solaris Software"
+  description="Meet the expert web developers and software engineers behind SOLARIS SOFTWARE. Joshua Macmaster and Sam Frahm lead our Perth-based team in delivering innovative digital solutions."
+  keywords="web development team Perth, software engineers Western Australia, Joshua MacMaster, Samuel Frahm, Perth tech team, custom software developers"
+  type="profile"
+  category="Team"
+>
+    <main class="pt-24 min-h-screen bg-black relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-20 left-10 w-64 h-64 bg-orange-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-orange-600 rounded-full blur-3xl"></div>
+        </div>
+        
+        <!-- Subtle Grid Pattern -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,159,67,0.3) 1px, transparent 0); background-size: 60px 60px;"></div>
 
-                            <!-- Main Card Content -->
-                            <div class="relative p-8 transition-all duration-500 group-hover:-translate-y-2 h-full flex flex-col">
-                                <div class="flex flex-col items-center text-center h-full">
-                                    <!-- Profile Image -->
-                                    <div class="relative w-28 h-28 mb-6 shrink-0">
-                                        <!-- Orbital rings -->
-                                        <div class="absolute inset-0 w-full h-full rounded-full border border-[#ff3d00]/20 animate-orbit" style="animation-duration: 15s;"></div>
-                                        <div class="absolute inset-0 w-full h-full rounded-full border border-[#ff8a00]/20 animate-orbit" style="animation-duration: 10s; animation-direction: reverse;"></div>
-                                        
-                                        <!-- Image container -->
-                                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
-                                            <div class="w-full h-full rounded-full bg-black/90 overflow-hidden">
-                                                <Image
-                                                    src={member.data.image}
-                                                    alt={member.data.name}
-                                                    width={112}
-                                                    height={112}
-                                                    class="w-full h-full object-cover rounded-full relative z-10 transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Content -->
-                                    <div class="flex flex-col flex-grow">
-                                        <h3 class="text-2xl font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
-                                            {member.data.name}
-                                        </h3>
-                                        <p class="text-[#ff3d00] font-medium mt-2 mb-4">{member.data.role}</p>
-                                        <p class="text-white/70 text-sm leading-relaxed mb-6 flex-grow">
-                                            {member.data.bio}
-                                        </p>
-                                        
-                                        <!-- Social Links -->
-                                        <div class="flex gap-4 justify-center mt-auto pt-4 border-t border-white/10">
-                                            {member.data.linkedin && (
-                                                <a 
-                                                    href={member.data.linkedin}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="text-white/70 hover:text-[#ff8a00] transition-colors duration-300 bg-black/30 p-2 rounded-full hover:bg-black/50 hover:scale-110 transform"
-                                                    aria-label={`${member.data.name}'s LinkedIn`}
-                                                >
-                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                                    </svg>
-                                                </a>
-                                            )}
-                                            {member.data.twitter && (
-                                                <a 
-                                                    href={member.data.twitter}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="text-white/70 hover:text-[#ff8a00] transition-colors duration-300 bg-black/30 p-2 rounded-full hover:bg-black/50 hover:scale-110 transform"
-                                                    aria-label={`${member.data.name}'s Twitter`}
-                                                >
-                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                                                    </svg>
-                                                </a>
-                                            )}
-                                            {member.data.github !== undefined && (
-                                                <a 
-                                                    href={member.data.github}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="text-white/70 hover:text-[#ff8a00] transition-colors duration-300 bg-black/30 p-2 rounded-full hover:bg-black/50 hover:scale-110 transform"
-                                                    aria-label={`${member.data.name}'s GitHub`}
-                                                >
-                                                    <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                                    </svg>
-                                                </a>
-                                            )}
+        <!-- Header Section -->
+        <section class="flex flex-col items-center justify-center py-16 md:py-24 text-center relative z-10">
+            <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+                <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black relative mb-6">
+                    <span class="animate-slideFromLeft inline-block">Meet Our</span>
+                    <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-4">
+                        Team
+                    </div>
+                </h1>
+
+                <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed max-w-[60ch] relative py-8 opacity-0 animate-slideUp mx-auto">
+                    A <span class="font-bold text-orange-400">lawyer</span> and <span class="font-bold text-orange-400">psychology graduate</span> turned self-taught programmers. We bring a different way of thinking about business solutions drawing from our backgrounds in law and psychology.
+                    <span class="hidden md:block absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"></span>
+                    <span class="hidden md:block absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"></span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Team Grid -->
+        <section class="pb-20 md:pb-28 relative z-10">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+                    {teamMembers.map((member, index) => (
+                        <article class="group relative">
+                            <!-- Card Background -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-2xl border border-gray-800/50 backdrop-blur-sm transition-all duration-300 group-hover:border-orange-400/30 group-hover:shadow-2xl group-hover:shadow-orange-400/10"></div>
+                            
+                            <!-- Card Content -->
+                            <div class="relative p-8 md:p-10 h-full flex flex-col">
+                                <!-- Profile Image -->
+                                <div class="mb-8">
+                                    <div class="w-32 h-32 mx-auto md:mx-0 mb-6 relative">
+                                        <!-- Image Ring -->
+                                        <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                                        <div class="relative">
+                                            <Image
+                                                src={member.data.image}
+                                                alt={member.data.name}
+                                                width={128}
+                                                height={128}
+                                                class="w-full h-full object-cover rounded-full transition-all duration-300 group-hover:scale-105 border-2 border-gray-700 group-hover:border-orange-400"
+                                            />
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <!-- Content -->
+                                <div class="text-center md:text-left flex-grow flex flex-col">
+                                    <div class="mb-4">
+                                        <!-- Role Badge -->
+                                        <div class="inline-block px-3 py-1 bg-orange-400/10 text-orange-400 text-sm font-medium rounded-full border border-orange-400/20 mb-4">
+                                            {member.data.role.split(',')[0]}
+                                        </div>
+                                    </div>
+                                    
+                                    <h2 class="text-3xl font-bold text-white mb-2 font-clash-display group-hover:text-orange-400 transition-colors duration-300">
+                                        {member.data.name}
+                                    </h2>
+                                    <p class="text-lg text-orange-400 font-medium mb-6 opacity-80">
+                                        {member.data.role.includes(',') ? member.data.role.split(',')[1].trim() : ''}
+                                    </p>
+                                    <p class="text-gray-300 leading-relaxed text-lg mb-8 flex-grow">
+                                        {member.data.bio}
+                                    </p>
+                                    
+                                    <!-- Social Links -->
+                                    <div class="flex gap-3 justify-center md:justify-start pt-4 border-t border-gray-800/50 mt-auto">
+                                        {member.data.linkedin && (
+                                            <a 
+                                                href={member.data.linkedin}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="flex items-center gap-2 px-4 py-2 bg-gray-800/50 hover:bg-orange-400/20 text-gray-400 hover:text-orange-400 transition-all duration-200 rounded-lg border border-gray-700 hover:border-orange-400/50"
+                                                aria-label={`${member.data.name}'s LinkedIn`}
+                                            >
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                                </svg>
+                                                <span class="text-sm font-medium">LinkedIn</span>
+                                            </a>
+                                        )}
+                                        {member.data.twitter && (
+                                            <a 
+                                                href={member.data.twitter}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="flex items-center gap-2 px-4 py-2 bg-gray-800/50 hover:bg-orange-400/20 text-gray-400 hover:text-orange-400 transition-all duration-200 rounded-lg border border-gray-700 hover:border-orange-400/50"
+                                                aria-label={`${member.data.name}'s Twitter`}
+                                            >
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                                </svg>
+                                                <span class="text-sm font-medium">Twitter</span>
+                                            </a>
+                                        )}
+                                        {member.data.github !== undefined && (
+                                            <a 
+                                                href={member.data.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="flex items-center gap-2 px-4 py-2 bg-gray-800/50 hover:bg-orange-400/20 text-gray-400 hover:text-orange-400 transition-all duration-200 rounded-lg border border-gray-700 hover:border-orange-400/50"
+                                                aria-label={`${member.data.name}'s GitHub`}
+                                            >
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                                </svg>
+                                                <span class="text-sm font-medium">GitHub</span>
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     ))}
                 </div>
             </div>
         </section>
-        
     </main>
 </Layout>
 
 <style>
+    .font-clash-display {
+        font-family: 'Clash Display', sans-serif;
+    }
+
     @keyframes slideFromLeft {
-        from { transform: translateX(-50px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        from {
+            transform: translateX(-100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
 
     @keyframes slideFromRight {
-        from { transform: translateX(50px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        from {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
 
     @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes cardEntrance {
-        from { transform: translateY(40px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes borderGlow {
-        0%, 100% { opacity: 0.2; box-shadow: 0 0 15px rgba(255, 61, 0, 0.1); }
-        50% { opacity: 0.4; box-shadow: 0 0 25px rgba(255, 61, 0, 0.2); }
-    }
-
-    @keyframes orbit {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    /* Particle animation */
-    .particles-container {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-
-    .particles-container::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-image: 
-            radial-gradient(circle at 20% 30%, #ff3d00 1px, transparent 1px),
-            radial-gradient(circle at 80% 40%, #ff8a00 1px, transparent 1px),
-            radial-gradient(circle at 40% 70%, #ff3d00 1px, transparent 1px),
-            radial-gradient(circle at 60% 20%, #ff8a00 1px, transparent 1px),
-            radial-gradient(circle at 30% 60%, #ff3d00 1px, transparent 1px),
-            radial-gradient(circle at 70% 80%, #ff8a00 1px, transparent 1px);
-        background-size: 200px 200px;
-        opacity: 0.3;
-        animation: particleFloat 60s linear infinite;
-    }
-
-    @keyframes particleFloat {
-        0% { background-position: 0 0; }
-        100% { background-position: 200px 200px; }
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 
     .animate-slideFromLeft {
-        opacity: 0;
         animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .animate-slideFromRight {
-        opacity: 0;
         animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .animate-slideUp {
         animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .animate-cardEntrance {
-        animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .animate-borderGlow {
-        animation: borderGlow 4s ease-in-out infinite;
-    }
-
-    .animate-orbit {
-        animation: orbit 8s linear infinite;
     }
 </style>

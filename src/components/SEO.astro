@@ -4,56 +4,199 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
-  type?: 'website' | 'article';
+  type?: 'website' | 'article' | 'service' | 'profile';
   publishDate?: Date;
+  keywords?: string;
+  author?: string;
+  category?: string;
 }
 
 const {
   title = "SOLARIS SOFTWARE - Innovative Web Solutions",
   description = "SOLARIS is a dynamic web development company specializing in custom business websites, web applications, AI integration, and modern UI/UX design.",
-  image = "/og-image.jpg", // Default OG image
+  image = "/og-image.jpg",
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   type = "website",
   publishDate,
+  keywords = "web development, custom software, AI integration, UI/UX design, Perth, Western Australia, business automation",
+  author = "SOLARIS SOFTWARE",
+  category,
 } = Astro.props;
+
+// Generate rich title with proper hierarchy
+const pageTitle = title.includes("SOLARIS") ? title : `${title} | SOLARIS SOFTWARE`;
 ---
 
-<!-- SEO -->
-<title>{title}</title>
+<!-- Essential SEO Meta Tags -->
+<title>{pageTitle}</title>
 <meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content={author} />
+{category && <meta name="category" content={category} />}
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Geographic and Business Meta Tags -->
+<meta name="geo.region" content="AU-WA" />
+<meta name="geo.placename" content="Perth, Western Australia" />
+<meta name="geo.position" content="-31.9505;115.8605" />
+<meta name="ICBM" content="-31.9505, 115.8605" />
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />
-<meta property="og:title" content={title} />
+<meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.site)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="SOLARIS SOFTWARE" />
+<meta property="og:locale" content="en_AU" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
+<meta name="twitter:site" content="@solaris_software" />
+<meta name="twitter:creator" content="@solaris_software" />
+<meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={new URL(image, Astro.site)} />
+<meta name="twitter:image:alt" content={`${title} - SOLARIS SOFTWARE`} />
 
-<!-- Additional SEO -->
-<meta name="robots" content="index,follow" />
+<!-- Additional Technical SEO -->
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<meta name="bingbot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 {publishDate && <meta property="article:published_time" content={publishDate.toISOString()} />}
+{publishDate && <meta property="article:modified_time" content={new Date().toISOString()} />}
 
-<!-- Structured Data -->
+<!-- Comprehensive Structured Data -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
-  "@type": type === "article" ? "Article" : "Organization",
-  "name": "SOLARIS SOFTWARE",
-  "url": Astro.site,
-  "logo": new URL("/favicon.svg", Astro.site).href,
-  "description": description,
+  "@type": type === "article" ? "Article" : type === "service" ? "Service" : type === "profile" ? "Person" : ["Organization", "LocalBusiness", "TechnologyCompany"],
   ...(type === "article" && publishDate ? {
+    "headline": title,
+    "description": description,
+    "image": new URL(image, Astro.site).href,
+    "author": {
+      "@type": "Organization",
+      "name": "SOLARIS SOFTWARE"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SOLARIS SOFTWARE",
+      "logo": {
+        "@type": "ImageObject",
+        "url": new URL("/favicon.svg", Astro.site).href
+      }
+    },
     "datePublished": publishDate.toISOString(),
+    "dateModified": new Date().toISOString()
+  } : type === "service" ? {
+    "name": title,
+    "description": description,
+    "provider": {
+      "@type": "Organization",
+      "name": "SOLARIS SOFTWARE"
+    },
+    "serviceType": "Web Development",
+    "areaServed": {
+      "@type": "Place",
+      "name": "Perth, Western Australia"
+    }
+  } : type === "profile" ? {
+    "name": title,
+    "description": description,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "SOLARIS SOFTWARE"
+    }
   } : {
+    "name": "SOLARIS SOFTWARE",
+    "alternateName": "Solaris Software",
+    "url": Astro.site,
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/favicon.svg", Astro.site).href,
+      "width": "512",
+      "height": "512"
+    },
+    "image": new URL(image, Astro.site).href,
+    "description": description,
+    "foundingDate": "2024",
+    "founders": [
+      {
+        "@type": "Person",
+        "name": "Joshua MacMaster"
+      },
+      {
+        "@type": "Person", 
+        "name": "Samuel Allen"
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Perth",
+      "addressRegion": "WA",
+      "addressCountry": "AU"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-31.9505",
+      "longitude": "115.8605"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Australia"
+    },
+    "knowsAbout": [
+      "Web Development",
+      "Custom Software Development", 
+      "AI Integration",
+      "UI/UX Design",
+      "Business Automation",
+      "E-commerce Solutions",
+      "MVP Development"
+    ],
+    "serviceArea": {
+      "@type": "Place",
+      "name": "Australia"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Web Development Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Web Development",
+            "description": "Fast, modern websites and web apps built to work perfectly for your business"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Business Automation",
+            "description": "Streamline your business processes with custom automation solutions"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service", 
+            "name": "UI/UX Design",
+            "description": "Modern, intuitive design that converts visitors into customers"
+          }
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "availableLanguage": "English"
+    },
     "sameAs": [
-      "https://github.com/solaris-soft/",
-      // Add other social media URLs here
+      "https://github.com/solaris-soft/"
     ]
   })
 })} /> 

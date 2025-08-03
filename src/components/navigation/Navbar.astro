@@ -4,7 +4,7 @@
 >
   <!-- Desktop Navigation -->
   <div
-    class="hidden md:flex items-center justify-between px-8 py-6 max-w-7xl mx-auto"
+    class="hidden md:flex items-center justify-between px-4 py-6 max-w-7xl mx-auto"
   >
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 group">
@@ -34,18 +34,18 @@
         </div>
       </div>
       <span
-        class="text-lg font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent group-hover:from-[#ff8a00] group-hover:to-[#ff3d00] transition-all duration-300"
+        class="text-lg font-bold text-white hover:text-orange-400 transition-all duration-300 font-clash-display"
         >SOLARIS SOFTWARE</span
       >
     </a>
 
     <!-- Navigation Links -->
     <div class="flex items-center gap-8">
-      <a href="/services" class="nav-link">Services</a>
-      <a href="/projects" class="nav-link">Projects</a>
-      <a href="/testimonials" class="nav-link">Testimonials</a>
-      <a href="/team" class="nav-link">Our Team</a>
-      <a href="/contact" class="contact-button">
+      <a href="/services/" class="nav-link">Services</a>
+      <a href="/projects/" class="nav-link">Projects</a>
+      <a href="/testimonials/" class="nav-link">Testimonials</a>
+      <a href="/team/" class="nav-link">Our Team</a>
+      <a href="/contact/" class="contact-button">
         <span class="relative z-10">Contact Us</span>
       </a>
     </div>
@@ -103,11 +103,11 @@
     id="mobile-menu"
     class="fixed right-0 top-0 h-screen w-4/5 max-w-xs bg-gradient-to-l from-black/95 to-black/90 translate-x-full transition-transform duration-500 ease-in-out z-50 flex flex-col justify-center items-center gap-8 px-8"
   >
-    <a href="/services" class="mobile-nav-link">Services</a>
-    <a href="/projects" class="mobile-nav-link">Projects</a>
-    <a href="/testimonials" class="mobile-nav-link">Testimonials</a>
-    <a href="/team" class="mobile-nav-link">Our Team</a>
-    <a href="/contact" class="mobile-contact-button">
+    <a href="/services/" class="mobile-nav-link">Services</a>
+    <a href="/projects/" class="mobile-nav-link">Projects</a>
+    <a href="/testimonials/" class="mobile-nav-link">Testimonials</a>
+    <a href="/team/" class="mobile-nav-link">Our Team</a>
+    <a href="/contact/" class="mobile-contact-button">
       <span class="relative z-10">Contact Us</span>
     </a>
   </div>
@@ -184,6 +184,10 @@
   .scrolled {
     @apply bg-black/80 backdrop-blur-md shadow-lg shadow-black/20;
   }
+  .font-clash-display {
+    font-family: "Clash Display", sans-serif;
+    font-weight: 700;
+  }
 
   /* Hide navbar on scroll down */
   .nav-hidden {
@@ -192,7 +196,9 @@
 
   /* Desktop nav links */
   .nav-link {
-    @apply relative text-white/70 text-sm font-medium tracking-wider no-underline transition-all duration-300 hover:text-white;
+    @apply relative text-white text-sm tracking-wider no-underline transition-all duration-300 hover:text-white;
+    font-family: "Clash Display", sans-serif;
+    font-weight: 700;
   }
 
   .nav-link::after {
@@ -206,7 +212,8 @@
 
   /* Contact button */
   .contact-button {
-    @apply relative px-5 py-2 text-sm tracking-wider text-white no-underline font-medium rounded-full overflow-hidden inline-flex items-center justify-center;
+    @apply relative px-5 py-2 text-sm tracking-wider text-white no-underline font-bold rounded-full overflow-hidden inline-flex items-center justify-center;
+    font-family: "Clash Display", sans-serif;
   }
 
   .contact-button::before {

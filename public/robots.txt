@@ -2,5 +2,20 @@ User-agent: *
 Allow: /
 Disallow: /cdn-cgi/l/email-protection
 
+# Specific crawl delay for heavy bots
+User-agent: Bingbot
+Crawl-delay: 1
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 10
+
+# Disallow certain file types
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+
 # Sitemap
 Sitemap: https://solaris.software/sitemap-index.xml 

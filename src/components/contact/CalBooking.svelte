@@ -6,16 +6,16 @@
     { id: "extended-meeting", label: "Extended Meeting" },
   ];
 
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
   let isLoading = true;
 
   // Function to initialize calendar with selected meeting type
   function initializeCalendar(meetingType: string) {
     const cal = (window as any).Cal;
     if (!cal) return;
-    
+
     isLoading = true;
-    
+
     // Clear any existing calendar
     const container = document.getElementById("my-cal-inline");
     if (container) {
@@ -27,28 +27,29 @@
 
     cal.ns[meetingType]("inline", {
       elementOrSelector: "#my-cal-inline",
-      config: { 
+      config: {
         layout: "month_view",
         theme: "dark",
         hideEventTypeDetails: false,
         iframeAttrs: {
-          style: "width:1px;min-width:100%;max-width:100%;height:100%;border:none;overflow:hidden;"
+          style:
+            "width:1px;min-width:100%;max-width:100%;height:100%;border:none;overflow:hidden;",
         },
         styles: {
-          body: { 
+          body: {
             background: "transparent",
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Satoshi', 'Source Sans Pro', sans-serif",
             width: "1px",
             minWidth: "100%",
             maxWidth: "100%",
             margin: "0",
             padding: "0",
             overflow: "hidden",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
           },
-          branding: { 
+          branding: {
             brandColor: "#ff3d00",
-            lightColor: "#ff8a00" 
+            lightColor: "#ff8a00",
           },
           elements: {
             calendar: {
@@ -61,8 +62,8 @@
               overflow: "hidden",
               boxSizing: "border-box",
               "@media (max-width: 640px)": {
-                padding: "0.5rem"
-              }
+                padding: "0.5rem",
+              },
             },
             calendarContainer: {
               width: "1px",
@@ -70,7 +71,7 @@
               maxWidth: "100%",
               margin: "0",
               overflow: "hidden",
-              boxSizing: "border-box"
+              boxSizing: "border-box",
             },
             monthContainer: {
               width: "1px",
@@ -78,7 +79,7 @@
               maxWidth: "100%",
               margin: "0",
               overflow: "hidden",
-              boxSizing: "border-box"
+              boxSizing: "border-box",
             },
             selectedDateBackground: "#ff3d00",
             selectedDateColor: "#ffffff",
@@ -92,9 +93,9 @@
               padding: "6px 12px",
               textTransform: "none",
               fontWeight: "500",
-            }
-          }
-        }
+            },
+          },
+        },
       },
       calLink: `solaris-software-bookings/${meetingType}`,
     });
@@ -108,14 +109,14 @@
           backgroundColor: "rgba(255, 61, 0, 0.1)",
           color: "#ff3d00",
           "&:hover": {
-            backgroundColor: "rgba(255, 61, 0, 0.2)"
-          }
+            backgroundColor: "rgba(255, 61, 0, 0.2)",
+          },
         },
         disabledDateButton: {
           backgroundColor: "rgba(255, 255, 255, 0.1)",
-          color: "rgba(255, 255, 255, 0.3)"
-        }
-      }
+          color: "rgba(255, 255, 255, 0.3)",
+        },
+      },
     });
 
     // Set loading to false after a short delay to ensure calendar is rendered
@@ -176,22 +177,34 @@
   <div class="content-wrapper">
     <div class="w-full max-w-md">
       <label for="meeting-type" class="block mb-2">
-        <span class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent text-base font-medium">
+        <span
+          class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent text-base font-medium"
+        >
           Select Meeting Duration
         </span>
       </label>
       <div class="relative">
         <select
           id="meeting-type"
-          class="w-full bg-black/50 border border-[#ff3d00]/20 text-gray-200 text-base rounded-lg focus:ring-2 focus:ring-[#ff3d00]/50  block p-3 pr-10 transition-all duration-200 appearance-none"
+          class="w-full bg-black/50 border border-[#ff3d00]/20 text-gray-200 text-base rounded-lg focus:ring-2 focus:ring-[#ff3d00]/50 block p-3 pr-10 transition-all duration-200 appearance-none"
         >
           {#each meetingTypes as type}
             <option value={type.id}>{type.label}</option>
           {/each}
         </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-          <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3"
+        >
+          <svg
+            class="h-5 w-5 text-gray-400"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
           </svg>
         </div>
       </div>
@@ -199,7 +212,9 @@
 
     <div class="calendar-outer-wrapper mt-10">
       {#if isLoading}
-        <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
+        <div
+          class="absolute inset-0 flex items-center justify-center bg-black/50 z-10"
+        >
           <div class="animate-spin rounded-full h-12 w-12"></div>
         </div>
       {/if}
@@ -281,4 +296,4 @@
       padding: 1rem;
     }
   }
-</style> 
+</style>
