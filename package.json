@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "standardize-profiles": "node scripts/standardize-profiles.js"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.2",
