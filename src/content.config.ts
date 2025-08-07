@@ -40,5 +40,17 @@ const services = defineCollection({
   }),
 });
 
+const testimonials = defineCollection({
+  loader: file("src/content/testimonials.json"),
+  schema: ({ image }) =>
+    z.object({
+      quote: z.string(),
+      author: z.string(),
+      company: z.string(),
+      link: z.string(),
+      image: image(),
+    }),
+});
+
 // 4. Export a single `collections` object to register your collection(s)
-export const collections = { team, projects, services };
+export const collections = { team, projects, services, testimonials };

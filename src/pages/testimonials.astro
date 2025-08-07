@@ -1,17 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import projectSS from '@/assets/project-ss.webp';
+import { getCollection } from 'astro:content';
 
-const testimonials = [
-    {
-        quote: "We couldn't be happier with the website Solaris Software built for us! From the very beginning, Joshua and Sam were professional, responsive, and truly understood our vision. They took the time to understand our needs and delivered a sleek, modern, and user-friendly website that exceeded our expectations.\n\nTheir attention to detail, technical expertise, and commitment to quality were evident throughout the entire process. Any questions or adjustments we had were handled quickly and efficiently. Thanks to their hard work, we now have a website that not only looks great but also functions flawlessly.\n\nWe highly recommend Solaris Software to anyone looking for a reliable and talented website partner. They made the entire experience seamless and enjoyable!",
-        author: "Seth & Sandra",
-        company: "S&S Preserves",
-        link: "https://www.sspreserves.com.au/",
-        image: projectSS
-    }
-];
+const testimonials = await getCollection('testimonials');
+const testimonialsData = testimonials.map(testimonial => testimonial.data);
+
 ---
 
 <Layout 
@@ -47,7 +41,7 @@ const testimonials = [
                     
                 <!-- Testimonials Grid -->
                 <div class="grid grid-cols-1 gap-8 mx-auto max-w-[800px]">
-                    {testimonials.map((testimonial, index) => (
+                    {testimonialsData.map((testimonial, index: number) => (
                         <div 
                             class="group relative opacity-0 w-full max-w-[800px] animate-cardEntrance" 
                             style={`animation-delay: ${index * 150}ms`}
