@@ -1,0 +1,432 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+// Placeholder articles data - this would come from your CMS
+const articles = [
+  {
+    id: 1,
+    title: "The Future of Business Automation: How AI is Transforming Small Businesses",
+    excerpt: "Discover how artificial intelligence and automation are revolutionizing the way small businesses operate, from customer service to inventory management.",
+    author: "Sam Frahm",
+    authorImage: "../assets/sam-profile.webp",
+    publishDate: "2024-01-15",
+    readTime: "8 min read",
+    category: "Business Automation",
+    featured: true,
+    image: "/og-image.jpg",
+    tags: ["AI", "Automation", "Business", "Technology"]
+  },
+  {
+    id: 2,
+    title: "Building User-Centered Web Applications: Lessons from Psychology",
+    excerpt: "How understanding human behavior and cognitive psychology can lead to more intuitive and effective web applications that users actually want to use.",
+    author: "Sam Frahm",
+    authorImage: "../assets/sam-profile.webp",
+    publishDate: "2024-01-10",
+    readTime: "6 min read",
+    category: "UX Design",
+    featured: false,
+    image: "/og-image.jpg",
+    tags: ["UX", "Psychology", "Design", "User Experience"]
+  },
+  {
+    id: 3,
+    title: "Legal Compliance in Software Development: What Every Business Should Know",
+    excerpt: "Essential considerations for ensuring your software solutions meet legal requirements, from data protection to industry-specific regulations.",
+    author: "Joshua Macmaster",
+    authorImage: "../assets/josh-profile.webp",
+    publishDate: "2024-01-05",
+    readTime: "10 min read",
+    category: "Legal Tech",
+    featured: false,
+    image: "/og-image.jpg",
+    tags: ["Compliance", "Legal", "Data Protection", "Regulations"]
+  },
+  {
+    id: 4,
+    title: "From Law Clerk to Software Engineer: A Journey of Process Optimization",
+    excerpt: "How legal experience translates to better software development, focusing on workflow optimization and systematic problem-solving approaches.",
+    author: "Joshua Macmaster",
+    authorImage: "../assets/josh-profile.webp",
+    publishDate: "2023-12-28",
+    readTime: "7 min read",
+    category: "Career Development",
+    featured: false,
+    image: "/og-image.jpg",
+    tags: ["Career", "Legal", "Process", "Development"]
+  },
+  {
+    id: 5,
+    title: "Modern Web Development Stack: Choosing the Right Tools for Your Project",
+    excerpt: "A comprehensive guide to selecting the optimal technology stack for your web development project, from frontend frameworks to backend solutions.",
+    author: "Asten Watson-Jones",
+    authorImage: "../assets/asten-profile.webp",
+    publishDate: "2023-12-20",
+    readTime: "9 min read",
+    category: "Web Development",
+    featured: false,
+    image: "/og-image.jpg",
+    tags: ["Web Development", "Technology", "Frameworks", "Tools"]
+  },
+  {
+    id: 6,
+    title: "The Psychology of User Interface Design: Creating Intuitive Experiences",
+    excerpt: "Understanding cognitive load, user mental models, and behavioral psychology to design interfaces that feel natural and effortless to use.",
+    author: "Sam Frahm",
+    authorImage: "../assets/sam-profile.webp",
+    publishDate: "2023-12-15",
+    readTime: "11 min read",
+    category: "UX Design",
+    featured: false,
+    image: "/og-image.jpg",
+    tags: ["UI Design", "Psychology", "Cognitive Load", "User Experience"]
+  }
+];
+
+const categories = ["All", "Business Automation", "UX Design", "Legal Tech", "Career Development", "Web Development"];
+const selectedCategory = "All";
+
+const seoDescription = "Insights and expertise from the SOLARIS SOFTWARE team on web development, business automation, UX design, and legal technology. Stay updated with the latest trends and best practices.";
+const seoKeywords = "web development articles, business automation, UX design, legal technology, software development insights, Perth tech blog, business software, AI automation";
+---
+
+<Layout 
+  title="Articles & Insights | Solaris Software"
+  description={seoDescription}
+  image="/og-image.jpg"
+  keywords={seoKeywords}
+  type="article"
+  category="Blog"
+>
+  <main class="pt-24 min-h-screen bg-black relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-20 left-10 w-64 h-64 bg-orange-400 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-orange-600 rounded-full blur-3xl"></div>
+    </div>
+    
+    <!-- Subtle Grid Pattern -->
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,159,67,0.3) 1px, transparent 0); background-size: 60px 60px;"></div>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 py-16 md:py-24">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="font-black relative mb-6">
+            <span class="animate-slideFromLeft inline-block">Insights &</span>
+            <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-4">
+              Expertise
+            </div>
+          </h1>
+
+          <p class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed max-w-[60ch] relative py-8 opacity-0 animate-slideUp mx-auto">
+            Discover insights from our team on web development, business automation, UX design, and legal technology. 
+            We share our expertise to help businesses navigate the digital landscape.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <div class="flex items-center gap-3 px-6 py-3 bg-orange-400/10 border border-orange-400/20 rounded-lg">
+              <div class="w-2 h-2 bg-orange-400 rounded-full"></div>
+              <span class="text-orange-400 font-medium">Expert insights</span>
+            </div>
+            <div class="flex items-center gap-3 px-6 py-3 bg-orange-400/10 border border-orange-400/20 rounded-lg">
+              <div class="w-2 h-2 bg-orange-400 rounded-full"></div>
+              <span class="text-orange-400 font-medium">Practical advice</span>
+            </div>
+            <div class="flex items-center gap-3 px-6 py-3 bg-orange-400/10 border border-orange-400/20 rounded-lg">
+              <div class="w-2 h-2 bg-orange-400 rounded-full"></div>
+              <span class="text-orange-400 font-medium">Industry trends</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="relative z-10 py-16">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            Featured <span class="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Article</span>
+          </h2>
+        </div>
+
+        {articles.filter(article => article.featured).map((article) => (
+          <article class="group relative">
+            <!-- Card Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-2xl border border-gray-800/50 backdrop-blur-sm transition-all duration-300 group-hover:border-orange-400/30 group-hover:shadow-2xl group-hover:shadow-orange-400/10"></div>
+            
+            <!-- Card Content -->
+            <div class="relative p-8 lg:p-12">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <!-- Image -->
+                <div class="relative overflow-hidden rounded-xl">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    class="w-full h-64 lg:h-80 object-cover transition-all duration-500 transform group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                </div>
+
+                <!-- Content -->
+                <div class="space-y-6">
+                  <div class="flex items-center gap-4 text-sm text-gray-400">
+                    <span class="px-3 py-1 bg-orange-400/10 text-orange-400 rounded-full border border-orange-400/20">
+                      {article.category}
+                    </span>
+                    <span>{article.readTime}</span>
+                    <span>{new Date(article.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  </div>
+
+                  <h3 class="text-2xl lg:text-3xl font-bold text-white group-hover:text-orange-400 transition-colors duration-300 leading-tight">
+                    {article.title}
+                  </h3>
+
+                  <p class="text-gray-300 leading-relaxed text-lg">
+                    {article.excerpt}
+                  </p>
+
+                  <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src={article.authorImage}
+                        alt={article.author}
+                        class="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <div class="text-white font-medium">{article.author}</div>
+                        <div class="text-sm text-gray-400">SOLARIS Team</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap gap-2">
+                    {article.tags.map((tag) => (
+                      <span class="px-3 py-1 bg-gray-800/50 text-gray-300 text-sm rounded-full border border-gray-700">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <a 
+                    href={`/articles/${article.id}`}
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-orange-400/10 text-orange-400 font-medium rounded-lg border border-orange-400/20 hover:bg-orange-400/20 hover:border-orange-400/40 transition-all duration-300"
+                  >
+                    Read Article
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="relative z-10 py-8">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+        <div class="flex flex-wrap gap-3 justify-center">
+          {categories.map((category) => (
+            <button 
+              class={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                selectedCategory === category
+                  ? 'bg-orange-400 text-white'
+                  : 'bg-gray-800/50 text-gray-300 border border-gray-700 hover:border-orange-400/50 hover:bg-orange-400/10'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="relative z-10 py-16">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            Latest <span class="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Articles</span>
+          </h2>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+            Explore our latest insights on web development, business automation, and technology trends.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {articles.filter(article => !article.featured).map((article) => (
+            <article class="group relative">
+              <!-- Card Background -->
+              <div class="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-2xl border border-gray-800/50 backdrop-blur-sm transition-all duration-300 group-hover:border-orange-400/30 group-hover:shadow-2xl group-hover:shadow-orange-400/10"></div>
+              
+              <!-- Card Content -->
+              <div class="relative p-6 h-full flex flex-col">
+                <!-- Image -->
+                <div class="mb-6 relative overflow-hidden rounded-lg">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    class="w-full h-48 object-cover transition-all duration-500 transform group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-grow flex flex-col">
+                  <div class="flex items-center gap-3 text-sm text-gray-400 mb-3">
+                    <span class="px-2 py-1 bg-orange-400/10 text-orange-400 rounded-full border border-orange-400/20 text-xs">
+                      {article.category}
+                    </span>
+                    <span>{article.readTime}</span>
+                  </div>
+
+                  <h3 class="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors duration-300 leading-tight">
+                    {article.title}
+                  </h3>
+
+                  <p class="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
+                    {article.excerpt}
+                  </p>
+
+                  <div class="flex items-center justify-between pt-4 border-t border-gray-800/50">
+                    <div class="flex items-center gap-3">
+                      <img
+                        src={article.authorImage}
+                        alt={article.author}
+                        class="w-8 h-8 rounded-full object-cover"
+                      />
+                      <div>
+                        <div class="text-white text-sm font-medium">{article.author}</div>
+                        <div class="text-xs text-gray-400">{new Date(article.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
+                      </div>
+                    </div>
+
+                    <a 
+                      href={`/articles/${article.id}`}
+                      class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
+                    >
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="relative z-10 py-16 md:py-24">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+        <div class="bg-gradient-to-br from-gray-900/50 to-gray-900/20 border border-gray-800 rounded-2xl p-12 backdrop-blur-sm">
+          <div class="text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+              Stay <span class="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Updated</span>
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Get the latest insights on web development, business automation, and technology trends delivered to your inbox.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <input 
+                type="email" 
+                placeholder="Enter your email"
+                class="flex-1 px-6 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-orange-400/50 focus:bg-gray-800/70 transition-all duration-300"
+              />
+              <button class="px-8 py-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-500 hover:to-orange-700 transition-all duration-300 transform hover:scale-105">
+                Subscribe
+              </button>
+            </div>
+            
+            <p class="text-sm text-gray-400 mt-4">
+              No spam, unsubscribe at any time. We respect your privacy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="relative z-10 py-16 md:py-24">
+      <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl text-center">
+        <div class="bg-gradient-to-br from-gray-900/50 to-gray-900/20 border border-gray-800 rounded-2xl p-12 backdrop-blur-sm">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to <span class="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Work Together?</span>
+          </h2>
+          <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Let's discuss your project and see how our expertise can help bring your vision to life.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/contact" 
+              class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-500 hover:to-orange-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Start a Project
+            </a>
+            <a 
+              href="/services" 
+              class="inline-flex items-center justify-center px-8 py-4 bg-gray-800/50 text-white font-semibold rounded-lg border border-gray-700 hover:border-orange-400/50 hover:bg-orange-400/10 transition-all duration-300"
+            >
+              View Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @keyframes slideFromLeft {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideFromRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slideFromLeft {
+    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideFromRight {
+    animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
