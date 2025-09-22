@@ -1,16 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/hero/Hero.svelte";
-import "../styles/animations.css";
 import HomeAbout from "../components/about/HomeAbout.svelte";
+import HowWeWork from "../components/about/HowWeWork.svelte";
 import PackagesSection from "../components/packages/PackagesSection.svelte";
-import Services from "../components/services/Services.svelte";
+import Services from "../components/services/Services.astro";
 
-const seoDescription = "Solaris Software specialises in creating modern, high-performance web solutions and custom software development. Bespoke software tailored to your business needs.";
-const seoKeywords = "web development Perth, custom software development, AI integration, business websites, UI design, Western Australia web developers, Perth developers, custom web applications, business automation, business analysis, CRM";
+const seoDescription =
+  "Solaris Software specialises in creating modern, high-performance web solutions and custom software development. Bespoke software tailored to your business needs.";
+const seoKeywords =
+  "web development Perth, custom software development, AI integration, business websites, UI design, Western Australia web developers, Perth developers, custom web applications, business automation, business analysis, CRM";
 ---
 
-<Layout 
+<Layout
   title="SOLARIS SOFTWARE | Bespoke. Crafted. Custom."
   description={seoDescription}
   image="/og-home.jpg"
@@ -18,16 +20,8 @@ const seoKeywords = "web development Perth, custom software development, AI inte
 >
   <main class="bg-black relative z-10 overflow-x-hidden">
     <Hero client:load />
-    <Services client:visible />
-    <div
-      class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24"
-    >
-      <div
-        class="max-w-[1200px] mx-auto flex flex-col gap-12 sm:gap-16 lg:gap-24"
-      >
-        <HomeAbout client:visible />
-        <PackagesSection client:visible />
-      </div>
-    </div>
+    <Services />
+    <HowWeWork client:load />
+    <PackagesSection client:visible />
   </main>
 </Layout>

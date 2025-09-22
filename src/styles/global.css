@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/* Custom font utilities for Tailwind v4 */
+@theme {
+  --font-display: "Clash Display", "Source Sans Pro", sans-serif;
+  --font-mono: "JetBrains Mono", "Source Sans Pro", monospace;
+  --font-ui: "General Sans", "Source Sans Pro", sans-serif;
+  --font-body: "General Sans", "Source Sans Pro", sans-serif;
+  
+  /* Custom colors */
+  --color-primary: #ff3d00;
+  --color-secondary: #ff8a00;
+  --color-bg: #000000;
+  --color-text: #ffffff;
+}
+
+/* ScrollSmoother Required Styles */
+html {
+  height: 100%;
+  overflow: hidden; /* Prevent default scrollbars */
+}
+
+body {
+  height: 100%;
+  overflow: hidden; /* Prevent default scrollbars */
+  margin: 0;
+  padding: 0;
+}
+
+#smooth-wrapper {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#smooth-content {
+  overflow: visible;
+  width: 100%;
+}
+
+/* Optimize performance for smooth scrolling */
+* {
+  will-change: auto;
+}
+
+/* Optional: Add momentum for better feel on touch devices */
+#smooth-wrapper {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Font utilities */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-ui {
+  font-family: var(--font-ui);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}

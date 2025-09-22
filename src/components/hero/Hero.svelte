@@ -1,627 +1,896 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { fade, fly } from "svelte/transition";
+  // Using Svelte 5 patterns - no need for onMount/onDestroy
 
-  // Lazy load GSAP and SplitText to reduce initial bundle size
+  // GSAP imports
   let gsap: any;
-  let SplitText: any;
+  let ScrollTrigger: any;
 
+  // Component state
   let isLoaded = $state(false);
-  let typedText = $state("");
-  let showCursor = $state(true);
-  let sun = $state<HTMLElement | null>(null);
+  let heroContainer = $state<HTMLElement | null>(null);
   let titleElement = $state<HTMLElement | null>(null);
+  let subtitleElement = $state<HTMLElement | null>(null);
+  let sunElement = $state<HTMLElement | null>(null);
+  let raysContainer = $state<HTMLElement | null>(null);
+  let ctaButton = $state<HTMLElement | null>(null);
+  let orbitingElements = $state<HTMLElement[]>([]);
+  let backgroundDots = $state<HTMLElement | null>(null);
 
-  const subheadings = [
-    "Bespoke Software",
-    "Business Analysis",
-    "Continuous Support",
-  ];
+  // Cursor tracking for sun following
+  let mouseX = $state(0);
+  let mouseY = $state(0);
+  let sunX = $state(0);
+  let sunY = $state(0);
+  let isMouseOverHero = $state(false);
+  let isInitialized = $state(false);
 
-  const textPhrases = [
-    "there is no one-size fits all.",
-    "every business is unique.",
-    "to work the way you do.",
-    "that is purpose-built.",
-  ];
+  // Mouse tracking functions
+  function handleMouseMove(event: MouseEvent) {
+    if (!heroContainer || !sunElement) return;
 
-  onMount(async () => {
+    const rect = heroContainer.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // Calculate relative position from center (-1 to 1)
+    const relativeX = (event.clientX - centerX) / (rect.width / 2);
+    const relativeY = (event.clientY - centerY) / (rect.height / 2);
+
+    // Constrain movement to reasonable bounds (max 30px from center)
+    const maxDistance = 30;
+    const newSunX = Math.max(
+      -maxDistance,
+      Math.min(maxDistance, relativeX * maxDistance),
+    );
+    const newSunY = Math.max(
+      -maxDistance,
+      Math.min(maxDistance, relativeY * maxDistance),
+    );
+
+    // Update state
+    sunX = newSunX;
+    sunY = newSunY;
+  }
+
+  function handleMouseEnter() {
+    isMouseOverHero = true;
+  }
+
+  function handleMouseLeave() {
+    isMouseOverHero = false;
+    // Return sun to center when mouse leaves
+    sunX = 0;
+    sunY = 0;
+  }
+
+  // Initialize component - using Svelte 5 effect instead of onMount
+  $effect(() => {
+    if (isInitialized) return; // Prevent multiple initializations
+
     // Respect user's motion preferences
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    setTimeout(
-      () => {
-        isLoaded = true;
+    // Load content
+    setTimeout(() => {
+      isLoaded = true;
+    }, 100);
 
-        // Lazy load GSAP only when animations are needed and motion is OK
-        if (!prefersReducedMotion) {
-          // Dynamic import GSAP to reduce initial bundle size
-          Promise.all([import("gsap"), import("gsap/SplitText")])
-            .then(([gsapModule, splitTextModule]) => {
-              gsap = gsapModule.default;
-              SplitText = splitTextModule.SplitText;
+    // Event listeners will be added in reactive effect when heroContainer is available
 
-              // Wait a bit for DOM to settle after isLoaded becomes true
-              setTimeout(() => {
-                if (sun) {
-                  const sunTimeline = gsap.timeline({
-                    defaults: { ease: "power2.inOut" },
-                  });
+    // Title is now visible by default in HTML
 
-                  // Initial burst: scale up, glow, and rotate
-                  sunTimeline.to(sun, {
-                    borderRadius: "40%",
-                    scale: 4.5,
-                    rotate: 30,
-                    duration: 0.45,
-                  });
-
-                  // Snap back with a little bounce and glow pulse
-                  sunTimeline.to(sun, {
-                    borderRadius: "100%",
-                    scale: 1.1,
-                    rotate: -10,
-                    duration: 1,
-                    ease: "back.out(2)",
-                  });
-
-                  // Settle to normal, but with a subtle glow
-                  sunTimeline.to(sun, {
-                    scale: 1,
-                    boxShadow: "0 0 32px 8px rgba(255,180,60,0.10)",
-                    rotate: 0,
-                    duration: 0.25,
-                    ease: "power1.inOut",
-                  });
-                }
-
-                if (titleElement) {
-                  gsap.registerPlugin(SplitText);
-                  const splitText = new SplitText(titleElement, {
-                    type: "chars",
-                  });
-
-                  // Apply gradient styling to each character span
-                  splitText.chars.forEach((char: Element) => {
-                    const element = char as HTMLElement;
-                    element.style.background =
-                      "linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 251, 235), rgb(254, 215, 170, 0.9))";
-                    element.style.backgroundClip = "text";
-                    element.style.color = "transparent";
-                    element.style.display = "inline-block";
-                  });
-
-                  // Improved: Subtle, organic entrance with each character coming from a different spot, no glow
-                  splitText.chars.forEach((char: Element, i: number) => {
-                    // Assign a random x/y offset for each character
-                    const randomX = (Math.random() - 0.5) * 80; // -40 to +40px
-                    const randomY = (Math.random() - 0.5) * 80; // -40 to +40px
-
-                    gsap.fromTo(
-                      char,
-                      {
-                        opacity: 0,
-                        x: randomX,
-                        y: randomY,
-                        scale: 0.96,
-                        filter: "blur(6px)",
-                      },
-                      {
-                        opacity: 1,
-                        x: 0,
-                        y: 0,
-                        scale: 1,
-                        filter: "blur(0px)",
-                        duration: 1.1,
-                        ease: "power2.out",
-                        delay: 0.18 + i * 0.045,
-                      },
-                    );
-                  });
-                }
-              }, 50);
-            })
-            .catch((error) => {
-              console.warn("GSAP failed to load, animations disabled:", error);
-            });
-        }
-      },
-      prefersReducedMotion ? 0 : 100,
-    );
-
-    // Start typing animation after content loads
+    // Load GSAP for animations
     if (!prefersReducedMotion) {
-      setTimeout(() => {
-        startTypingAnimation();
-      }, 1200); // Start after initial fade-in
+      (async () => {
+        try {
+          const [gsapModule, scrollTriggerModule] = await Promise.all([
+            import("gsap"),
+            import("gsap/ScrollTrigger"),
+          ]);
+
+          gsap = gsapModule.default;
+          ScrollTrigger = scrollTriggerModule.ScrollTrigger;
+
+          // Setup animations
+          setTimeout(() => {
+            setupAnimations();
+          }, 300);
+        } catch (error) {
+          console.warn("GSAP failed to load:", error);
+          // Ensure title is visible even if GSAP fails
+          if (titleElement) {
+            titleElement.style.opacity = "1";
+            titleElement.style.visibility = "visible";
+          }
+        }
+      })();
     } else {
-      // If reduced motion is preferred, show first phrase immediately
+      // If reduced motion is preferred, ensure title is still visible
       setTimeout(() => {
-        typedText = textPhrases[0];
-        showCursor = false;
-      }, 1200);
+        if (titleElement) {
+          titleElement.style.opacity = "1";
+          titleElement.style.visibility = "visible";
+        }
+      }, 100);
     }
   });
 
-  function startTypingAnimation() {
-    let currentPhraseIndex = 0;
-    const typingSpeed = 80; // milliseconds per character
-    const erasingSpeed = 40; // milliseconds per character when erasing
-    const pauseBetweenPhrases = 2000; // pause after typing before erasing
-    const pauseBeforeTyping = 500; // pause after erasing before typing next
+  // Create particle burst effect
+  function createParticleBurst(element: HTMLElement) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-    function typePhrase() {
-      const currentPhrase = textPhrases[currentPhraseIndex];
-      let charIndex = 0;
+    // Create multiple particles
+    for (let i = 0; i < 12; i++) {
+      const particle = document.createElement("div");
+      particle.style.cssText = `
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, #f97316, #fb923c);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        left: ${centerX}px;
+        top: ${centerY}px;
+      `;
 
-      const typeInterval = setInterval(() => {
-        if (charIndex < currentPhrase.length) {
-          typedText = currentPhrase.slice(0, charIndex + 1);
-          charIndex++;
-        } else {
-          clearInterval(typeInterval);
-          // Wait before erasing
-          setTimeout(() => {
-            erasePhrase();
-          }, pauseBetweenPhrases);
-        }
-      }, typingSpeed);
+      document.body.appendChild(particle);
+
+      // Animate particle burst
+      const angle = (i / 12) * Math.PI * 2;
+      const distance = 60 + Math.random() * 40;
+      const endX = centerX + Math.cos(angle) * distance;
+      const endY = centerY + Math.sin(angle) * distance;
+
+      gsap.to(particle, {
+        x: endX - centerX,
+        y: endY - centerY,
+        scale: 0,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out",
+        onComplete: () => {
+          document.body.removeChild(particle);
+        },
+      });
     }
-
-    function erasePhrase() {
-      const currentPhrase = textPhrases[currentPhraseIndex];
-      let charIndex = currentPhrase.length;
-
-      const eraseInterval = setInterval(() => {
-        if (charIndex > 0) {
-          typedText = currentPhrase.slice(0, charIndex - 1);
-          charIndex--;
-        } else {
-          clearInterval(eraseInterval);
-          // Move to next phrase
-          currentPhraseIndex = (currentPhraseIndex + 1) % textPhrases.length;
-          // Wait before typing next phrase
-          setTimeout(() => {
-            typePhrase();
-          }, pauseBeforeTyping);
-        }
-      }, erasingSpeed);
-    }
-
-    // Start the animation
-    typePhrase();
   }
+
+  function setupAnimations() {
+    if (!gsap || !ScrollTrigger) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Title is already visible by default
+
+    // Initial entrance timeline
+    const tl = gsap.timeline({ delay: 0.5 });
+
+    // Animate background dots with more movement
+    if (backgroundDots) {
+      tl.fromTo(
+        backgroundDots,
+        {
+          opacity: 0,
+          scale: 0.8,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 2,
+          ease: "power2.out",
+        },
+      );
+
+      // Add subtle floating movement to background
+      gsap.to(backgroundDots, {
+        x: 20,
+        y: 15,
+        duration: 8,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+
+      // Add gentle scale breathing
+      gsap.to(backgroundDots, {
+        scale: 1.05,
+        duration: 6,
+        ease: "power2.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+    }
+
+    // Animate sun with more dramatic effect
+    if (sunElement) {
+      tl.fromTo(
+        sunElement,
+        {
+          scale: 0,
+          opacity: 0,
+          rotation: -360,
+          x: -100,
+          y: 100,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          rotation: 0,
+          x: 0,
+          y: 0,
+          duration: 2,
+          ease: "elastic.out(1, 0.5)",
+        },
+        "-=1.5",
+      );
+
+      // Enhanced continuous rotation with variable speed
+      gsap.to(sunElement, {
+        rotation: 360,
+        duration: 15,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+
+      // Enhanced breathing scale - from 1 to 1.2, never going to zero
+      gsap.fromTo(
+        sunElement,
+        { scale: 1 },
+        {
+          scale: 1.2,
+          duration: 3,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+        },
+      );
+
+      // Add floating movement
+      gsap.to(sunElement, {
+        y: -15,
+        x: 10,
+        duration: 6,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+
+      // Add subtle rotation wobble
+      gsap.to(sunElement, {
+        rotationZ: 5,
+        duration: 4,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+    }
+
+    // Animate energy rings with sophisticated effects
+    const energyRings = heroContainer?.querySelectorAll(".energy-ring");
+    if (energyRings) {
+      Array.from(energyRings).forEach((ring, index) => {
+        // Entrance animation
+        tl.fromTo(
+          ring,
+          {
+            scale: 0,
+            opacity: 0,
+            rotation: -180,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            rotation: 0,
+            duration: 1.5 + index * 0.3,
+            ease: "elastic.out(1, 0.5)",
+            delay: index * 0.2,
+          },
+          "-=1.2",
+        );
+
+        // Continuous pulsing expansion
+        gsap.to(ring, {
+          scale: 1.2 + index * 0.1,
+          duration: 4 + index * 0.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+
+        // Slow rotation
+        gsap.to(ring, {
+          rotation: 360,
+          duration: 20 + index * 10,
+          ease: "none",
+          repeat: -1,
+        });
+
+        // Opacity breathing
+        gsap.to(ring, {
+          opacity: 0.1 + index * 0.05,
+          duration: 3 + index * 0.4,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: index * 0.3,
+        });
+      });
+    }
+
+    // Animate light particles with magical floating effect
+    const lightParticles = heroContainer?.querySelectorAll(".light-particle");
+    if (lightParticles) {
+      Array.from(lightParticles).forEach((particle, index) => {
+        // Staggered entrance
+        tl.fromTo(
+          particle,
+          {
+            scale: 0,
+            opacity: 0,
+            y: 100,
+          },
+          {
+            scale: 1,
+            opacity: 0.8,
+            y: 0,
+            duration: 1.5,
+            ease: "power3.out",
+            delay: index * 0.08,
+          },
+          "-=1.0",
+        );
+
+        // Floating motion with varying patterns
+        const floatDistance = 40 + Math.random() * 60;
+        const floatAngle = (index / lightParticles.length) * Math.PI * 2;
+
+        gsap.to(particle, {
+          x: Math.cos(floatAngle) * floatDistance,
+          y: Math.sin(floatAngle) * floatDistance,
+          duration: 6 + index * 0.4,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+
+        // Sparkle effect
+        gsap.to(particle, {
+          scale: 2 + Math.random(),
+          opacity: 0.2 + Math.random() * 0.6,
+          duration: 1.5 + Math.random() * 2,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: Math.random() * 2,
+        });
+
+        // Rotation for dynamic movement
+        gsap.to(particle, {
+          rotation: 360,
+          duration: 8 + Math.random() * 4,
+          ease: "none",
+          repeat: -1,
+        });
+      });
+    }
+
+    // Animate orbiting elements with enhanced movement
+    orbitingElements.forEach((element, index) => {
+      if (element) {
+        tl.fromTo(
+          element,
+          {
+            scale: 0,
+            opacity: 0,
+            rotation: -180,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            rotation: 0,
+            duration: 1.2,
+            ease: "elastic.out(1, 0.5)",
+          },
+          `-=${0.4 - index * 0.1}`,
+        );
+
+        // Enhanced orbital motion with varying speeds and directions
+        const radius = 180 + index * 40;
+        const duration = 12 + index * 3;
+        const direction = index % 2 === 0 ? 360 : -360;
+
+        gsap.to(element, {
+          rotation: direction,
+          duration: duration,
+          ease: "power1.inOut",
+          repeat: -1,
+          yoyo: index % 2 === 1,
+          transformOrigin: `0px ${radius}px`,
+        });
+
+        // Add individual element pulsing
+        gsap.to(element, {
+          scale: 1.3 + Math.random() * 0.4,
+          duration: 2 + index * 0.5,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+
+        // Add subtle floating movement
+        gsap.to(element, {
+          y: (Math.random() - 0.5) * 20,
+          x: (Math.random() - 0.5) * 15,
+          duration: 4 + index * 0.8,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      }
+    });
+
+    // Advanced title animation with morphing and energy effects
+    if (titleElement) {
+      // Ensure title container is visible
+      gsap.set(titleElement, {
+        opacity: 1,
+        visibility: "visible",
+        display: "block",
+      });
+
+      // Split text into characters for advanced animation
+      const text = titleElement.textContent || "";
+      const words = text.split(" ");
+
+      // Create clean HTML structure without energy containers
+      titleElement.innerHTML = words
+        .map((word, wordIndex) => {
+          const letters = word.split("");
+          return `<span class="word-container" style="display: inline-block; margin-right: 0.3em;">
+            ${letters
+              .map(
+                (letter, letterIndex) =>
+                  `<span class="letter" style="
+                  display: inline-block; 
+                  transform: translateY(20px); 
+                  opacity: 0;
+                ">${letter}</span>`,
+              )
+              .join("")}
+          </span>`;
+        })
+        .join("");
+
+      const letters = titleElement.querySelectorAll(".letter");
+      const wordContainers = titleElement.querySelectorAll(".word-container");
+
+      // Set proper transform origins
+      gsap.set(letters, {
+        transformOrigin: "center bottom",
+      });
+
+      // Create the main entrance timeline with shorter delay
+      const textTimeline = gsap.timeline({ delay: 0.3 });
+
+      // Remove energy fields for cleaner approach
+
+      // Simple letter entrance - clean and smooth
+      textTimeline.to(
+        letters,
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: {
+            amount: 0.4,
+            from: "start",
+          },
+        },
+        0.2,
+      );
+
+      // Remove energy field explosion effect
+
+      // Remove glow effects - just settle into clean state
+      textTimeline.to(
+        titleElement,
+        {
+          textShadow: "none",
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        "-=0.2",
+      );
+
+      // Gentle word floating - much more subtle
+      wordContainers.forEach((word, index) => {
+        gsap.to(word, {
+          y: Math.sin(index * 1.2) * 1.5,
+          duration: 6 + index * 0.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: 4 + index * 0.3,
+        });
+      });
+
+      // Remove individual letter micro-physics for cleaner effect
+    }
+
+    // Simple subtitle animation - no word splitting to avoid spacing issues
+    if (subtitleElement) {
+      // Animate subtitle in after title completes (no setTimeout delay)
+      // Fade in subtitle container
+      if (subtitleElement?.parentElement) {
+        gsap.fromTo(
+          subtitleElement.parentElement,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            delay: 1.5, // Start after title animation
+          },
+        );
+      }
+
+      // Simple fade in for the entire subtitle
+      gsap.fromTo(
+        subtitleElement,
+        { opacity: 0, y: 10 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          delay: 1.8, // Start slightly after container
+        },
+      );
+    }
+
+    // Simple CTA button animation
+    if (ctaButton) {
+      // Simple entrance
+      gsap.fromTo(
+        ctaButton,
+        {
+          scale: 0.8,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.out",
+          delay: 1.5,
+        },
+      );
+
+      // Gentle floating animation
+      gsap.to(ctaButton, {
+        y: -2,
+        duration: 3,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 3.5,
+      });
+
+      // Magnetic hover effect setup
+      const magneticArea = 100;
+
+      ctaButton.addEventListener("mousemove", (e) => {
+        if (!ctaButton) return;
+        const rect = ctaButton.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = e.clientX - centerX;
+        const deltaY = e.clientY - centerY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        if (distance < magneticArea) {
+          const strength = (magneticArea - distance) / magneticArea;
+          gsap.to(ctaButton, {
+            x: deltaX * strength * 0.3,
+            y: deltaY * strength * 0.3,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        }
+      });
+
+      ctaButton.addEventListener("mouseleave", () => {
+        if (!ctaButton) return;
+        gsap.to(ctaButton, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.3)",
+        });
+      });
+    }
+
+    // Scroll-triggered parallax
+    if (heroContainer) {
+      ScrollTrigger.create({
+        trigger: heroContainer,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+        onUpdate: (self: any) => {
+          const progress = self.progress;
+
+          // Parallax sun system movement
+          const sunSystem = heroContainer?.querySelector(".sun-system");
+          if (sunSystem) {
+            gsap.set(sunSystem, {
+              y: progress * -60,
+              scale: 1 - progress * 0.1,
+              rotationZ: progress * 90,
+            });
+          }
+
+          // Fade title on scroll
+          if (titleElement) {
+            gsap.set(titleElement, {
+              opacity: 1 - progress * 0.7,
+              y: progress * -100,
+            });
+          }
+
+          // Subtle subtitle movement
+          if (subtitleElement) {
+            gsap.set(subtitleElement, {
+              opacity: 1 - progress * 0.5,
+              y: progress * -50,
+            });
+          }
+        },
+      });
+    }
+
+    // Mark as initialized
+    isInitialized = true;
+  }
+
+  // Set up event listeners when heroContainer is available
+  $effect(() => {
+    if (heroContainer) {
+      heroContainer.addEventListener("mousemove", handleMouseMove);
+      heroContainer.addEventListener("mouseenter", handleMouseEnter);
+      heroContainer.addEventListener("mouseleave", handleMouseLeave);
+
+      // Cleanup function
+      return () => {
+        heroContainer.removeEventListener("mousemove", handleMouseMove);
+        heroContainer.removeEventListener("mouseenter", handleMouseEnter);
+        heroContainer.removeEventListener("mouseleave", handleMouseLeave);
+      };
+    }
+  });
+
+  // Reactive statement to update sun position smoothly
+  $effect(() => {
+    if (sunElement && gsap) {
+      gsap.to(sunElement, {
+        x: sunX,
+        y: sunY,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+
+      // Add subtle scale effect when mouse is over hero
+      gsap.to(sunElement, {
+        scale: isMouseOverHero ? 1.1 : 1,
+        duration: 0.2,
+        ease: "power2.out",
+      });
+    }
+  });
 </script>
 
 <div
-  class="mt-2 relative min-h-screen max-w-screen flex items-center justify-center overflow-hidden bg-black rounded-full"
+  bind:this={heroContainer}
+  class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white"
+  data-speed="0.8"
 >
-  <!-- Enhanced solar background -->
-  <div class="absolute inset-0 overflow-hidden rounded-full">
-    <!-- Dynamic gradient background with animation -->
+  <!-- Subtle background pattern -->
+  <div
+    bind:this={backgroundDots}
+    class="absolute inset-0 opacity-5"
+    style="background-image: radial-gradient(circle at 2px 2px, #f97316 1px, transparent 0); background-size: 60px 60px;"
+    data-speed="0.5"
+    data-lag="0.1"
+  ></div>
+
+  <!-- Sun system design - positioned above content -->
+  <div class="relative flex items-center justify-center mb-8">
+    <!-- Orbiting elements -->
+    <div class="absolute inset-0 flex items-center justify-center"></div>
+
+    <!-- Sophisticated sun system -->
     <div
-      class="absolute inset-0 bg-gradient-to-b from-[#0a0500] via-black to-black opacity-30 rounded-full animate-gradient-shift"
-    ></div>
-
-    <!-- Floating particles -->
-    <div class="absolute inset-0 rounded-full">
-      {#each Array(20) as _, i}
-        <div
-          class="absolute w-1 h-1 bg-orange-400/40 rounded-full animate-float"
-          style="
-            left: {20 + i * 7}%;
-            top: {15 + i * 6}%;
-            animation-delay: {i * 0.3}s;
-            animation-duration: {4 + (i % 3)}s;
+      class="relative sun-system"
+      style="width: 300px; height: 300px;"
+      data-speed="1.2"
+      data-lag="0.2"
+    >
+      <!-- Energy rings -->
+      <div class="absolute inset-0 energy-rings">
+        {#each Array(3) as _, i}
+          <div
+            class="absolute energy-ring"
+            style="
+              width: {80 + i * 50}px;
+              height: {80 + i * 50}px;
+              border: 1px solid rgba(249, 115, 22, 0.{3 - i}0);
+              border-radius: 50%;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
           "
-        ></div>
-      {/each}
-    </div>
-
-    <!-- Solar rays -->
-    <div class="absolute inset-0 rounded-full animate-rays">
-      {#each Array(8) as _, i}
-        <div
-          class="absolute top-1/2 left-1/2 origin-bottom w-0.5 bg-gradient-to-t from-orange-500/20 to-transparent"
-          style="
-            height: {300 + (i % 2) * 100}px;
-            transform: translate(-50%, -100%) rotate({i * 45}deg);
-            animation-delay: {i * 0.2}s;
-          "
-        ></div>
-      {/each}
-    </div>
-
-    <!-- Enhanced sun with multiple orbital layers -->
-    <div class="absolute inset-0 rounded-full">
-      <!-- Main sun orbit -->
-      <div class="absolute top-0 left-0 w-full h-full animate-orbital">
-        <div
-          class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[min(900px,90vw)] aspect-square rounded-full bg-black/80"
-        >
-          <!-- Core glow -->
-          <div
-            class="absolute inset-0 rounded-full bg-gradient-radial from-orange-500/40 via-orange-500/15 to-transparent blur-3xl animate-pulse-glow"
           ></div>
-          <!-- Solar flares -->
-          <div
-            class="absolute inset-0 rounded-full bg-gradient-radial from-orange-400/20 via-transparent to-transparent blur-2xl animate-flare"
-          ></div>
-          <!-- Orbital rings -->
-          <div
-            class="absolute inset-[-2px] rounded-full border-t-2 border-orange-500/20 animate-ring-rotate"
-          ></div>
-          <div
-            class="absolute inset-[-1px] rounded-full border-t border-orange-500/10 animate-ring-rotate-reverse"
-          ></div>
-          <!-- Inner orbital ring -->
-          <div
-            class="absolute inset-[20px] rounded-full border border-orange-400/10 animate-ring-rotate-slow"
-          ></div>
-        </div>
+        {/each}
       </div>
 
-      <!-- Secondary smaller orbital elements -->
+      <!-- Central sun with layered effect -->
       <div
-        class="absolute top-0 left-0 w-full h-full animate-orbital-secondary"
+        class="absolute sun-core"
+        style="top: 50%; left: 50%; transform: translate(-50%, -50%);"
       >
+        <!-- Outer glow -->
         <div
-          class="absolute top-1/4 left-1/3 w-3 h-3 rounded-full bg-orange-400/30 blur-sm"
+          class="absolute w-32 h-32 rounded-full opacity-10"
+          style="background: radial-gradient(circle, rgba(249, 115, 22, 0.3), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%);"
+        ></div>
+
+        <!-- Middle layer -->
+        <div
+          class="absolute w-24 h-24 rounded-full opacity-15"
+          style="background: radial-gradient(circle, rgba(249, 115, 22, 0.4), transparent 60%); top: 50%; left: 50%; transform: translate(-50%, -50%);"
+        ></div>
+
+        <!-- Main sun -->
+        <div
+          bind:this={sunElement}
+          class="relative w-20 h-20 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 opacity-25 sun-glow"
         ></div>
       </div>
-      <div class="absolute top-0 left-0 w-full h-full animate-orbital-tertiary">
-        <div
-          class="absolute top-2/3 right-1/4 w-2 h-2 rounded-full bg-orange-300/40 blur-sm"
-        ></div>
+
+      <!-- Floating light particles -->
+      <div class="absolute inset-0 light-particles">
+        {#each Array(12) as _, i}
+          <div
+            class="absolute light-particle"
+            style="
+              width: {2 + Math.random() * 3}px; 
+              height: {2 + Math.random() * 3}px; 
+              background: rgba(249, 115, 22, 0.{Math.floor(
+              3 + Math.random() * 4,
+            )});
+              border-radius: 50%;
+              top: {30 + Math.sin(i * 0.5) * 20}%;
+              left: {30 + Math.cos(i * 0.5) * 20}%;
+              filter: blur(0.5px);
+            "
+          ></div>
+        {/each}
       </div>
     </div>
   </div>
 
-  <!-- Content Layer -->
+  <!-- Content -->
   <div
-    class="relative z-10 max-w-7xl mx-auto px-4 py-20 text-center flex flex-col gap-16 lg:gap-20"
+    class="relative z-20 max-w-4xl mx-auto px-6 text-center"
+    data-speed="0.9"
   >
+    <!-- Main title - Always visible -->
+    <h1
+      bind:this={titleElement}
+      class="text-5xl md:text-7xl lg:text-8xl text-black mb-8 leading-tight tracking-tight font-bold"
+      style="opacity: 1; visibility: visible; display: block;"
+    >
+      Solaris Software
+    </h1>
+
     {#if isLoaded}
-      <!-- Main Hero Content -->
-      <div class="flex flex-col gap-4">
-        <div>
-          <h1
-            class="text-7xl lg:text-9xl font-black tracking-tight font-clash-display leading-none"
-            bind:this={titleElement}
-          >
-            <span
-              class="bg-gradient-to-b from-white via-orange-50 to-orange-200/90 bg-clip-text text-transparent font-clash-display block"
-            >
-              SOLARIS
-            </span>
-            <span
-              class="flex items-center justify-center text-4xl lg:text-5xl font-bold tracking-tight text-white mt-0 leading-tight"
-            >
-              <span class="pr-0.5">S</span>
-              <span
-                class="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 inline-block align-middle mx-[0.08em]"
-                bind:this={sun}
-              ></span>
-              <span class="pl-0.5">FTWARE</span>
-            </span>
-          </h1>
-        </div>
+      <!-- Subtitle with minimal orange accent -->
+      <div class="relative mb-12">
+        <h2
+          bind:this={subtitleElement}
+          class="text-lg md:text-xl text-gray-700 font-light tracking-wide max-w-2xl mx-auto"
+          style="opacity: 0; transform: translateY(20px);"
+        >
+          Where your business meets its sunrise.
+        </h2>
+      </div>
 
-        <div class="space-y-8">
-          <!-- Clear value proposition with better spacing -->
-          <div class="space-y-6 max-w-4xl mx-auto">
-            <h2
-              class="text-2xl lg:text-3xl text-orange-100 leading-relaxed min-h-[4rem] lg:min-h-[3.5rem] font-general-sans"
-            >
-              We build software that fits your business<br />
-              <span class="typing-text">{typedText}</span><span
-                class="typing-cursor"
-                class:visible={showCursor}>|</span
-              >
-            </h2>
-
-            <p class="text-lg text-orange-100 leading-relaxed">
-              What is your
-              <span class="font-bold text-orange-300">competitive edge?</span>
-              <br />We'll help you find it.
-            </p>
-          </div>
-
-          <!-- Stats Row - Desktop Only -->
-          <div class="hidden lg:flex justify-center items-center gap-12 py-6">
-            {#each subheadings as subheading, i}
-              <div
-                in:fly={{ delay: 1000 + i * 200, y: 20, duration: 600 }}
-                class="text-center"
-              >
-                <div
-                  class="text-xl font-bold text-orange-300/90 font-clash-display"
-                >
-                  {subheading}
-                </div>
-              </div>
-            {/each}
-          </div>
-
+      <!-- Enhanced CTA -->
+      <div class="relative">
+        <button
+          bind:this={ctaButton}
+          class="group relative px-8 py-4 bg-black text-white font-medium rounded-full hover:bg-gray-900 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg overflow-hidden"
+        >
+          <span class="relative z-10 px-4 py-2">Start Your Project</span>
+          <!-- Hover effect background -->
           <div
-            class="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <a
-              href="/contact/"
-              class="group inline-flex items-center gap-3 px-8 py-4 text-white text-lg font-semibold rounded-full bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-orange-500/20 active:scale-95"
-            >
-              <span>Begin Your Journey</span>
-              <svg
-                class="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M4 12H20M20 12L14 6M20 12L14 18"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </a>
-            <a
-              href="/services/"
-              class="inline-flex items-center gap-3 px-8 py-4 text-orange-100 text-lg font-semibold rounded-full border-2 border-orange-500/30 hover:border-orange-400 hover:bg-orange-500/10 transition-all duration-300"
-            >
-              <span>Explore Services</span>
-            </a>
-          </div>
-        </div>
+            class="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </button>
       </div>
     {/if}
   </div>
 </div>
 
 <style>
+  /* Smooth font rendering */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Word animation classes */
+  :global(.word) {
+    display: inline-block;
+    margin-right: 0.2em;
+  }
+
+  /* Clean text animation styles */
+  :global(.letter) {
+    will-change: transform, opacity;
+  }
+
+  :global(.word-container) {
+    display: inline-block;
+  }
+
+  /* Sophisticated sun system */
+  .sun-system {
+    position: relative;
+    perspective: 1000px;
+  }
+
+  /* Energy rings styling */
+  .energy-ring {
+    will-change: transform, opacity, scale;
+    filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.2));
+  }
+
+  /* Light particles styling */
+  .light-particle {
+    will-change: transform, opacity, scale;
+    filter: blur(0.5px) drop-shadow(0 0 4px rgba(249, 115, 22, 0.5));
+  }
+
+  /* Sun core enhancements */
+  .sun-core {
+    filter: drop-shadow(0 0 30px rgba(249, 115, 22, 0.4));
+  }
+
+  /* Subtle hover effects */
+  button:hover {
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Sun glow effect */
+  .sun-glow {
+    box-shadow:
+      0 0 60px rgba(249, 115, 22, 0.3),
+      0 0 120px rgba(249, 115, 22, 0.1);
+  }
+
+  /* Hide overflow for clean look */
   :global(body) {
     overflow-x: hidden;
-  }
-
-  .font-clash-display {
-    font-family: "Clash Display", sans-serif;
-    font-weight: 700;
-  }
-
-  .font-general-sans {
-    font-family: "General Sans", sans-serif;
-    font-weight: 400;
-  }
-
-  /* Enhanced orbital animations */
-  @keyframes orbital {
-    0% {
-      transform: rotate(0deg) scale(0.95);
-      opacity: 0.7;
-    }
-    25% {
-      transform: rotate(90deg) scale(1.02);
-      opacity: 1;
-    }
-    50% {
-      transform: rotate(180deg) scale(0.95);
-      opacity: 0.7;
-    }
-    75% {
-      transform: rotate(270deg) scale(1.02);
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(360deg) scale(0.95);
-      opacity: 0.7;
-    }
-  }
-
-  @keyframes orbital-secondary {
-    0% {
-      transform: rotate(0deg) scale(0.8);
-      opacity: 0.5;
-    }
-    50% {
-      transform: rotate(180deg) scale(1.1);
-      opacity: 0.8;
-    }
-    100% {
-      transform: rotate(360deg) scale(0.8);
-      opacity: 0.5;
-    }
-  }
-
-  @keyframes orbital-tertiary {
-    0% {
-      transform: rotate(360deg) scale(0.9);
-      opacity: 0.6;
-    }
-    50% {
-      transform: rotate(180deg) scale(1.05);
-      opacity: 0.9;
-    }
-    100% {
-      transform: rotate(0deg) scale(0.9);
-      opacity: 0.6;
-    }
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px) scale(0.8);
-      opacity: 0.3;
-    }
-    25% {
-      transform: translateY(-20px) scale(1);
-      opacity: 0.7;
-    }
-    50% {
-      transform: translateY(-10px) scale(1.1);
-      opacity: 0.9;
-    }
-    75% {
-      transform: translateY(-30px) scale(0.9);
-      opacity: 0.6;
-    }
-  }
-
-  @keyframes pulse-glow {
-    0%,
-    100% {
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.6;
-      transform: scale(1.05);
-    }
-  }
-
-  @keyframes flare {
-    0%,
-    100% {
-      opacity: 0.2;
-      transform: scale(1) rotate(0deg);
-    }
-    33% {
-      opacity: 0.4;
-      transform: scale(1.1) rotate(120deg);
-    }
-    66% {
-      opacity: 0.3;
-      transform: scale(0.9) rotate(240deg);
-    }
-  }
-
-  @keyframes ring-rotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes ring-rotate-reverse {
-    0% {
-      transform: rotate(360deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-
-  @keyframes ring-rotate-slow {
-    0% {
-      transform: rotate(0deg);
-      opacity: 0.1;
-    }
-    50% {
-      opacity: 0.3;
-    }
-    100% {
-      transform: rotate(360deg);
-      opacity: 0.1;
-    }
-  }
-
-  @keyframes rays {
-    0%,
-    100% {
-      opacity: 0.2;
-      transform: rotate(0deg);
-    }
-    50% {
-      opacity: 0.4;
-      transform: rotate(180deg);
-    }
-  }
-
-  @keyframes gradient-shift {
-    0%,
-    100% {
-      background: linear-gradient(to bottom, #0a0500, black, black);
-    }
-    50% {
-      background: linear-gradient(to bottom, #0a0500, #1a0f00, black);
-    }
-  }
-
-  /* Animation classes */
-  .animate-orbital {
-    animation: orbital 25s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    will-change: transform, opacity;
-  }
-
-  .animate-orbital-secondary {
-    animation: orbital-secondary 35s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    will-change: transform, opacity;
-  }
-
-  .animate-orbital-tertiary {
-    animation: orbital-tertiary 40s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    will-change: transform, opacity;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-    will-change: transform, opacity;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 4s ease-in-out infinite;
-    will-change: opacity, transform;
-  }
-
-  .animate-flare {
-    animation: flare 8s ease-in-out infinite;
-    will-change: opacity, transform;
-  }
-
-  .animate-ring-rotate {
-    animation: ring-rotate 15s linear infinite;
-    will-change: transform;
-  }
-
-  .animate-ring-rotate-reverse {
-    animation: ring-rotate-reverse 20s linear infinite;
-    will-change: transform;
-  }
-
-  .animate-ring-rotate-slow {
-    animation: ring-rotate-slow 30s linear infinite;
-    will-change: transform, opacity;
-  }
-
-  .animate-rays {
-    animation: rays 12s ease-in-out infinite;
-    will-change: opacity, transform;
-  }
-
-  .animate-gradient-shift {
-    animation: gradient-shift 10s ease-in-out infinite;
-    will-change: background;
-  }
-
-  /* Typing animation styles */
-  .typing-cursor {
-    display: inline-block;
-    font-weight: 400;
-    color: rgb(254 215 170); /* orange-200 */
-    opacity: 0;
-    transition: opacity 0.1s ease;
-    margin-left: 2px;
-  }
-
-  .typing-cursor.visible {
-    opacity: 1;
-  }
-
-  .typing-text {
-    display: inline;
   }
 </style>

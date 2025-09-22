@@ -14,105 +14,137 @@ const testimonialsData = testimonials.map(testimonial => testimonial.data);
   keywords="client testimonials, Perth web development reviews, Solaris Software testimonials, custom website reviews, Western Australia web developers"
   category="Testimonials"
 >
-    <main class="pt-24 min-h-screen bg-black">
+    <main class="min-h-screen bg-white">
         <!-- Hero Section -->
-        <section class="relative w-full py-24 scroll-mt-16 overflow-hidden">
-            <div class="container mx-auto px-6 md:px-8 max-w-7xl relative z-10">
+        <section class="relative w-full py-32 bg-white overflow-hidden">
+            <!-- Minimal Background Elements -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute top-1/4 left-1/4 w-px h-32 bg-black opacity-10"></div>
+                <div class="absolute top-1/3 right-1/3 w-px h-24 bg-black opacity-5"></div>
+                <div class="absolute bottom-1/4 left-1/3 w-px h-20 bg-black opacity-8"></div>
+            </div>
+
+            <div class="container mx-auto px-6 md:px-8 max-w-6xl relative z-10">
                 <!-- Section Title -->
                 <div class="text-center mb-20">
-                    <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center relative">
-                        <span class="animate-slideFromLeft inline-block">Client</span>
-                        <div class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-2 md:ml-4">
-                            Testimonials
-                        </div>
+                    <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center mb-8 leading-tight tracking-tight">
+                        <span class="block text-black">Client</span>
+                        <span class="block text-black relative">
+                            Stories
+                            <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-orange-500"></span>
+                        </span>
                     </h1>
                     
-                    <div class="flex flex-col items-center gap-2 relative py-8 opacity-0 animate-slideUp">
-                        <p class="text-[clamp(1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed px-4 md:px-0">
-                            Don't just take our word for it.
-                        </p>
-                        <p class="text-[clamp(1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed relative px-4 md:px-0">
-                            Here's what our clients have to say about working with us.
-                            <span class="hidden md:block absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"></span>
-                            <span class="hidden md:block absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"></span>
+                    <div class="max-w-2xl mx-auto">
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Real feedback from businesses who chose us for their digital transformation.
                         </p>
                     </div>
                 </div>
-                    
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="relative py-16 bg-black">
+            <div class="container mx-auto px-6 md:px-8 max-w-6xl relative z-10">
                 <!-- Testimonials Grid -->
-                <div class="grid grid-cols-1 gap-8 mx-auto max-w-[800px]">
+                <div class="space-y-12">
                     {testimonialsData.map((testimonial, index: number) => (
                         <div 
-                            class="group relative opacity-0 w-full max-w-[800px] animate-cardEntrance" 
-                            style={`animation-delay: ${index * 150}ms`}
+                            class="group relative"
+                            style={`animation-delay: ${index * 300}ms`}
                         >
-                            <!-- Background layers -->
-                            <div class="absolute inset-[1px] rounded-2xl bg-black/90 backdrop-blur-sm"></div>
-                            <div class="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
-                            
-                            <!-- Hover glow effect -->
-                            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#ff3d00]/30 via-[#ff8a00]/20 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+                            <!-- Testimonial Card -->
+                            <div class="relative bg-white border-l-4 border-orange-500 data-speed-2 data-lag-1">
+                                <!-- Quote Mark -->
+                                <div class="absolute -top-4 -left-4 w-8 h-8 bg-orange-500 flex items-center justify-center z-10">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
 
-                            <!-- Main Card Content -->
-                            <div class="relative p-4 md:p-8 transition-all duration-500 group-hover:-translate-y-2 h-full flex flex-col">
-                                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
-                                    <!-- Project Image -->
-                                    <div class="relative w-24 h-24 md:w-28 md:h-28 shrink-0 mb-4 md:mb-0">
-                                        <!-- Orbital rings -->
-                                        <div class="absolute inset-0 w-full h-full rounded-xl border border-[#ff3d00]/20 animate-orbit" style="animation-duration: 15s;"></div>
-                                        <div class="absolute inset-0 w-full h-full rounded-xl border border-[#ff8a00]/20 animate-orbit" style="animation-duration: 10s; animation-direction: reverse;"></div>
-                                        
-                                        <!-- Image container -->
-                                        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] p-[2px]">
-                                            <div class="w-full h-full rounded-xl bg-black/90 overflow-hidden">
+                                <!-- Content Layout -->
+                                <div class="p-8 md:p-12 pt-12">
+                                    <!-- Quote Section -->
+                                    <div class="mb-8">
+                                        <blockquote class="text-gray-800 leading-relaxed text-lg md:text-xl">
+                                            {testimonial.quote.split('\n\n').map((paragraph, pIndex) => (
+                                                <p class={pIndex > 0 ? "mt-6" : ""}>{paragraph}</p>
+                                            ))}
+                                        </blockquote>
+                                    </div>
+
+                                    <!-- Author and Link Section -->
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 pt-6 border-t border-gray-200">
+                                        <!-- Author Info -->
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
                                                 <Image
                                                     src={testimonial.image}
                                                     alt={`${testimonial.company} project`}
-                                                    width={224}
-                                                    height={224}
-                                                    class="w-full h-full object-cover rounded-xl relative z-10 transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                                    width={48}
+                                                    height={48}
+                                                    class="w-full h-full object-cover"
                                                 />
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div class="flex-1 text-center md:text-left">
-                                        <h3 class="text-2xl font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
-                                            {testimonial.company}
-                                        </h3>
-                                        <p class="text-[#ff3d00] font-medium mt-2 mb-4">{testimonial.author}</p>
-                                        <div class="text-white/70 leading-relaxed">
-                                            {testimonial.quote.split('\n\n').map((paragraph) => (
-                                                <p class="mb-4 text-sm md:text-base">{paragraph}</p>
-                                            ))}
+                                            <div>
+                                                <h4 class="font-semibold text-black text-lg">{testimonial.author}</h4>
+                                                <p class="text-gray-600 font-medium">{testimonial.company}</p>
+                                            </div>
                                         </div>
                                         
                                         <!-- Project Link -->
-                                        <a 
-                                            href={testimonial.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="inline-flex items-center justify-center md:justify-start gap-2 mt-4 w-full md:w-auto group text-sm font-medium"
-                                        >
-                                            <span class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
-                                                View Project
-                                            </span>
-                                            <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <defs>
-                                                    <linearGradient id="gradient" x1="4" y1="12" x2="20" y2="12" gradientUnits="userSpaceOnUse">
-                                                        <stop stop-color="#ff3d00"/>
-                                                        <stop offset="1" stop-color="#ff8a00"/>
-                                                    </linearGradient>
-                                                </defs>
-                                            </svg>
-                                        </a>
+                                        <div class="flex-shrink-0">
+                                            <a 
+                                                href={testimonial.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="group/link inline-flex items-center gap-2 px-4 py-2 bg-black text-white text-sm font-medium hover:bg-orange-500 transition-all duration-300"
+                                                title="View Project"
+                                            >
+                                                <span>View Project</span>
+                                                <svg class="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                                </svg>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <!-- Hover Effect -->
+                                <div class="absolute inset-0 bg-orange-500 opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none"></div>
                             </div>
                         </div>
                     ))}
+                </div>
+
+                <!-- Bottom CTA Section -->
+                <div class="text-center mt-24 pt-16 border-t border-gray-800">
+                    <div class="max-w-2xl mx-auto">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                            Ready to be our next success story?
+                        </h3>
+                        <p class="text-gray-400 mb-8 text-lg">
+                            Let's create something exceptional together.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a 
+                                href="/contact/" 
+                                class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-all duration-300"
+                            >
+                                Start Your Project
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
+                            <a 
+                                href="/projects/" 
+                                class="inline-flex items-center justify-center px-8 py-4 border border-gray-600 text-gray-300 font-semibold hover:border-white hover:text-white transition-all duration-300"
+                            >
+                                View Our Work
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -120,50 +152,96 @@ const testimonialsData = testimonials.map(testimonial => testimonial.data);
 </Layout>
 
 <style>
-    @keyframes slideFromLeft {
-        from { transform: translateX(-50px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+    @keyframes slideInUp {
+        from { 
+            transform: translateY(40px); 
+            opacity: 0; 
+        }
+        to { 
+            transform: translateY(0); 
+            opacity: 1; 
+        }
     }
 
-    @keyframes slideFromRight {
-        from { transform: translateX(50px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+    @keyframes fadeIn {
+        from { 
+            opacity: 0; 
+        }
+        to { 
+            opacity: 1; 
+        }
     }
 
-    @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes cardEntrance {
-        from { transform: translateY(40px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes orbit {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    .animate-slideFromLeft {
+    /* Staggered animation for testimonial cards */
+    .group {
+        animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         opacity: 0;
-        animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .animate-slideFromRight {
-        opacity: 0;
-        animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .group:nth-child(1) { animation-delay: 0ms; }
+    .group:nth-child(2) { animation-delay: 200ms; }
+    .group:nth-child(3) { animation-delay: 400ms; }
+
+    /* Smooth hover transitions */
+    .group {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .animate-slideUp {
-        animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Flexible layout for varying content lengths */
+    .group > div {
+        min-height: fit-content;
     }
 
-    .animate-cardEntrance {
-        animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Ensure consistent spacing regardless of content length */
+    blockquote {
+        min-height: 4rem;
     }
 
-    .animate-orbit {
-        animation: orbit 8s linear infinite;
+    /* Better text flow for long testimonials */
+    blockquote p {
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* Custom scrollbar for webkit browsers */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f8f9fa;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #ff3d00;
+        border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #e63500;
+    }
+
+    /* Typography improvements */
+    h1 {
+        letter-spacing: -0.02em;
+    }
+
+    blockquote {
+        font-style: normal;
+    }
+
+    /* Subtle animations for background lines */
+    .absolute.top-1\/4.left-1\/4 {
+        animation: fadeIn 2s ease-in-out infinite alternate;
+    }
+
+    .absolute.top-1\/3.right-1\/3 {
+        animation: fadeIn 2.5s ease-in-out infinite alternate;
+        animation-delay: 0.5s;
+    }
+
+    .absolute.bottom-1\/4.left-1\/3 {
+        animation: fadeIn 3s ease-in-out infinite alternate;
+        animation-delay: 1s;
     }
 </style> 

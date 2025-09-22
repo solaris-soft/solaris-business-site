@@ -2,25 +2,26 @@
 import Navbar from "@/components/navigation/Navbar.astro";
 import Footer from "@/components/footer/footer.astro";
 import SEO from "@/components/SEO.astro";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
-  type?: 'website' | 'article' | 'service' | 'profile';
+  type?: "website" | "article" | "service" | "profile";
   publishDate?: Date;
   keywords?: string;
   category?: string;
 }
 
-const { 
+const {
   title = "SOLARIS SOFTWARE",
   description = "a botique software agency based in Perth, Western Australia",
   image,
   type,
   publishDate,
   keywords,
-  category
+  category,
 } = Astro.props;
 ---
 
@@ -29,17 +30,29 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Resource hints for faster loading -->
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-    <link rel="dns-prefetch" href="https://api.fontshare.com">
-    <link rel="dns-prefetch" href="https://fonts.bunny.net">
-    
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link rel="dns-prefetch" href="https://api.fontshare.com" />
+    <link rel="dns-prefetch" href="https://fonts.bunny.net" />
+
     <!-- Critical fonts preloaded for immediate render -->
-    <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin>
-    
+    <link
+      rel="preload"
+      href="/fonts/satoshi-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/clash-display-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <SEO
       title={title}
       description={description}
@@ -51,79 +64,129 @@ const {
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
-    
+
     <!-- Non-critical fonts loaded asynchronously for better performance -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,700&f[]=clash-display@400,700&f[]=general-sans@400,600&f[]=jetbrains-mono@400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://fonts.bunny.net/css?family=source-sans-pro:400,600" rel="stylesheet" media="print" onload="this.media='all'">
-    
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,700&f[]=clash-display@400,700&f[]=general-sans@400,600&f[]=jetbrains-mono@400&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      href="https://fonts.bunny.net/css?family=source-sans-pro:400,600"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+
     <!-- Fallback for browsers that don't support onload -->
     <noscript>
-      <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,700&f[]=clash-display@400,700&f[]=general-sans@400,600&f[]=jetbrains-mono@400&display=swap" rel="stylesheet">
-      <link href="https://fonts.bunny.net/css?family=source-sans-pro:400,600" rel="stylesheet">
+      <link
+        href="https://api.fontshare.com/v2/css?f[]=satoshi@300,700&f[]=clash-display@400,700&f[]=general-sans@400,600&f[]=jetbrains-mono@400&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://fonts.bunny.net/css?family=source-sans-pro:400,600"
+        rel="stylesheet"
+      />
     </noscript>
-    
-    <!-- Load non-critical styles asynchronously -->
-    <link rel="preload" href="/src/styles/non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/src/styles/non-critical.css"></noscript>
-    
+
     <!-- Prefetch next likely pages -->
-    <link rel="prefetch" href="/services/">
-    <link rel="prefetch" href="/contact/">
-    <link rel="prefetch" href="/projects/">
-    <link rel="prefetch" href="/team/">
+    <link rel="prefetch" href="/services/" />
+    <link rel="prefetch" href="/contact/" />
+    <link rel="prefetch" href="/projects/" />
+    <link rel="prefetch" href="/team/" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    
+
     <!-- Structured data breadcrumbs helper -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://solaris.software/"
-        }
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://solaris.software/"
+          }
+        ]
+      }
     </script>
     <!-- Additional SEO meta tags -->
     <meta name="theme-color" content="#ff3d00" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <meta name="apple-mobile-web-app-title" content="SOLARIS SOFTWARE" />
     <meta name="application-name" content="SOLARIS SOFTWARE" />
     <meta name="msapplication-TileColor" content="#ff3d00" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    
+
     <!-- Performance and Security -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
   </head>
   <body>
-    <Navbar />
-    <main>
-      <slot />
-    </main>
-    <Footer />
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <Navbar />
+        <main>
+          <slot />
+        </main>
+        <Footer />
+      </div>
+    </div>
+
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      import { ScrollSmoother } from "gsap/ScrollSmoother";
+
+      // Register GSAP plugins
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+      // Initialize ScrollSmoother when DOM is ready
+      document.addEventListener("DOMContentLoaded", () => {
+        // Create ScrollSmoother instance
+        const smoother = ScrollSmoother.create({
+          wrapper: "#smooth-wrapper",
+          content: "#smooth-content",
+          smooth: 1.3, // Smoothness factor (0-3)
+          effects: true, // Enable data-speed and data-lag effects
+          smoothTouch: 0.1, // Smooth scrolling on touch devices
+          normalizeScroll: true, // Prevent address bar from affecting scrolling on mobile
+          ignoreMobileResize: true, // Don't refresh ScrollTriggers when mobile orientation changes
+        });
+
+        // Optional: Add some performance optimizations
+        gsap.config({
+          force3D: true,
+          nullTargetWarn: false,
+        });
+
+        console.log("ScrollSmoother initialized successfully");
+      });
+    </script>
   </body>
 </html>
 
 <style is:global>
   /* Self-hosted critical fonts for immediate render */
   @font-face {
-    font-family: 'Satoshi';
-    src: url('/fonts/satoshi-400.woff2') format('woff2');
+    font-family: "Satoshi";
+    src: url("/fonts/satoshi-400.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Clash Display';
-    src: url('/fonts/clash-display-600.woff2') format('woff2');
+    font-family: "Clash Display";
+    src: url("/fonts/clash-display-600.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -144,80 +207,17 @@ const {
     }
   }
 
-  
-  .font-display {
-    font-family: "Clash Display", "Source Sans Pro", sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Satoshi", sans-serif;
     font-weight: 600;
   }
-  
-  .font-mono {
-    font-family: "JetBrains Mono", "Source Sans Pro", monospace;
-  }
-  
-  .font-ui {
-    font-family: "General Sans", "Source Sans Pro", sans-serif;
-  }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    font-family: "Satoshi", "Source Sans Pro", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    overflow-x: hidden;
-    line-height: 1.6;
-    font-family: "Satoshi", "Source Sans Pro", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height for mobile */
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Main content should grow to fill available space, pushing footer down */
-  main {
-    flex: 1;
-  }
-  
-  /* Critical typography only - keep minimal for initial render */
-  h1, h2, h3, h4, h5, h6 {
-    line-height: 1.2;
-    font-family: "Clash Display", "Source Sans Pro", sans-serif;
-    font-weight: 600;
-  }
-  
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-  }
-  
   p {
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
-    font-weight: 400;
-  }
-
-  ::selection {
-    background: var(--primary);
-    color: var(--text);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+    font-family: "General Sans", sans-serif;
   }
 </style>
