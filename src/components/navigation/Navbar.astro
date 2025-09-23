@@ -1,5 +1,13 @@
 ---
 const currentPath = Astro.url.pathname;
+
+// Helper function to check if a route is active
+const isActive = (href: string) => {
+  // Remove trailing slash from both for comparison
+  const normalizedCurrent = currentPath.replace(/\/$/, "") || "/";
+  const normalizedHref = href.replace(/\/$/, "") || "/";
+  return normalizedCurrent === normalizedHref;
+};
 ---
 
 <nav
@@ -10,7 +18,14 @@ const currentPath = Astro.url.pathname;
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a href="/" class="text-black font-display text-xl tracking-tight">
+        <a
+          href="/"
+          class={`font-display text-xl tracking-tight transition-colors duration-200 ${
+            isActive("/")
+              ? "text-orange-500"
+              : "text-black hover:text-orange-400"
+          }`}
+        >
           SOLARIS <span class="text-orange-500">SOFTWARE</span>
         </a>
       </div>
@@ -20,53 +35,78 @@ const currentPath = Astro.url.pathname;
         <div class="ml-10 flex items-baseline space-x-8">
           <a
             href="/services/"
-            class={`font-ui text-sm font-medium transition-colors duration-200 ${
-              currentPath === "/services"
+            class={`font-ui text-sm font-medium transition-all duration-200 relative ${
+              isActive("/services/")
                 ? "text-orange-500"
                 : "text-black hover:text-orange-400"
             }`}
           >
             Services
+            {
+              isActive("/services/") && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full" />
+              )
+            }
           </a>
           <a
             href="/projects/"
-            class={`font-ui text-sm font-medium transition-colors duration-200 ${
-              currentPath === "/projects"
+            class={`font-ui text-sm font-medium transition-all duration-200 relative ${
+              isActive("/projects/")
                 ? "text-orange-500"
                 : "text-black hover:text-orange-400"
             }`}
           >
             Projects
+            {
+              isActive("/projects/") && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full" />
+              )
+            }
           </a>
           <a
             href="/testimonials/"
-            class={`font-ui text-sm font-medium transition-colors duration-200 ${
-              currentPath === "/testimonials"
+            class={`font-ui text-sm font-medium transition-all duration-200 relative ${
+              isActive("/testimonials/")
                 ? "text-orange-500"
                 : "text-black hover:text-orange-400"
             }`}
           >
             Testimonials
+            {
+              isActive("/testimonials/") && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full" />
+              )
+            }
           </a>
           <a
             href="/team/"
-            class={`font-ui text-sm font-medium transition-colors duration-200 ${
-              currentPath === "/team"
+            class={`font-ui text-sm font-medium transition-all duration-200 relative ${
+              isActive("/team/")
                 ? "text-orange-500"
                 : "text-black hover:text-orange-400"
             }`}
           >
             Team
+            {
+              isActive("/team/") && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full" />
+              )
+            }
           </a>
           <a
             href="/contact/"
-            class={`font-ui text-sm font-medium transition-colors duration-200 ${
-              currentPath === "/contact"
+            class={`font-ui text-sm font-medium transition-all duration-200 relative ${
+              isActive("/contact/")
                 ? "text-orange-500"
                 : "text-black hover:text-orange-400"
             }`}
           >
             Contact
+            {
+              isActive("/contact/") && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full" />
+              )
+            }
           </a>
         </div>
       </div>
@@ -111,7 +151,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/services/"
         class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          currentPath === "/services"
+          isActive("/services/")
             ? "text-orange-500 bg-orange-500 bg-opacity-10"
             : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
         }`}
@@ -121,7 +161,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/projects/"
         class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          currentPath === "/projects"
+          isActive("/projects/")
             ? "text-orange-500 bg-orange-500 bg-opacity-10"
             : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
         }`}
@@ -131,7 +171,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/testimonials/"
         class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          currentPath === "/testimonials"
+          isActive("/testimonials/")
             ? "text-orange-500 bg-orange-500 bg-opacity-10"
             : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
         }`}
@@ -141,7 +181,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/team/"
         class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          currentPath === "/team"
+          isActive("/team/")
             ? "text-orange-500 bg-orange-500 bg-opacity-10"
             : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
         }`}
@@ -151,7 +191,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/contact/"
         class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          currentPath === "/contact"
+          isActive("/contact/")
             ? "text-orange-500 bg-orange-500 bg-opacity-10"
             : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
         }`}
