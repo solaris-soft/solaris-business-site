@@ -67,6 +67,9 @@
   $effect(() => {
     if (isInitialized) return; // Prevent multiple initializations
 
+    // Detect mobile device for performance optimizations
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
     // Respect user's motion preferences
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -76,10 +79,6 @@
     setTimeout(() => {
       isLoaded = true;
     }, 100);
-
-    // Event listeners will be added in reactive effect when heroContainer is available
-
-    // Title is now visible by default in HTML
 
     // Load GSAP for animations
     if (!prefersReducedMotion) {
@@ -93,9 +92,9 @@
           gsap = gsapModule.default;
           ScrollTrigger = scrollTriggerModule.ScrollTrigger;
 
-          // Setup animations
+          // Setup animations with mobile optimizations
           setTimeout(() => {
-            setupAnimations();
+            setupAnimations(isMobile);
           }, 300);
         } catch (error) {
           console.warn("GSAP failed to load:", error);
@@ -160,7 +159,7 @@
     }
   }
 
-  function setupAnimations() {
+  function setupAnimations(isMobile = false) {
     if (!gsap || !ScrollTrigger) return;
 
     gsap.registerPlugin(ScrollTrigger);
@@ -170,7 +169,7 @@
     // Initial entrance timeline
     const tl = gsap.timeline({ delay: 0.5 });
 
-    // Animate background dots with more movement
+    // Animate background dots with mobile optimization
     if (backgroundDots) {
       tl.fromTo(
         backgroundDots,
@@ -181,41 +180,44 @@
         {
           opacity: 1,
           scale: 1,
-          duration: 2,
+          duration: isMobile ? 1 : 2,
           ease: "power2.out",
         },
       );
 
-      // Add subtle floating movement to background
-      gsap.to(backgroundDots, {
-        x: 20,
-        y: 15,
-        duration: 8,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
+      // Reduce movement complexity on mobile
+      if (!isMobile) {
+        // Add subtle floating movement to background
+        gsap.to(backgroundDots, {
+          x: 20,
+          y: 15,
+          duration: 8,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
 
-      // Add gentle scale breathing
-      gsap.to(backgroundDots, {
-        scale: 1.05,
-        duration: 6,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
+        // Add gentle scale breathing
+        gsap.to(backgroundDots, {
+          scale: 1.05,
+          duration: 6,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      }
     }
 
-    // Animate sun with more dramatic effect
+    // Animate sun with mobile optimization
     if (sunElement) {
       tl.fromTo(
         sunElement,
         {
           scale: 0,
           opacity: 0,
-          rotation: -360,
-          x: -100,
-          y: 100,
+          rotation: isMobile ? 0 : -360,
+          x: isMobile ? 0 : -100,
+          y: isMobile ? 0 : 100,
         },
         {
           scale: 1,
@@ -223,98 +225,104 @@
           rotation: 0,
           x: 0,
           y: 0,
-          duration: 2,
-          ease: "elastic.out(1, 0.5)",
+          duration: isMobile ? 1 : 2,
+          ease: isMobile ? "power2.out" : "elastic.out(1, 0.5)",
         },
         "-=1.5",
       );
 
-      // Enhanced continuous rotation with variable speed
-      gsap.to(sunElement, {
-        rotation: 360,
-        duration: 15,
-        ease: "power1.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-
-      // Enhanced breathing scale - from 1 to 1.2, never going to zero
-      gsap.fromTo(
-        sunElement,
-        { scale: 1 },
-        {
-          scale: 1.2,
-          duration: 3,
-          ease: "power2.inOut",
-          yoyo: true,
+      // Reduce animations on mobile for performance
+      if (!isMobile) {
+        // Enhanced continuous rotation with variable speed
+        gsap.to(sunElement, {
+          rotation: 360,
+          duration: 15,
+          ease: "power1.inOut",
           repeat: -1,
-        },
-      );
+          yoyo: true,
+        });
 
-      // Add floating movement
-      gsap.to(sunElement, {
-        y: -15,
-        x: 10,
-        duration: 6,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-
-      // Add subtle rotation wobble
-      gsap.to(sunElement, {
-        rotationZ: 5,
-        duration: 4,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-    }
-
-    // Animate energy rings with sophisticated effects
-    const energyRings = heroContainer?.querySelectorAll(".energy-ring");
-    if (energyRings) {
-      Array.from(energyRings).forEach((ring, index) => {
-        // Entrance animation
-        tl.fromTo(
-          ring,
-          {
-            scale: 0,
-            opacity: 0,
-            rotation: -180,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            rotation: 0,
-            duration: 1.5 + index * 0.3,
-            ease: "elastic.out(1, 0.5)",
-            delay: index * 0.2,
-          },
-          "-=1.2",
-        );
-
-        // Continuous pulsing expansion
-        gsap.to(ring, {
-          scale: 1.2 + index * 0.1,
-          duration: 4 + index * 0.5,
+        // Add floating movement
+        gsap.to(sunElement, {
+          y: -15,
+          x: 10,
+          duration: 6,
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
         });
 
-        // Slow rotation
-        gsap.to(ring, {
-          rotation: 360,
-          duration: 20 + index * 10,
-          ease: "none",
+        // Add subtle rotation wobble
+        gsap.to(sunElement, {
+          rotationZ: 5,
+          duration: 4,
+          ease: "sine.inOut",
+          yoyo: true,
           repeat: -1,
         });
+      }
 
-        // Opacity breathing
+      // Simple breathing scale for both mobile and desktop
+      gsap.fromTo(
+        sunElement,
+        { scale: 1 },
+        {
+          scale: isMobile ? 1.1 : 1.2,
+          duration: isMobile ? 4 : 3,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+        },
+      );
+    }
+
+    // Animate energy rings with mobile optimization
+    const energyRings = heroContainer?.querySelectorAll(".energy-ring");
+    if (energyRings) {
+      Array.from(energyRings).forEach((ring, index) => {
+        // Simplified entrance animation for mobile
+        tl.fromTo(
+          ring,
+          {
+            scale: 0,
+            opacity: 0,
+            rotation: isMobile ? 0 : -180,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            rotation: 0,
+            duration: isMobile ? 0.8 : 1.5 + index * 0.3,
+            ease: isMobile ? "power2.out" : "elastic.out(1, 0.5)",
+            delay: isMobile ? index * 0.1 : index * 0.2,
+          },
+          "-=1.2",
+        );
+
+        // Reduce continuous animations on mobile
+        if (!isMobile) {
+          // Continuous pulsing expansion
+          gsap.to(ring, {
+            scale: 1.2 + index * 0.1,
+            duration: 4 + index * 0.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+
+          // Slow rotation
+          gsap.to(ring, {
+            rotation: 360,
+            duration: 20 + index * 10,
+            ease: "none",
+            repeat: -1,
+          });
+        }
+
+        // Simplified opacity breathing for both platforms
         gsap.to(ring, {
-          opacity: 0.1 + index * 0.05,
-          duration: 3 + index * 0.4,
+          opacity: isMobile ? 0.2 + index * 0.1 : 0.1 + index * 0.05,
+          duration: isMobile ? 4 : 3 + index * 0.4,
           ease: "power2.inOut",
           yoyo: true,
           repeat: -1,
@@ -323,9 +331,10 @@
       });
     }
 
-    // Animate light particles with magical floating effect
+    // Animate light particles with mobile optimization
     const lightParticles = heroContainer?.querySelectorAll(".light-particle");
-    if (lightParticles) {
+    if (lightParticles && !isMobile) {
+      // Skip particle animations on mobile for performance
       Array.from(lightParticles).forEach((particle, index) => {
         // Staggered entrance
         tl.fromTo(
@@ -377,6 +386,20 @@
           ease: "none",
           repeat: -1,
         });
+      });
+    } else if (lightParticles && isMobile) {
+      // Simple fade-in for mobile
+      Array.from(lightParticles).forEach((particle, index) => {
+        tl.fromTo(
+          particle,
+          { opacity: 0 },
+          {
+            opacity: 0.6,
+            duration: 0.5,
+            delay: index * 0.05,
+          },
+          "-=0.5",
+        );
       });
     }
 

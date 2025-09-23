@@ -8,14 +8,20 @@
   let observer;
 
   onMount(() => {
+    // Detect mobile device for performance optimizations
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
     // Set up intersection observer for cleaner scroll detection
-    setupIntersectionObserver();
+    setupIntersectionObserver(isMobile);
 
-    // Set up immediate hover animations
-    setupHoverAnimations();
+    // Only set up complex animations on desktop
+    if (!isMobile) {
+      // Set up immediate hover animations
+      setupHoverAnimations();
 
-    // Create ambient background animations
-    createAmbientAnimations();
+      // Create ambient background animations
+      createAmbientAnimations();
+    }
 
     return () => {
       if (observer) {
@@ -24,7 +30,7 @@
     };
   });
 
-  function setupIntersectionObserver() {
+  function setupIntersectionObserver(isMobile = false) {
     const options = {
       threshold: 0.3,
       rootMargin: "0px 0px -10% 0px",
@@ -35,7 +41,7 @@
         if (entry.isIntersecting && !hasAnimated) {
           hasAnimated = true;
           isVisible = true;
-          animateSection();
+          animateSection(isMobile);
         }
       });
     }, options);
@@ -45,7 +51,7 @@
     }
   }
 
-  function animateSection() {
+  function animateSection(isMobile = false) {
     const title = container.querySelector(".title");
     const subtitle = container.querySelector(".subtitle");
     const cardLarge = container.querySelector(".card-large");
@@ -57,9 +63,26 @@
 
     // Create main timeline for coordinated animations
     const tl = gsap.timeline({
-      defaults: { ease: "power3.out" },
+      defaults: { ease: isMobile ? "power2.out" : "power3.out" },
     });
 
+    // Simplified animations for mobile
+    if (isMobile) {
+      // Simple fade-in for mobile
+      tl.fromTo(
+        [title, subtitle, cardLarge, ...cardsSmall, cta],
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+        },
+      );
+      return;
+    }
+
+    // Full animations for desktop
     // Animate geometric background shapes first
     tl.fromTo(
       geometricShapes,

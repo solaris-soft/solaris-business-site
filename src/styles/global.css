@@ -14,7 +14,7 @@
   --color-text: #ffffff;
 }
 
-/* ScrollSmoother Required Styles */
+/* ScrollSmoother Required Styles - with mobile optimization */
 html {
   height: 100%;
   overflow: hidden; /* Prevent default scrollbars */
@@ -43,9 +43,30 @@ body {
   width: 100%;
 }
 
-/* Optimize performance for smooth scrolling */
+/* Mobile-optimized performance settings */
 * {
   will-change: auto;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Disable will-change on mobile for better performance */
+  * {
+    will-change: auto !important;
+  }
+  
+  /* Reduce transforms and filters on mobile */
+  .energy-ring,
+  .light-particle,
+  [class*="particle"] {
+    transform: none !important;
+    filter: none !important;
+  }
+  
+  /* Disable complex box-shadows on mobile */
+  .sun-glow {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.2) !important;
+  }
 }
 
 /* Optional: Add momentum for better feel on touch devices */

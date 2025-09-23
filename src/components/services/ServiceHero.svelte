@@ -86,7 +86,9 @@
   }
 
   function initParticles() {
-    particles = Array(50)
+    // Reduce particles on smaller screens for performance
+    const particleCount = window.innerWidth <= 768 ? 15 : 50;
+    particles = Array(particleCount)
       .fill(null)
       .map(() => new Particle());
   }
@@ -113,11 +115,18 @@
   }
 
   onMount(() => {
+    // Detect mobile device for performance optimizations
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
     ctx = canvas.getContext("2d");
     handleResize();
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    animate();
+    
+    // Only run particle animation on desktop
+    if (!isMobile) {
+      animate();
+    }
 
     // Add visibility transition
     setTimeout(() => {
