@@ -68,7 +68,10 @@
     if (isInitialized) return; // Prevent multiple initializations
 
     // Detect mobile device for performance optimizations
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      ) || window.innerWidth <= 768;
 
     // Respect user's motion preferences
     const prefersReducedMotion = window.matchMedia(
@@ -838,16 +841,17 @@
 
       <!-- Enhanced CTA -->
       <div class="relative">
-        <button
+        <a
           bind:this={ctaButton}
           class="group relative px-8 py-4 bg-black text-white font-medium rounded-full hover:bg-gray-900 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg overflow-hidden"
+          href="/contact/"
         >
           <span class="relative z-10 px-4 py-2">Start Your Project</span>
           <!-- Hover effect background -->
           <div
             class="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           ></div>
-        </button>
+        </a>
       </div>
     {/if}
   </div>

@@ -9,7 +9,10 @@
 
   onMount(() => {
     // Detect mobile device for performance optimizations
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      ) || window.innerWidth <= 768;
 
     // Set up intersection observer for cleaner scroll detection
     setupIntersectionObserver(isMobile);
@@ -528,15 +531,16 @@
             </p>
           </div>
           <div class="cta-button">
-            <button
+            <a
               class="group px-12 py-4 bg-orange-500 text-black font-bold uppercase tracking-wider hover:bg-white transition-all duration-300 border-2 border-orange-500 hover:border-white"
+              href="/contact/"
             >
               <span
                 class="group-hover:scale-110 transition-transform duration-200 inline-block"
               >
                 Let's Work Together
               </span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
