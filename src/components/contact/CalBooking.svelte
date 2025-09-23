@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let meetingTypes = [
+  let { meetingTypes }: { meetingTypes: { id: string; label: string }[] } =
+    $props();
+  meetingTypes = [
     { id: "initial-meeting", label: "Initial Meeting" },
     { id: "express-meeting", label: "Express Meeting" },
     { id: "standard-meeting", label: "Standard Meeting" },
@@ -7,7 +9,7 @@
   ];
 
   import { onMount } from "svelte";
-  let isLoading = true;
+  let isLoading = $state(true);
 
   // Function to initialize calendar with selected meeting type
   function initializeCalendar(meetingType: string) {

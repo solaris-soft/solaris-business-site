@@ -86,7 +86,9 @@
   }
 
   function initParticles() {
-    particles = Array(50)
+    // Reduce particles on smaller screens for performance
+    const particleCount = window.innerWidth <= 768 ? 15 : 50;
+    particles = Array(particleCount)
       .fill(null)
       .map(() => new Particle());
   }
@@ -113,11 +115,18 @@
   }
 
   onMount(() => {
+    // Detect mobile device for performance optimizations
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
     ctx = canvas.getContext("2d");
     handleResize();
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    animate();
+    
+    // Only run particle animation on desktop
+    if (!isMobile) {
+      animate();
+    }
 
     // Add visibility transition
     setTimeout(() => {
@@ -131,23 +140,25 @@
   });
 </script>
 
-<div class="relative min-h-[70vh] w-full overflow-hidden">
+<div class="relative min-h-[70vh] w-full overflow-hidden bg-white">
+  <!-- Canvas background -->
   <canvas
     bind:this={canvas}
-    on:mousemove={handleMouseMove}
+    onmousemove={handleMouseMove}
     class="absolute inset-0 w-full h-full"
-  />
+  ></canvas>
 
   {#if isVisible}
     <div
       class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 py-24 md:py-16"
+      transition:fly={{ y: 50, duration: 800, delay: 100 }}
     >
       <!-- Main Title -->
-      <div in:fly={{ y: 50, duration: 800, delay: 200 }} class="mb-6 md:mb-8">
+      <div class="hero-title mb-6 md:mb-8">
         <h1
           class="text-[clamp(2.5rem,6vw,4.5rem)] font-black text-center relative"
         >
-          <span class="animate-slideFromLeft inline-block"
+          <span class="animate-slideFromLeft inline-block text-black"
             >Solutions that fit.</span
           >
           <br />
@@ -160,12 +171,9 @@
       </div>
 
       <!-- Description -->
-      <div
-        in:fly={{ y: 50, duration: 800, delay: 400 }}
-        class="max-w-[65ch] mb-8 md:mb-12"
-      >
+      <div class="hero-description max-w-[65ch] mb-8 md:mb-12">
         <p
-          class="text-[clamp(1rem,1.3vw,1.25rem)] text-white/70 leading-relaxed"
+          class="text-[clamp(1rem,1.3vw,1.25rem)] text-gray-600 leading-relaxed"
         >
           You won't get a template. You'll get a solution that fits your
           business.
@@ -173,10 +181,7 @@
       </div>
 
       <!-- CTA Buttons -->
-      <div
-        in:fly={{ y: 50, duration: 800, delay: 600 }}
-        class="flex flex-wrap justify-center gap-6 mb-24"
-      >
+      <div class="hero-cta flex flex-wrap justify-center gap-6 mb-24">
         <a
           href="/contact/"
           class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
@@ -188,12 +193,11 @@
       <!-- Scroll Indicator -->
       {#if scrollIndicatorVisible}
         <div
-          in:fly={{ y: 50, duration: 800, delay: 800 }}
           class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <div class="text-white/50 text-sm font-medium">Scroll to explore</div>
+          <div class="text-gray-400 text-sm font-medium">Scroll to explore</div>
           <div
-            class="w-[30px] h-[50px] rounded-full border-2 border-white/20 relative"
+            class="w-[30px] h-[50px] rounded-full border-2 border-gray-300 relative"
           >
             <div class="scroll-dot"></div>
           </div>
@@ -245,11 +249,6 @@
   .animate-slideFromRight {
     opacity: 0;
     animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-slideUp {
-    opacity: 0;
-    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .scroll-dot {

@@ -19,6 +19,7 @@
         "Basic SEO Optimization",
         "Brand identity recommendations",
       ],
+      popular: false,
     },
     {
       name: "Systems Analysis Report + Solutions",
@@ -33,6 +34,7 @@
         "Competitive Analysis",
         "ROI Projections",
       ],
+      popular: true,
     },
     {
       name: "App Development",
@@ -49,6 +51,7 @@
         "Testing and Deployment",
         "Ongoing Support",
       ],
+      popular: false,
     },
     {
       name: "Fortix Configuration",
@@ -65,6 +68,7 @@
         "Invoicing system",
         "Customer data management",
       ],
+      popular: false,
     },
   ];
 
@@ -72,18 +76,26 @@
   let container: HTMLElement;
 
   onMount(() => {
+    // Fallback: Make visible after a short delay regardless of intersection
+    const fallbackTimer = setTimeout(() => {
+      if (!isVisible) {
+        isVisible = true;
+      }
+    }, 500);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             isVisible = true;
+            clearTimeout(fallbackTimer);
             observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.2,
-        rootMargin: "50px",
+        threshold: 0.1,
+        rootMargin: "100px",
       },
     );
 
@@ -91,91 +103,89 @@
       observer.observe(container);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   });
 </script>
 
-<div bind:this={container} class="relative py-12 md:py-24">
-  <!-- Background Elements -->
-  <div class="absolute inset-0 overflow-hidden">
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"
-    ></div>
-    <div class="absolute inset-0">
-      <div class="absolute w-full h-full">
-        <div
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] aspect-square"
-        >
-          <div
-            class="absolute inset-0 rounded-full bg-gradient-radial from-orange-500/5 via-orange-500/2 to-transparent blur-3xl"
-          ></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div bind:this={container} class="relative py-16 md:py-24 bg-black">
+  <!-- Subtle background gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-black via-gray-900/20 to-black"
+  ></div>
 
   <!-- Content -->
   <div class="relative z-10 max-w-7xl mx-auto px-4">
     {#if isVisible}
       <!-- Section Header -->
       <div
-        in:fade={{ duration: 800 }}
-        class="text-center mb-16 md:mb-20 space-y-4"
+        in:fade={{ duration: 200 }}
+        class="text-center mb-12 md:mb-16 space-y-4"
       >
         <h2
-          class="text-3xl lg:text-4xl font-bold text-orange-200 font-clash-display"
+          class="text-3xl md:text-4xl lg:text-5xl font-display text-white mb-4"
         >
-          Special Package Bundles
+          Service Packages
         </h2>
-        <p class="text-xl text-orange-100/80 max-w-2xl mx-auto font-medium">
-          Packages represent starting estimates for certain sets of related
-          services.
+        <p
+          class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed px-4"
+        >
+          Comprehensive solutions tailored to your business needs. Starting
+          estimates for integrated service bundles.
         </p>
       </div>
 
       <!-- Packages Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {#each packages as pkg, i}
           <div
             class="relative group"
             in:fly={{
-              y: 50,
-              duration: 600,
-              delay: i * 150,
-              easing: quintOut,
+              y: 15,
+              duration: 180,
+              delay: i * 30,
             }}
           >
-            <div
-              class="h-full p-6 md:p-8 rounded-3xl bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] hover:border-orange-500/30 transition-all duration-300 flex flex-col overflow-hidden"
-            >
-              <!-- Package Header -->
-              <div class="mb-6">
-                <h3
-                  class="text-2xl font-bold text-orange-200 mb-3 font-clash-display"
+            <!-- Popular badge -->
+            {#if pkg.popular}
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+                <span
+                  class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-medium"
                 >
+                  Most Popular
+                </span>
+              </div>
+            {/if}
+
+            <!-- Card -->
+            <div
+              class="h-full p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-orange-500/30 transition-all duration-300 flex flex-col group-hover:bg-white/8"
+            >
+              <!-- Header -->
+              <div class="mb-6">
+                <h3 class="text-xl md:text-2xl font-display text-white mb-3">
                   {pkg.name}
                 </h3>
                 <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-3xl font-bold text-orange-500"
-                    >${pkg.price.toLocaleString()}</span
-                  >
-                  <span class="text-orange-100/60 text-sm">starting price</span>
+                  <span class="text-3xl md:text-4xl font-bold text-orange-500">
+                    ${pkg.price.toLocaleString()}
+                  </span>
+                  <span class="text-gray-400 text-sm">starting</span>
                 </div>
-                <p class="text-orange-100/80 leading-relaxed font-medium">
+                <p class="text-gray-300 leading-relaxed">
                   {pkg.description}
                 </p>
               </div>
 
-              <!-- Features List -->
-              <ul class="space-y-3 flex-grow">
+              <!-- Features -->
+              <ul class="space-y-3 flex-grow mb-8">
                 {#each pkg.features as feature}
-                  <li class="flex items-start gap-3 text-orange-100/80">
-                    <div class="relative w-5 h-5 shrink-0 mt-0.5">
-                      <div
-                        class="absolute inset-0 rounded-full bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] blur-sm opacity-50"
-                      ></div>
+                  <li class="flex items-start gap-3 text-gray-300">
+                    <div class="w-5 h-5 shrink-0 mt-0.5">
                       <svg
-                        class="relative w-5 h-5 text-orange-500"
+                        class="w-5 h-5 text-orange-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -188,29 +198,19 @@
                         />
                       </svg>
                     </div>
-                    <span class="font-medium">{feature}</span>
+                    <span>{feature}</span>
                   </li>
                 {/each}
               </ul>
 
               <!-- CTA Button -->
-              <div class="mt-8">
-                <a
-                  href="/contact/"
-                  class="block w-full py-3 px-6 text-center rounded-full bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 group relative overflow-hidden"
-                >
-                  <span class="relative z-10">Get Started</span>
-                  <div
-                    class="absolute inset-0 bg-gradient-to-r from-[#ff8a00] to-[#ff3d00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  ></div>
-                </a>
-              </div>
+              <a
+                href="/contact/"
+                class="block w-full py-3 md:py-4 px-6 text-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 touch-manipulation"
+              >
+                Get Started
+              </a>
             </div>
-
-            <!-- Solar prominence effect on hover -->
-            <div
-              class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] via-[#ff8a00] to-[#ff3d00] opacity-0 scale-x-0 group-hover:scale-x-100 group-hover:opacity-5 transition-all duration-700 rounded-3xl -z-20"
-            ></div>
           </div>
         {/each}
       </div>
@@ -219,32 +219,30 @@
 </div>
 
 <style>
-  /* Optimize performance */
-  .transition-all {
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Ensure cards are visible even without JavaScript */
+  .group {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .font-clash-display {
-    font-family: "Clash Display", sans-serif;
-    font-weight: 700;
+  /* Card hover effects */
+  .group:hover {
+    transform: translateY(-2px);
+    transition: transform 0.1s ease-out;
   }
 
-  /* Text rendering optimization */
-  h2,
-  h3,
-  p {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .group:hover {
+      transform: none;
+    }
   }
 
-  /* Prevent layout shifts during transitions */
-  div {
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-  }
-
-  /* Custom gradient for radial background */
-  .bg-gradient-radial {
-    background: radial-gradient(circle, var(--tw-gradient-stops));
+  /* Fallback for no-JS or failed intersection observer */
+  @media (prefers-reduced-motion: reduce) {
+    .group {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
   }
 </style>

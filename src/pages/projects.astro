@@ -3,195 +3,337 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
+
+// Categorize projects
+const categorizedProjects = {
+  websites: projects.filter(
+    (p) =>
+      p.data.title.includes("Company Site") || p.data.title.includes("Website"),
+  ),
+  applications: projects.filter(
+    (p) => p.data.title.includes("Webapp") || p.data.title.includes("AI"),
+  ),
+  configurations: projects.filter(
+    (p) =>
+      p.data.title.includes("Configuration") || p.data.title.includes("Fortix"),
+  ),
+};
 ---
 
-<Layout 
+<Layout
   title="Projects | Solaris Software"
   description="Discover SOLARIS SOFTWARE's portfolio of innovative web development projects including custom business websites, web applications, and AI solutions for Perth and Western Australian businesses."
   keywords="web development portfolio, Perth software projects, custom websites, business applications, AI solutions, Western Australia web development"
   category="Portfolio"
 >
-  <main class="relative min-h-screen pt-24 bg-black">
-    <!-- Background Effects -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+  <main class="min-h-screen bg-white">
+    <!-- Header Section -->
+    <section class="py-32 bg-white relative overflow-hidden">
+      <!-- Subtle background accent -->
       <div
-        class="absolute w-[150%] md:w-[120%] h-[150%] md:h-[120%] -left-[25%] md:-left-[10%] -top-[25%] md:-top-[10%] bg-gradient-radial from-[#ff3d00]/5 via-transparent to-transparent opacity-30 blur-3xl"
+        class="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-orange-50/20"
       >
       </div>
-      <div
-        class="absolute w-full h-px top-1/2 left-0 bg-gradient-to-r from-transparent via-[#ff3d00]/10 to-transparent"
-      >
-      </div>
-    </div>
 
-    <div class="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl relative z-10">
-      <!-- Header Section -->
-      <section
-        class="flex flex-col items-center justify-center py-16 md:py-24 text-center"
-      >
-        <h1 class="text-[clamp(3rem,6vw,4.5rem)] font-black relative mb-6">
-          <span class="animate-slideFromLeft inline-block">Our</span>
-          <div
-            class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block ml-4"
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-display text-gray-900 mb-6"
           >
-            Projects
-          </div>
-        </h1>
+            Our Projects
+          </h1>
+          <p
+            class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            A showcase of our innovative solutions, from custom websites to AI
+            applications, designed to help businesses thrive in the digital
+            landscape.
+          </p>
+        </div>
+      </div>
+    </section>
 
-        <p
-          class="text-[clamp(1.1rem,1.5vw,1.3rem)] text-white/70 leading-relaxed max-w-[60ch] relative py-8 opacity-0 animate-slideUp"
+    <!-- Projects Section -->
+    <section class="py-16 md:py-24 bg-gray-50/50 relative">
+      <!-- Subtle pattern overlay -->
+      <div class="absolute inset-0 opacity-[0.02]">
+        <div
+          class="absolute inset-0"
+          style="background-image: radial-gradient(circle at 1px 1px, #ff3d00 1px, transparent 0); background-size: 20px 20px;"
         >
-          Discover our portfolio of innovative solutions.
-          <span
-            class="hidden md:block absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"
-          ></span>
-          <span
-            class="hidden md:block absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"
-          ></span>
-        </p>
-      </section>
+        </div>
+      </div>
 
-      <!-- Projects Grid -->
-      <section
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 xl:gap-10 pb-24"
-        id="projects-grid"
-      >
-        {
-          projects.map((project, index) => (
-            <a
-              href={project.data.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group relative bg-white/[0.03] backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.06] border border-white/[0.05] opacity-0"
-            >
-              <div class="absolute inset-0 bg-gradient-to-br from-[#ff3d00]/10 to-[#ff8a00]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+          <button
+            class="category-filter active px-6 py-3 rounded-full bg-orange-500 text-white font-medium transition-all duration-300 shadow-sm hover:shadow-md"
+            data-category="all"
+          >
+            All Projects
+          </button>
+          <button
+            class="category-filter px-6 py-3 rounded-full bg-white text-gray-700 font-medium hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
+            data-category="websites"
+          >
+            Websites
+          </button>
+          <button
+            class="category-filter px-6 py-3 rounded-full bg-white text-gray-700 font-medium hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
+            data-category="applications"
+          >
+            Applications
+          </button>
+          <button
+            class="category-filter px-6 py-3 rounded-full bg-white text-gray-700 font-medium hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
+            data-category="configurations"
+          >
+            Configurations
+          </button>
+        </div>
 
-              {project.data.image && (
-                <div class="aspect-[16/10] overflow-hidden">
-                  <img
-                    src={project.data.image.src}
-                    alt={project.data.title}
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                </div>
-              )}
+        <!-- Projects Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          id="projects-grid"
+        >
+          {
+            projects.map((project, index) => {
+              // Determine category for each project
+              let category = "websites";
+              if (
+                project.data.title.includes("Webapp") ||
+                project.data.title.includes("AI")
+              ) {
+                category = "applications";
+              } else if (
+                project.data.title.includes("Configuration") ||
+                project.data.title.includes("Fortix")
+              ) {
+                category = "configurations";
+              }
 
-              <div class="p-8">
-                <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
-                  {project.data.title}
-                </h2>
-                <p class="text-white text-base leading-relaxed mb-6">
-                  {project.data.description}
-                </p>
+              return (
+                <a
+                  href={project.data.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group project-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 hover:-translate-y-2"
+                  data-category={category}
+                >
+                  {project.data.image && (
+                    <div class="aspect-[16/10] overflow-hidden bg-gray-50">
+                      <img
+                        src={project.data.image.src}
+                        alt={project.data.title}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
 
-                <div class="flex items-center text-sm font-medium">
-                  <span class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent">
-                    View Project
-                  </span>
-                  <svg
-                    class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 12H20M20 12L14 6M20 12L14 18"
-                      stroke="url(#gradient)"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="gradient"
-                        x1="4"
-                        y1="12"
-                        x2="20"
-                        y2="12"
-                        gradientUnits="userSpaceOnUse"
+                  <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="text-xs font-medium px-2 py-1 rounded-full bg-orange-100 text-orange-700">
+                        {category === "websites"
+                          ? "Website"
+                          : category === "applications"
+                            ? "Application"
+                            : "Configuration"}
+                      </span>
+                    </div>
+
+                    <h3 class="text-xl font-display text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-300">
+                      {project.data.title}
+                    </h3>
+
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {project.data.description}
+                    </p>
+
+                    <div class="flex items-center text-orange-600 font-medium text-sm">
+                      <span>View Project</span>
+                      <svg
+                        class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        <stop stop-color="#ff3d00" />
-                        <stop offset="1" stop-color="#ff8a00" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </a>
-          ))
-        }
-      </section>
-    </div>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-16 md:py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-display text-gray-900 mb-6">
+          Ready to Start Your Project?
+        </h2>
+        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Let's discuss how we can bring your vision to life with our expertise
+          in web development, AI solutions, and business automation.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact/"
+            class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25"
+          >
+            Get Started
+            <svg
+              class="w-5 h-5 ml-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+          <a
+            href="/services/"
+            class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 font-medium rounded-xl hover:border-orange-500 hover:text-orange-600 transition-all duration-300"
+          >
+            View Services
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
 
 <style>
-  @keyframes slideFromLeft {
-    from {
-      transform: translateX(-100px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  /* Category filter styles */
+  .category-filter.active {
+    background: linear-gradient(135deg, #ff3d00, #ff8a00);
+    color: white;
   }
 
-  @keyframes slideFromRight {
-    from {
-      transform: translateX(100px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  /* Project card animations */
+  .project-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  .project-card:nth-child(1) {
+    animation-delay: 0.1s;
   }
-
-  .animate-slideFromLeft {
-    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .project-card:nth-child(2) {
+    animation-delay: 0.2s;
   }
-
-  .animate-slideFromRight {
-    animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-slideUp {
-    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  #projects-grid > a {
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  #projects-grid > a:nth-child(1) {
+  .project-card:nth-child(3) {
     animation-delay: 0.3s;
   }
-  #projects-grid > a:nth-child(2) {
+  .project-card:nth-child(4) {
     animation-delay: 0.4s;
   }
-  #projects-grid > a:nth-child(3) {
+  .project-card:nth-child(5) {
     animation-delay: 0.5s;
   }
-  #projects-grid > a:nth-child(4) {
+  .project-card:nth-child(6) {
     animation-delay: 0.6s;
   }
-  #projects-grid > a:nth-child(5) {
-    animation-delay: 0.7s;
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  #projects-grid > a:nth-child(6) {
-    animation-delay: 0.8s;
+
+  /* Line clamp utility */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Smooth transitions */
+  .transition-all {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Filter animations */
+  .project-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+
+  .project-card.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
   }
 </style>
+
+<script>
+  // Category filtering functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".category-filter");
+    const projectCards = document.querySelectorAll(".project-card");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", function (this: HTMLButtonElement) {
+        const category = this.getAttribute("data-category");
+
+        // Update active button
+        filterButtons.forEach((btn) => {
+          btn.classList.remove("active");
+          btn.classList.add(
+            "bg-white",
+            "text-gray-700",
+            "border",
+            "border-gray-200",
+          );
+          btn.classList.remove(
+            "bg-orange-500",
+            "text-white",
+            "border-orange-500",
+          );
+        });
+
+        this.classList.add("active");
+        this.classList.remove(
+          "bg-white",
+          "text-gray-700",
+          "border",
+          "border-gray-200",
+        );
+        this.classList.add("bg-orange-500", "text-white");
+
+        // Filter projects
+        projectCards.forEach((card) => {
+          const cardCategory = card.getAttribute("data-category");
+
+          if (category === "all" || cardCategory === category) {
+            card.classList.remove("hidden");
+            card.classList.add("visible");
+          } else {
+            card.classList.add("hidden");
+            card.classList.remove("visible");
+          }
+        });
+      });
+    });
+  });
+</script>
+m

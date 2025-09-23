@@ -1,331 +1,339 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
 <nav
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-500"
-  id="main-nav"
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out navbar-default"
 >
-  <!-- Desktop Navigation -->
-  <div
-    class="hidden md:flex items-center justify-between px-4 py-6 max-w-7xl mx-auto"
-  >
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 group">
-      <div class="relative w-8 h-8">
-        <!-- Enhanced main dot with gradient -->
-        <div
-          class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-full animate-mainDot"
-        >
-          <div
-            class="absolute inset-[2px] bg-gradient-to-br from-white/30 to-transparent rounded-full"
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="/" class="text-black font-display text-xl tracking-tight">
+          SOLARIS <span class="text-orange-500">SOFTWARE</span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-8">
+          <a
+            href="/services/"
+            class={`font-ui text-sm font-medium transition-colors duration-200 ${
+              currentPath === "/services"
+                ? "text-orange-500"
+                : "text-black hover:text-orange-400"
+            }`}
           >
-          </div>
-        </div>
-        <!-- Enhanced glow effect -->
-        <div
-          class="absolute inset-[-4px] bg-[#ff3d00] rounded-full blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300"
-        >
-        </div>
-        <!-- Orbital ring -->
-        <div
-          class="absolute inset-[-2px] border border-[#ff3d00]/20 rounded-full animate-orbit"
-        >
-          <div
-            class="absolute w-1.5 h-1.5 bg-[#ff3d00] rounded-full -top-[2px] left-1/2 -translate-x-1/2 shadow-[0_0_10px_#ff3d00]"
+            Services
+          </a>
+          <a
+            href="/projects/"
+            class={`font-ui text-sm font-medium transition-colors duration-200 ${
+              currentPath === "/projects"
+                ? "text-orange-500"
+                : "text-black hover:text-orange-400"
+            }`}
           >
-          </div>
+            Projects
+          </a>
+          <a
+            href="/testimonials/"
+            class={`font-ui text-sm font-medium transition-colors duration-200 ${
+              currentPath === "/testimonials"
+                ? "text-orange-500"
+                : "text-black hover:text-orange-400"
+            }`}
+          >
+            Testimonials
+          </a>
+          <a
+            href="/team/"
+            class={`font-ui text-sm font-medium transition-colors duration-200 ${
+              currentPath === "/team"
+                ? "text-orange-500"
+                : "text-black hover:text-orange-400"
+            }`}
+          >
+            Team
+          </a>
+          <a
+            href="/contact/"
+            class={`font-ui text-sm font-medium transition-colors duration-200 ${
+              currentPath === "/contact"
+                ? "text-orange-500"
+                : "text-black hover:text-orange-400"
+            }`}
+          >
+            Contact
+          </a>
         </div>
       </div>
-      <span
-        class="text-lg font-bold text-white hover:text-orange-400 transition-all duration-300 font-clash-display"
-        >SOLARIS SOFTWARE</span
-      >
-    </a>
 
-    <!-- Navigation Links -->
-    <div class="flex items-center gap-8">
-      <a href="/services/" class="nav-link">Services</a>
-      <a href="/projects/" class="nav-link">Projects</a>
-      <a href="/testimonials/" class="nav-link">Testimonials</a>
-      <a href="/team/" class="nav-link">Our Team</a>
-      <a href="/contact/" class="contact-button">
-        <span class="relative z-10">Contact Us</span>
-      </a>
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button
+          id="mobile-menu-button"
+          type="button"
+          class="text-black hover:text-orange-400 focus:outline-none focus:text-orange-400 transition-colors duration-200"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <!-- Hamburger icon -->
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Mobile Navigation -->
-  <div class="flex md:hidden items-center justify-between px-6 py-4">
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-2">
-      <div class="relative w-7 h-7">
-        <!-- Enhanced main dot with gradient -->
-        <div
-          class="absolute inset-0 bg-gradient-to-br from-[#ff3d00] to-[#ff8a00] rounded-full"
-        >
-          <div
-            class="absolute inset-[2px] bg-gradient-to-br from-white/30 to-transparent rounded-full"
-          >
-          </div>
-        </div>
-        <!-- Enhanced glow effect -->
-        <div
-          class="absolute inset-[-3px] bg-[#ff3d00] rounded-full blur-md opacity-50"
-        >
-        </div>
-      </div>
-      <span
-        class="text-base font-bold bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent"
-        >SOLARIS</span
-      >
-    </a>
-
-    <!-- Mobile Menu Button -->
-    <button
-      id="mobile-menu-button"
-      class="relative w-10 h-10 flex items-center justify-center"
-      aria-label="Toggle menu"
-    >
-      <div class="menu-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </button>
-  </div>
-
-  <!-- Mobile Menu Overlay -->
+  <!-- Mobile menu -->
   <div
-    id="mobile-menu-overlay"
-    class="fixed inset-0 bg-black/80 backdrop-blur-lg opacity-0 pointer-events-none transition-opacity duration-500 z-40"
-  >
-  </div>
-
-  <!-- Mobile Menu -->
-  <div
+    class="md:hidden"
     id="mobile-menu"
-    class="fixed right-0 top-0 h-screen w-4/5 max-w-xs bg-gradient-to-l from-black/95 to-black/90 translate-x-full transition-transform duration-500 ease-in-out z-50 flex flex-col justify-center items-center gap-8 px-8"
+    style="display: none; opacity: 0; transform: translateY(-10px);"
   >
-    <a href="/services/" class="mobile-nav-link">Services</a>
-    <a href="/projects/" class="mobile-nav-link">Projects</a>
-    <a href="/testimonials/" class="mobile-nav-link">Testimonials</a>
-    <a href="/team/" class="mobile-nav-link">Our Team</a>
-    <a href="/contact/" class="mobile-contact-button">
-      <span class="relative z-10">Contact Us</span>
-    </a>
+    <div
+      class="px-4 pt-2 pb-3 space-y-1 bg-black bg-opacity-98 backdrop-blur-md shadow-lg"
+    >
+      <a
+        href="/services/"
+        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
+          currentPath === "/services"
+            ? "text-orange-500 bg-orange-500 bg-opacity-10"
+            : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
+        }`}
+      >
+        Services
+      </a>
+      <a
+        href="/projects/"
+        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
+          currentPath === "/projects"
+            ? "text-orange-500 bg-orange-500 bg-opacity-10"
+            : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
+        }`}
+      >
+        Projects
+      </a>
+      <a
+        href="/testimonials/"
+        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
+          currentPath === "/testimonials"
+            ? "text-orange-500 bg-orange-500 bg-opacity-10"
+            : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
+        }`}
+      >
+        Testimonials
+      </a>
+      <a
+        href="/team/"
+        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
+          currentPath === "/team"
+            ? "text-orange-500 bg-orange-500 bg-opacity-10"
+            : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
+        }`}
+      >
+        Team
+      </a>
+      <a
+        href="/contact/"
+        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
+          currentPath === "/contact"
+            ? "text-orange-500 bg-orange-500 bg-opacity-10"
+            : "text-white hover:text-orange-400 hover:bg-orange-400 hover:bg-opacity-10"
+        }`}
+      >
+        Contact
+      </a>
+    </div>
   </div>
 </nav>
 
 <script>
-  // Elements
-  const nav = document.getElementById("main-nav");
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
-  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+  document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.getElementById("navbar");
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    let isScrolled = false;
 
-  let isMenuOpen = false;
-  let lastScrollY = 0;
+    // Handle scroll events for background change
+    function handleScroll() {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const shouldHaveBackground = scrollTop > 50;
 
-  // Toggle mobile menu
-  function toggleMobileMenu(open: boolean) {
-    isMenuOpen = open;
+      if (shouldHaveBackground !== isScrolled) {
+        isScrolled = shouldHaveBackground;
 
-    if (open) {
-      mobileMenu?.classList.remove("translate-x-full");
-      mobileMenuOverlay?.classList.remove("opacity-0", "pointer-events-none");
-      document.body.style.overflow = "hidden";
-      mobileMenuButton?.classList.add("is-active");
-    } else {
-      mobileMenu?.classList.add("translate-x-full");
-      mobileMenuOverlay?.classList.add("opacity-0", "pointer-events-none");
-      document.body.style.overflow = "";
-      mobileMenuButton?.classList.remove("is-active");
-    }
-  }
-
-  // Handle scroll for navbar appearance
-  function handleScroll() {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > 50) {
-      nav?.classList.add("scrolled");
-    } else {
-      nav?.classList.remove("scrolled");
+        if (isScrolled) {
+          navbar?.classList.add("navbar-scrolled");
+        } else {
+          navbar?.classList.remove("navbar-scrolled");
+        }
+      }
     }
 
-    // Hide on scroll down, show on scroll up
-    if (currentScrollY > lastScrollY && currentScrollY > 100 && !isMenuOpen) {
-      nav?.classList.add("nav-hidden");
-    } else {
-      nav?.classList.remove("nav-hidden");
+    // Handle mobile menu toggle with smooth animation
+    function toggleMobileMenu() {
+      const isOpen = mobileMenu?.style.display !== "none";
+
+      if (mobileMenu) {
+        if (isOpen) {
+          // Close menu
+          mobileMenu.style.opacity = "0";
+          mobileMenu.style.transform = "translateY(-10px)";
+          setTimeout(() => {
+            mobileMenu.style.display = "none";
+          }, 200);
+        } else {
+          // Open menu
+          mobileMenu.style.display = "block";
+          mobileMenu.style.opacity = "0";
+          mobileMenu.style.transform = "translateY(-10px)";
+
+          // Force reflow
+          mobileMenu.offsetHeight;
+
+          mobileMenu.style.opacity = "1";
+          mobileMenu.style.transform = "translateY(0)";
+        }
+      }
+      mobileMenuButton?.setAttribute("aria-expanded", String(!isOpen));
     }
 
-    lastScrollY = currentScrollY;
-  }
+    // Event listeners
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    mobileMenuButton?.addEventListener("click", toggleMobileMenu);
 
-  // Event listeners
-  mobileMenuButton?.addEventListener("click", () =>
-    toggleMobileMenu(!isMenuOpen),
-  );
-  mobileMenuOverlay?.addEventListener("click", () => toggleMobileMenu(false));
+    // Close mobile menu when clicking on links
+    const mobileLinks = mobileMenu?.querySelectorAll("a");
+    mobileLinks?.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (mobileMenu && mobileMenu.style.display !== "none") {
+          mobileMenu.style.opacity = "0";
+          mobileMenu.style.transform = "translateY(-10px)";
+          setTimeout(() => {
+            mobileMenu.style.display = "none";
+          }, 200);
+        }
+        mobileMenuButton?.setAttribute("aria-expanded", "false");
+      });
+    });
 
-  // Close menu when clicking on mobile nav links
-  mobileNavLinks.forEach((link) => {
-    link.addEventListener("click", () => toggleMobileMenu(false));
+    // Close mobile menu when clicking outside
+    document.addEventListener("click", (event) => {
+      const target = event.target as Element;
+      if (mobileMenu?.style.display !== "none" && !navbar?.contains(target)) {
+        if (mobileMenu) {
+          mobileMenu.style.opacity = "0";
+          mobileMenu.style.transform = "translateY(-10px)";
+          setTimeout(() => {
+            mobileMenu.style.display = "none";
+          }, 200);
+        }
+        mobileMenuButton?.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // Handle escape key to close mobile menu
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && mobileMenu?.style.display !== "none") {
+        if (mobileMenu) {
+          mobileMenu.style.opacity = "0";
+          mobileMenu.style.transform = "translateY(-10px)";
+          setTimeout(() => {
+            mobileMenu.style.display = "none";
+          }, 200);
+        }
+        mobileMenuButton?.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // Initial scroll check
+    handleScroll();
   });
-
-  // Scroll event
-  window.addEventListener("scroll", handleScroll);
-
-  // Initialize
-  handleScroll();
 </script>
 
 <style>
-  /* Navbar scroll state */
-  .scrolled {
-    @apply bg-black/80 backdrop-blur-md shadow-lg shadow-black/20;
-  }
-  .font-clash-display {
-    font-family: "Clash Display", sans-serif;
-    font-weight: 700;
+  /* Default navbar state - subtle backdrop for visibility */
+  .navbar-default {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
-  /* Hide navbar on scroll down */
-  .nav-hidden {
-    transform: translateY(-100%);
+  /* Scrolled navbar state - solid white background */
+  .navbar-scrolled {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
 
-  /* Desktop nav links */
-  .nav-link {
-    @apply relative text-white text-sm tracking-wider no-underline transition-all duration-300 hover:text-white;
-    font-family: "Clash Display", sans-serif;
-    font-weight: 700;
+  .navbar-scrolled a {
+    color: #1f2937 !important;
   }
 
-  .nav-link::after {
-    content: "";
-    @apply absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-all duration-300;
+  .navbar-scrolled a:hover {
+    color: #ff3d00 !important;
   }
 
-  .nav-link:hover::after {
-    @apply w-full;
+  .navbar-scrolled a.text-orange-500 {
+    color: #ff3d00 !important;
   }
 
-  /* Contact button */
-  .contact-button {
-    @apply relative px-5 py-2 text-sm tracking-wider text-white no-underline font-bold rounded-full overflow-hidden inline-flex items-center justify-center;
-    font-family: "Clash Display", sans-serif;
+  .navbar-scrolled button {
+    color: #1f2937 !important;
   }
 
-  .contact-button::before {
-    content: "";
-    @apply absolute inset-0 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-transform duration-300;
+  .navbar-scrolled button:hover {
+    color: #ff3d00 !important;
   }
 
-  .contact-button:hover::before {
-    @apply scale-110;
+  /* Mobile menu improvements */
+  #mobile-menu {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1px;
   }
 
-  .contact-button::after {
-    content: "";
-    @apply absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300;
-  }
-
-  .contact-button:hover::after {
-    @apply opacity-100;
-  }
-
-  /* Mobile nav links */
-  .mobile-nav-link {
-    @apply relative text-white/70 text-lg font-medium tracking-wider no-underline transition-all duration-300 hover:text-white;
-    @apply before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:-bottom-2 before:w-0 before:h-[2px] before:bg-gradient-to-r before:from-[#ff3d00] before:to-[#ff8a00] before:transition-all before:duration-300;
-    @apply hover:before:w-1/2;
-  }
-
-  /* Mobile contact button */
-  .mobile-contact-button {
-    @apply relative mt-4 px-6 py-2.5 text-base tracking-wider text-white no-underline font-medium rounded-full overflow-hidden inline-flex items-center justify-center;
-  }
-
-  .mobile-contact-button::before {
-    content: "";
-    @apply absolute inset-0 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-transform duration-300;
-  }
-
-  .mobile-contact-button:hover::before {
-    @apply scale-110;
-  }
-
-  .mobile-contact-button::after {
-    content: "";
-    @apply absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300;
-  }
-
-  .mobile-contact-button:hover::after {
-    @apply opacity-100;
-  }
-
-  .mobile-contact-button span {
-    @apply relative z-10;
-  }
-
-  /* Menu icon animation */
-  .menu-icon {
-    @apply relative w-6 h-5;
-  }
-
-  .menu-icon span {
-    @apply absolute left-0 w-full h-[2px] bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] transition-all duration-300;
-  }
-
-  .menu-icon span:nth-child(1) {
-    @apply top-0;
-  }
-
-  .menu-icon span:nth-child(2) {
-    @apply top-1/2 -translate-y-1/2;
-  }
-
-  .menu-icon span:nth-child(3) {
-    @apply bottom-0;
-  }
-
-  #mobile-menu-button.is-active .menu-icon span:nth-child(1) {
-    @apply top-1/2 -translate-y-1/2 rotate-45;
-  }
-
-  #mobile-menu-button.is-active .menu-icon span:nth-child(2) {
-    @apply opacity-0;
-  }
-
-  #mobile-menu-button.is-active .menu-icon span:nth-child(3) {
-    @apply top-1/2 -translate-y-1/2 -rotate-45;
-  }
-
-  /* Animations */
-  @keyframes mainDot {
-    0%,
-    100% {
-      transform: scale(1);
+  /* Ensure proper touch targets on mobile */
+  @media (max-width: 768px) {
+    .navbar-default,
+    .navbar-scrolled {
+      padding-top: env(safe-area-inset-top);
     }
-    50% {
-      transform: scale(0.95);
+
+    #mobile-menu a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    #mobile-menu-button {
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
-  @keyframes orbit {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-mainDot {
-    animation: mainDot 3s ease-in-out infinite;
-  }
-
-  .animate-orbit {
-    animation: orbit 8s linear infinite;
+  /* Animation for mobile menu */
+  #mobile-menu {
+    transition: all 0.2s ease-in-out;
   }
 </style>
