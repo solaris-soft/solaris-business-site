@@ -70,7 +70,6 @@ const {
       href="https://api.fontshare.com/v2/css?f[]=satoshi@400,600&f[]=clash-display@600&f[]=general-sans@400,600&display=swap"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
     />
 
     <!-- Only load secondary font on larger screens -->
@@ -96,7 +95,7 @@ const {
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Structured data breadcrumbs helper -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" is:inline>
       {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -147,13 +146,16 @@ const {
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
       // Mobile detection
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      const isMobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent,
+        ) || window.innerWidth <= 768;
 
       // Initialize ScrollSmoother when DOM is ready
       document.addEventListener("DOMContentLoaded", () => {
         // Only initialize ScrollSmoother on desktop for better mobile performance
         if (!isMobile) {
-          const smoother = ScrollSmoother.create({
+          ScrollSmoother.create({
             wrapper: "#smooth-wrapper",
             content: "#smooth-content",
             smooth: 1.3,
@@ -166,17 +168,17 @@ const {
           console.log("ScrollSmoother initialized for desktop");
         } else {
           // For mobile, just use normal scrolling with basic setup
-          document.body.style.overflow = 'auto';
-          document.documentElement.style.overflow = 'auto';
-          const wrapper = document.getElementById('smooth-wrapper');
-          const content = document.getElementById('smooth-content');
-          
+          document.body.style.overflow = "auto";
+          document.documentElement.style.overflow = "auto";
+          const wrapper = document.getElementById("smooth-wrapper");
+          const content = document.getElementById("smooth-content");
+
           if (wrapper && content) {
-            wrapper.style.position = 'static';
-            wrapper.style.height = 'auto';
-            wrapper.style.overflow = 'visible';
+            wrapper.style.position = "static";
+            wrapper.style.height = "auto";
+            wrapper.style.overflow = "visible";
           }
-          
+
           console.log("Mobile mode: ScrollSmoother disabled for performance");
         }
 

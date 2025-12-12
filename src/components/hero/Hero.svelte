@@ -1,4 +1,5 @@
 <script lang="ts">
+  let {} = $props(); // Fixing Astro client:load type error without props
   // Using Svelte 5 patterns - no need for onMount/onDestroy
 
   // GSAP imports

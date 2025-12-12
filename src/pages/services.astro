@@ -3,7 +3,6 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import ServiceHero from "@/components/services/ServiceHero.svelte";
 import ServiceCardDetailed from "@/components/services/ServiceCardDetailed.svelte";
-import PackagesSection from "@/components/packages/PackagesSection.svelte";
 
 const services = await getCollection("services");
 const seoDescription =
@@ -44,7 +43,7 @@ const seoKeywords =
     </div>
 
     <!-- Hero Section -->
-    <ServiceHero client:load />
+    <ServiceHero />
 
     <!-- Services Grid -->
     <section

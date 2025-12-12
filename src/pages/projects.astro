@@ -3,21 +3,6 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-
-// Categorize projects
-const categorizedProjects = {
-  websites: projects.filter(
-    (p) =>
-      p.data.title.includes("Company Site") || p.data.title.includes("Website"),
-  ),
-  applications: projects.filter(
-    (p) => p.data.title.includes("Webapp") || p.data.title.includes("AI"),
-  ),
-  configurations: projects.filter(
-    (p) =>
-      p.data.title.includes("Configuration") || p.data.title.includes("Fortix"),
-  ),
-};
 ---
 
 <Layout
@@ -99,7 +84,7 @@ const categorizedProjects = {
           id="projects-grid"
         >
           {
-            projects.map((project, index) => {
+            projects.map((project) => {
               // Determine category for each project
               let category = "websites";
               if (

@@ -1,7 +1,6 @@
 <script lang="ts">
-  let { meetingTypes }: { meetingTypes: { id: string; label: string }[] } =
-    $props();
-  meetingTypes = [
+  let {} = $props(); // Fixing Astro client:load type error without props
+  let meetingTypes = [
     { id: "initial-meeting", label: "Initial Meeting" },
     { id: "express-meeting", label: "Express Meeting" },
     { id: "standard-meeting", label: "Standard Meeting" },
