@@ -2,9 +2,15 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import ServiceHero from "@/components/services/ServiceHero.svelte";
-import ServiceCardDetailed from "@/components/services/ServiceCardDetailed.svelte";
+import ServicesExplorer from "@/components/services/ServicesExplorer.svelte";
 
 const services = await getCollection("services");
+const servicesData = services.map((service) => ({
+  title: service.data.title,
+  description: service.data.description,
+  features: service.data.features,
+  longDescription: service.data["long-description"],
+}));
 const seoDescription =
   "Explore Solaris Software's comprehensive web services including custom development, AI integration, modern UI/UX design, and business automation solutions.";
 const seoKeywords =
@@ -43,7 +49,7 @@ const seoKeywords =
     </div>
 
     <!-- Hero Section -->
-    <ServiceHero />
+    <ServiceHero client:load />
 
     <!-- Services Grid -->
     <section
@@ -62,27 +68,9 @@ const seoKeywords =
         </p>
       </div>
 
-      <!-- Enhanced Services Grid -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 py-24 relative"
-        style="overflow: visible;"
-      >
-        {
-          services.map((service, index) => (
-            <div
-              class="opacity-0 translate-y-8 transition-all duration-700 relative"
-              style={`transition-delay: ${index * 150}ms; overflow: visible;`}
-              data-scroll-reveal
-            >
-              <ServiceCardDetailed
-                client:visible
-                title={service.data.title}
-                description={service.data.description}
-                features={service.data.features}
-              />
-            </div>
-          ))
-        }
+      <!-- Services Explorer (master–detail; stable layout on desktop + mobile) -->
+      <div class="py-16 sm:py-24 relative" style="overflow: visible;">
+        <ServicesExplorer client:visible services={servicesData} />
       </div>
 
       <!-- Bottom CTA Section -->
@@ -157,7 +145,7 @@ const seoKeywords =
       {
         threshold: 0.2,
         rootMargin: "50px",
-      },
+      }
     );
 
     // Observe all elements with data-scroll-reveal attribute
