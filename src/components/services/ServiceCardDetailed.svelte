@@ -1,613 +1,288 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { gsap } from "gsap";
+  import { tick } from "svelte";
+  import { fade, fly } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
 
-  let { title, description, features } = $props();
+  type Props = {
+    title: string;
+    description: string;
+    features: string[];
+    longDescription?: string;
+  };
 
-  let isFlipped = $state(false);
-  let hovered = $state(false);
-  let mouseX = $state(0);
-  let mouseY = $state(0);
-  let cardRef: HTMLElement;
-  let frontRef: HTMLElement;
-  let backRef: HTMLElement;
-  let iconRef: HTMLElement;
-  let flipIconRef: SVGSVGElement;
+  const {
+    title,
+    description,
+    features,
+    longDescription = "",
+  }: Props = $props();
 
-  let timeline: gsap.core.Timeline;
+  let isOpen = $state(false);
+  let closeButtonRef = $state<HTMLButtonElement | null>(null);
+  let lastActiveElement = $state<HTMLElement | null>(null);
 
-  onMount(() => {
-    // Enhanced initial setup for buttery smooth animation
-    gsap.set(cardRef, {
-      transformPerspective: 1500,
-      transformStyle: "preserve-3d",
-    });
+  const titleId = `service-${title.toLowerCase().replace(/\s+/g, "-")}-title`;
+  const panelId = `service-${title.toLowerCase().replace(/\s+/g, "-")}-panel`;
 
-    // Set both faces with proper 3D positioning and hardware acceleration
-    gsap.set([frontRef, backRef], {
-      transformOrigin: "center center",
-      backfaceVisibility: "hidden",
-      force3D: true,
-      willChange: "transform",
-    });
-
-    gsap.set(frontRef, {
-      rotationY: 0,
-      zIndex: 2,
-    });
-
-    gsap.set(backRef, {
-      rotationY: 180,
-      zIndex: 1,
-    });
-
-    // Create ultra-smooth flip timeline with perfect timing
-    timeline = gsap.timeline({
-      paused: true,
-      defaults: {
-        ease: "power2.inOut",
-        force3D: true,
-      },
-    });
-
-    timeline
-      .to(
-        frontRef,
-        {
-          duration: 0.7,
-          rotationY: -180,
-          transformOrigin: "center center",
-        },
-        0,
-      )
-      .to(
-        backRef,
-        {
-          duration: 0.7,
-          rotationY: 0,
-          transformOrigin: "center center",
-        },
-        0,
-      );
-
-    // Enhanced hover animations with stagger
-    const hoverTl = gsap.timeline({ paused: true });
-    hoverTl
-      .to(cardRef, {
-        scale: 1.03,
-        y: -10,
-        duration: 0.4,
-        ease: "power3.out",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-      })
-      .to(
-        iconRef,
-        {
-          scale: 1.15,
-          rotation: 5,
-          duration: 0.4,
-          ease: "elastic.out(1, 0.5)",
-        },
-        0,
-      )
-      .to(
-        flipIconRef,
-        {
-          rotation: 180,
-          scale: 1.1,
-          duration: 0.5,
-          ease: "elastic.out(1, 0.3)",
-        },
-        0.1,
-      );
-
-    // Smooth event listeners with debouncing
-    let hoverTimeout;
-    cardRef.addEventListener("mouseenter", () => {
-      clearTimeout(hoverTimeout);
-      hovered = true;
-      if (!isFlipped) {
-        hoverTl.play();
-      }
-    });
-
-    cardRef.addEventListener("mouseleave", () => {
-      hovered = false;
-      clearTimeout(hoverTimeout);
-      hoverTimeout = setTimeout(() => {
-        if (!isFlipped) {
-          hoverTl.reverse();
-        }
-      }, 50);
-    });
-
-    return () => {
-      timeline.kill();
-      hoverTl.kill();
-      clearTimeout(hoverTimeout);
-    };
-  });
-
-  function handleMouseMove(event: MouseEvent) {
-    if (!cardRef || isFlipped) return;
-    const rect = cardRef.getBoundingClientRect();
-    mouseX = event.clientX - rect.left;
-    mouseY = event.clientY - rect.top;
-
-    // Ultra-subtle mouse follow effect that won't interfere with flip
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (mouseY - centerY) * 0.01;
-    const rotateY = (mouseX - centerX) * 0.01;
-
-    gsap.to(cardRef, {
-      duration: 0.3,
-      rotationX: -rotateX,
-      rotationY: rotateY,
-      ease: "power2.out",
-      force3D: true,
-      overwrite: "auto",
-    });
+  async function open() {
+    lastActiveElement = document.activeElement as HTMLElement | null;
+    isOpen = true;
+    await tick();
+    closeButtonRef?.focus();
   }
 
-  function handleMouseLeave() {
-    // Quick reset rotation
-    if (!isFlipped) {
-      gsap.to(cardRef, {
-        duration: 0.4,
-        rotationX: 0,
-        rotationY: 0,
-        ease: "power2.out",
-        force3D: true,
-        overwrite: "auto",
-      });
+  function close() {
+    isOpen = false;
+    // Return focus for keyboard users
+    lastActiveElement?.focus?.();
+  }
+
+  function onCardKeydown(e: KeyboardEvent) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      open();
     }
   }
 
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggleFlip();
-    }
-  }
-
-  function toggleFlip() {
-    // Reset any mouse effects first
-    gsap.to(cardRef, {
-      duration: 0.2,
-      rotationX: 0,
-      rotationY: 0,
-      ease: "power2.out",
-    });
-
-    if (isFlipped) {
-      // Flip back to front - smooth reverse
-      timeline.reverse();
-      isFlipped = false;
-
-      // Simple fade out for features
-      gsap.to(".feature-item", {
-        opacity: 0,
-        duration: 0.15,
-        stagger: 0.01,
-        ease: "power2.out",
-      });
-    } else {
-      // Flip to back - smooth forward
-      timeline.play();
-      isFlipped = true;
-
-      // Delay feature animation until flip completes
-      gsap.delayedCall(0.4, () => {
-        gsap.fromTo(
-          ".feature-item",
-          {
-            opacity: 0,
-            y: 20,
-            scale: 0.95,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.4,
-            stagger: {
-              amount: 0.2,
-              ease: "power2.out",
-            },
-            ease: "back.out(1.2)",
-          },
-        );
-      });
-    }
-  }
-
-  function handleCardClick(event: MouseEvent) {
-    // Don't flip if clicking on interactive elements
-    const target = event.target as HTMLElement;
-
-    // Check for various interactive elements and scrollable areas
-    if (
-      target.closest(".scrollable-area") ||
-      target.closest("a") ||
-      target.closest("button") ||
-      target.closest("[onclick]") ||
-      target.closest(".feature-item") ||
-      // Check if target itself is scrollable
-      target.scrollHeight > target.clientHeight
-    ) {
-      return;
-    }
-
-    toggleFlip();
+  function onDialogKeydown(e: KeyboardEvent) {
+    if (e.key === "Escape") close();
   }
 </script>
 
-<!-- Service Card Container -->
-<div
-  bind:this={cardRef}
-  class="h-full min-h-96 cursor-pointer card-container"
-  onclick={handleCardClick}
-  onkeydown={handleKeydown}
-  onmousemove={handleMouseMove}
-  onmouseleave={handleMouseLeave}
-  role="button"
-  tabindex="0"
-  aria-label={`${title} service details. Click to ${isFlipped ? "see overview" : "see details"}`}
+<article
+  class="group relative h-full rounded-2xl bg-white/95 ring-1 ring-black/5 shadow-sm hover:shadow-md transition-shadow duration-300"
 >
-  <!-- Front Side (Default View) -->
-  <div
-    bind:this={frontRef}
-    class="absolute inset-0 h-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden card-face"
+  <!-- Card is compact; details open in an overlay to avoid grid layout jumps -->
+  <button
+    type="button"
+    class="w-full text-left p-5 sm:p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/50 rounded-2xl"
+    aria-haspopup="dialog"
+    aria-controls={panelId}
+    onclick={open}
+    onkeydown={onCardKeydown}
   >
-    <!-- Background Gradient -->
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50 transition-all duration-700 group-hover:from-orange-50 group-hover:to-orange-50"
-    ></div>
-
-    <!-- Interactive Glow Effect -->
-    <div
-      class="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none"
-      style="background: radial-gradient(400px circle at {mouseX}px {mouseY}px, rgba(255, 61, 0, 0.08), transparent 40%)"
-    ></div>
-
-    <!-- Content -->
-    <div class="relative z-10 p-8 h-full flex flex-col">
-      <!-- Header -->
-      <div class="flex items-start justify-between mb-6">
-        <!-- Service Icon -->
-        <div
-          bind:this={iconRef}
-          class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xl font-bold shadow-lg"
-        >
-          {title.charAt(0)}
-        </div>
-
-        <!-- Flip Icon -->
-        <div
-          class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300"
-        >
-          <svg
-            bind:this={flipIconRef}
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-            ></path>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Title -->
-      <h3
-        class="text-2xl font-bold text-gray-900 mb-4 transition-colors duration-300 leading-tight group-hover:text-orange-500"
-      >
-        {title}
-      </h3>
-
-      <!-- Description -->
-      <p
-        class="text-gray-600 leading-relaxed mb-6 flex-1 line-clamp-3 group-hover:text-gray-700 transition-colors duration-300"
-      >
-        {description}
-      </p>
-
-      <!-- Feature Preview -->
-      <div class="space-y-3 mb-6">
-        {#each features.slice(0, 3) as feature}
+    <div class="flex items-start justify-between gap-4">
+      <div class="min-w-0">
+        <div class="flex items-center gap-3">
           <div
-            class="flex items-center gap-3 text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300"
-          >
-            <div
-              class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex-shrink-0"
-            ></div>
-            <span class="line-clamp-1">{feature}</span>
-          </div>
-        {/each}
-        {#if features.length > 3}
-          <div class="flex items-center gap-3 text-sm text-gray-400">
-            <div
-              class="w-1.5 h-1.5 rounded-full bg-gray-300 flex-shrink-0"
-            ></div>
-            <span>+{features.length - 3} more features</span>
-          </div>
-        {/if}
-      </div>
-
-      <!-- CTA Section -->
-      <div
-        class="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto"
-      >
-        <span
-          class="text-sm font-medium text-orange-500 opacity-0 group-hover:opacity-100 transition-all duration-300"
-        >
-          Click to See Details
-        </span>
-        <div
-          class="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-45 shadow-lg"
-        >
-          <svg
-            class="w-4 h-4 transition-transform duration-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            ></path>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Animated Border -->
-    <div
-      class="absolute inset-0 rounded-2xl border border-transparent p-px transition-all duration-500 opacity-0 hover:opacity-100 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600"
-    >
-      <div class="w-full h-full bg-white rounded-2xl"></div>
-    </div>
-  </div>
-
-  <!-- Back Side (Details View) -->
-  <div
-    bind:this={backRef}
-    class="absolute inset-0 h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden card-face"
-  >
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-      <div
-        class="absolute top-4 right-4 w-20 h-20 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 blur-2xl"
-      ></div>
-      <div
-        class="absolute bottom-4 left-4 w-16 h-16 rounded-full bg-gradient-to-br from-orange-600 to-orange-500 blur-xl"
-      ></div>
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-10 p-8 h-full flex flex-col">
-      <!-- Header -->
-      <div class="flex items-center justify-between mb-6">
-        <div class="flex items-center gap-4">
-          <div
-            class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-lg font-bold"
+            class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold flex items-center justify-center shadow-sm flex-shrink-0"
+            aria-hidden="true"
           >
             {title.charAt(0)}
           </div>
-          <h3 class="text-xl font-bold text-white">{title}</h3>
+
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
+            {title}
+          </h3>
         </div>
 
-        <!-- Back to Front Icon -->
-        <div
-          class="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
-        >
-          <svg
-            class="w-4 h-4 transition-transform duration-300 hover:rotate-180"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-            ></path>
-          </svg>
-        </div>
+        <p class="mt-3 text-sm sm:text-[15px] text-gray-600 leading-relaxed">
+          {description}
+        </p>
       </div>
 
-      <!-- Description -->
-      <p class="text-gray-300 leading-relaxed mb-6 text-sm">
-        {description}
-      </p>
-
-      <!-- All Features -->
-      <div class="flex-1 mb-6">
-        <h4
-          class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2"
-        >
-          <div
-            class="w-1 h-4 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"
-          ></div>
-          All Features
-        </h4>
-
-        <div
-          class="space-y-3 max-h-48 overflow-y-auto pr-2 scrollable-area"
-          onclick={(e) => e.stopPropagation()}
-          onmousedown={(e) => e.stopPropagation()}
-          onmouseup={(e) => e.stopPropagation()}
-          onwheel={(e) => e.stopPropagation()}
-          ontouchstart={(e) => e.stopPropagation()}
-          ontouchmove={(e) => e.stopPropagation()}
-          ontouchend={(e) => e.stopPropagation()}
-        >
-          {#each features as feature, index}
-            <div
-              class="feature-item flex items-start gap-3 p-3 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-all duration-200 hover:translate-x-1"
-              role="listitem"
-            >
-              <div
-                class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 mt-2 flex-shrink-0"
-              ></div>
-              <p class="text-gray-300 text-sm leading-relaxed">{feature}</p>
-            </div>
-          {/each}
-        </div>
-      </div>
-
-      <!-- CTA -->
-      <div class="mt-auto">
-        <a
-          href="/contact/"
-          class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105"
-          onclick={(e) => e.stopPropagation()}
-        >
-          Get Started
-          <svg
-            class="w-4 h-4"
-            fill="none"
+      <div
+        class="shrink-0 inline-flex items-center justify-center rounded-xl w-11 h-11 bg-black/5 group-hover:bg-black/10 text-gray-900 transition-colors"
+        aria-hidden="true"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M7 5l6 5-6 5"
             stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            ></path>
-          </svg>
-        </a>
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
       </div>
     </div>
 
-    <!-- Animated Border -->
-    <div class="absolute inset-0 rounded-2xl border border-orange-500/50 p-px">
-      <div class="w-full h-full bg-transparent rounded-2xl"></div>
+    <div class="mt-4 flex flex-wrap gap-2">
+      {#each features.slice(0, 3) as feature (feature)}
+        <span
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 text-gray-700 text-xs sm:text-[13px] leading-none"
+        >
+          <span
+            class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600"
+            aria-hidden="true"
+          ></span>
+          <span class="truncate max-w-[16rem] sm:max-w-[18rem]">{feature}</span>
+        </span>
+      {/each}
+
+      {#if features.length > 3}
+        <span
+          class="inline-flex items-center px-3 py-1.5 rounded-full bg-black/4 text-gray-500 text-xs sm:text-[13px] leading-none"
+        >
+          +{features.length - 3} more
+        </span>
+      {/if}
+    </div>
+
+    <div class="mt-4 text-sm font-medium text-orange-600">View details</div>
+  </button>
+</article>
+
+{#if isOpen}
+  <div
+    class="fixed inset-0 z-50"
+    role="presentation"
+    onkeydown={onDialogKeydown}
+  >
+    <button
+      type="button"
+      class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
+      transition:fade={{ duration: 160 }}
+      onclick={close}
+      aria-label="Close dialog"
+    ></button>
+
+    <!-- Bottom sheet on mobile, side drawer on desktop -->
+    <div
+      id={panelId}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      class="absolute inset-x-0 bottom-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-[min(560px,100vw)] bg-white rounded-t-3xl sm:rounded-t-none sm:rounded-l-3xl shadow-2xl ring-1 ring-black/10"
+      transition:fly={{ y: 18, duration: 220, easing: cubicOut }}
+    >
+      <div class="p-5 sm:p-8 h-full max-h-[85vh] sm:max-h-none overflow-y-auto">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold flex items-center justify-center shadow-sm flex-shrink-0"
+                aria-hidden="true"
+              >
+                {title.charAt(0)}
+              </div>
+              <h3
+                id={titleId}
+                class="text-xl sm:text-2xl font-bold text-gray-900 leading-snug"
+              >
+                {title}
+              </h3>
+            </div>
+            <p
+              class="mt-3 text-sm sm:text-[15px] text-gray-600 leading-relaxed"
+            >
+              {description}
+            </p>
+          </div>
+
+          <button
+            bind:this={closeButtonRef}
+            type="button"
+            class="shrink-0 inline-flex items-center justify-center rounded-xl w-11 h-11 bg-black/5 hover:bg-black/10 text-gray-900 transition-colors"
+            onclick={close}
+          >
+            <span class="sr-only">Close</span>
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6l8 8M14 6l-8 8"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {#if longDescription}
+          <div class="mt-6">
+            <h4
+              class="text-xs font-semibold tracking-wide text-gray-500 uppercase"
+            >
+              Overview
+            </h4>
+            <p
+              class="mt-2 text-sm sm:text-[15px] text-gray-700 leading-relaxed"
+            >
+              {longDescription}
+            </p>
+          </div>
+        {/if}
+
+        <div class="mt-6">
+          <h4
+            class="text-xs font-semibold tracking-wide text-gray-500 uppercase"
+          >
+            What you get
+          </h4>
+
+          <ul class="mt-3 grid grid-cols-1 gap-2">
+            {#each features as feature, i (feature + i)}
+              <li
+                class="flex items-start gap-3 rounded-xl bg-black/3 px-3 py-2.5 text-sm text-gray-700"
+              >
+                <svg
+                  class="w-5 h-5 text-orange-600 mt-0.5 shrink-0"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M16 6l-7.5 8L4 9.5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span class="leading-relaxed">{feature}</span>
+              </li>
+            {/each}
+          </ul>
+        </div>
+
+        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+          <a
+            href="/contact/"
+            class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium shadow-sm hover:shadow-md transition-shadow"
+          >
+            Get Started
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+
+          <button
+            type="button"
+            class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-black/5 hover:bg-black/10 text-gray-900 font-medium transition-colors"
+            onclick={close}
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+{/if}
 
 <style>
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .line-clamp-1 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  /* Enhanced scrollbar for back side features */
-  .scrollable-area {
-    scrollbar-width: thin;
-    scrollbar-color: #f97316 rgba(255, 255, 255, 0.1);
-    /* Ensure smooth scrolling and proper pointer events */
-    scroll-behavior: smooth;
-    pointer-events: auto;
-    position: relative;
-    z-index: 10;
-    /* Prevent scroll momentum issues */
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .scrollable-area::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .scrollable-area::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-  }
-
-  .scrollable-area::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #f97316, #ea580c);
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .scrollable-area::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #ea580c, #dc2626);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .scrollable-area::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(to bottom, #dc2626, #b91c1c);
-  }
-
-  /* Hover effect for scrollable area */
-  .scrollable-area:hover {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-  }
-
-  /* Make feature items more interactive */
-  .feature-item {
-    cursor: default;
-    user-select: text;
-  }
-
-  .feature-item:hover {
-    cursor: default;
-  }
-
-  /* Ultra-smooth 3D flip card styles */
-  .card-container {
-    perspective: 1500px;
-    transform-style: preserve-3d;
-    will-change: transform;
-    position: relative;
-    background: transparent;
-    border-radius: 1rem;
-    /* Force hardware acceleration */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-  }
-
-  .card-face {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transform-style: preserve-3d;
-    will-change: transform;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Enhanced hardware acceleration */
-    transform: translateZ(0.01px);
-    -webkit-transform: translateZ(0.01px);
-    /* Prevent subpixel rendering issues */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Smooth transitions */
-  .feature-item {
-    will-change: transform, opacity;
-  }
-
-  /* Hardware acceleration */
-  .card-container,
-  .card-face,
-  .feature-item {
-    transform: translateZ(0);
+  /* Respect reduced motion — keep the UI snappy without animated transforms. */
+  @media (prefers-reduced-motion: reduce) {
+    :global(*) {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
   }
 </style>

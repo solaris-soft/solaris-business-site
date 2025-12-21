@@ -1,4 +1,5 @@
 <script lang="ts">
+  let {} = $props();
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
 
@@ -122,7 +123,7 @@
     handleResize();
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    
+
     // Only run particle animation on desktop
     if (!isMobile) {
       animate();

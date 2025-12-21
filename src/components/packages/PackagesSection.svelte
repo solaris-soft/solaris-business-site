@@ -1,4 +1,5 @@
 <script lang="ts">
+  let {} = $props(); // Fixing Astro client:load type error without props
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
