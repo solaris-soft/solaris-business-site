@@ -5,6 +5,7 @@
   let container;
   let isVisible = false;
   let hasAnimated = false;
+  let icons = [];
   let observer;
 
   onMount(() => {
@@ -58,6 +59,7 @@
     const title = container.querySelector(".title");
     const subtitle = container.querySelector(".subtitle");
     const cardsSmall = container.querySelectorAll(".card-small");
+    icons = container.querySelectorAll(".icon-container");
     const cta = container.querySelector(".cta");
     const geometricShapes = container.querySelectorAll(
       "[class*='geometric-bg-']",
@@ -72,7 +74,7 @@
     if (isMobile) {
       // Simple fade-in for mobile
       tl.fromTo(
-        [title, subtitle, ...cardsSmall, cta],
+        [title, subtitle, ...icons, ...cardsSmall, cta],
         { opacity: 0, y: 20 },
         {
           opacity: 1,
@@ -93,8 +95,8 @@
         scale: 1,
         rotation: (i) => [45, 12, -12][i] || 0,
         opacity: (i) => [0.05, 0.1, 0.03][i] || 0.05,
-        duration: 1.5,
-        stagger: 0.2,
+        duration: 1,
+        stagger: 0.15,
         ease: "back.out(1.2)",
       },
     );
@@ -103,8 +105,8 @@
     tl.fromTo(
       title,
       { opacity: 0, y: 100, scale: 0.8 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "back.out(1.4)" },
-      "-=1",
+      { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.3)" },
+      "-=0.7",
     );
 
     // Animate orange accent line
@@ -122,8 +124,8 @@
     tl.fromTo(
       subtitle,
       { opacity: 0, x: 50 },
-      { opacity: 1, x: 0, duration: 0.8 },
-      "-=0.6",
+      { opacity: 1, x: 0, duration: 0.75 },
+      "-=0.7",
     );
 
     // Animate small cards with dynamic stagger
@@ -131,27 +133,25 @@
       cardsSmall,
       {
         opacity: 0,
-        y: 100,
+        y: 80,
         rotationY: 15,
-        scale: 0.8,
+        scale: 0.85,
       },
       {
         opacity: 1,
         y: 0,
         rotationY: 0,
         scale: 1,
-        duration: 0.8,
+        duration: 0.7,
         stagger: {
-          amount: 0.6,
-          from: "random",
+          amount: 0.35,
+          from: "start",
         },
-        ease: "back.out(1.4)",
+        ease: "back.out(1.3)",
       },
-      "-=0.5",
+      "-=0.7",
     );
 
-    // Animate all icons with special timing
-    const icons = container.querySelectorAll(".icon-container");
     tl.fromTo(
       icons,
       { scale: 0, rotation: 270, opacity: 0 },
@@ -159,14 +159,14 @@
         scale: 1,
         rotation: 0,
         opacity: 1,
-        duration: 0.7,
+        duration: 0.6,
         stagger: {
-          amount: 0.8,
+          amount: 0.5,
           from: "start",
         },
-        ease: "back.out(2.5)",
+        ease: "back.out(2.3)",
       },
-      "-=0.6",
+      "-=0.5",
     );
 
     // Animate CTA with border reveal
@@ -185,8 +185,6 @@
   }
 
   function startBreathingAnimations() {
-    const icons = container.querySelectorAll(".icon-container");
-
     icons.forEach((icon, index) => {
       gsap.to(icon, {
         scale: 1.05,
@@ -315,7 +313,7 @@
 
 <div
   bind:this={container}
-  class="min-h-screen relative bg-black overflow-hidden"
+  class="relative bg-black overflow-hidden md:min-h-screen"
 >
   <!-- Geometric background elements -->
   <div class="particle-container absolute inset-0 z-0"></div>
@@ -333,9 +331,9 @@
     ></div>
   </div>
 
-  <div class="container mx-auto px-6 md:px-8 max-w-7xl relative z-10 py-20">
+  <div class="container mx-auto px-6 md:px-8 max-w-7xl relative z-10 py-10 md:py-20">
     <!-- Asymmetric Header -->
-    <div class="mb-32 relative">
+    <div class="mb-12 md:mb-24 relative">
       <div class="flex flex-col lg:flex-row items-start lg:items-center gap-12">
         <div class="lg:w-2/3">
           <div class="mb-6">
@@ -506,6 +504,17 @@
   .geometric-bg-2,
   .geometric-bg-3 {
     pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .title,
+    .subtitle,
+    .card,
+    .cta,
+    .icon-container {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   /* Card styling */
