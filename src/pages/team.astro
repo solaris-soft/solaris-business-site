@@ -11,86 +11,70 @@ import astenProfile from '../assets/asten-profile.webp';
 // Map team data with imported images
 const teamMembers = teamData.map(member => ({
   ...member,
-  image: member.name === 'Sam Frahm' ? samProfile : 
-         member.name === 'Joshua Macmaster' ? joshProfile : 
+  image: member.name === 'Sam Frahm' ? samProfile :
+         member.name === 'Joshua Macmaster' ? joshProfile :
          astenProfile
 }));
 
 ---
 
-<Layout 
+<Layout
   title="Our Development Team | Solaris Software"
-  description="Meet the expert web developers and software engineers behind SOLARIS SOFTWARE. Joshua Macmaster and Sam Frahm lead our Perth-based team in delivering innovative digital solutions."
-  keywords="web development team Perth, software engineers Western Australia, Joshua MacMaster, Samuel Frahm, Perth tech team, custom software developers"
+  description="Meet the team behind SOLARIS SOFTWARE. We combine legal precision and psychology insights with engineering to deliver affordable, domain-driven software solutions through hypothesis testing and continuous improvement."
+  keywords="web development team Perth, software engineers Western Australia, Joshua MacMaster, Samuel Frahm, domain-driven design, hypothesis-driven development, affordable software Perth"
   type="profile"
   category="Team"
 >
-    <!-- White Hero Section -->
-    <section class="pt-24 pb-16 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6">
-                    Meet Our <span class="text-orange-500">Team</span>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-6">
+                <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tight">
+                    Meet The <span class="text-orange-500">Team</span>
                 </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-                    A lawyer and psychology graduate turned self-taught programmers. We bring a different way of thinking about business solutions.
+                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    A lawyer and psychology graduate turned self-taught developers. We apply scientific methodology to software design.
                 </p>
-                
-                <!-- Team Stats -->
-                <div class="flex flex-wrap justify-center gap-8 mb-12">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-orange-500">3</div>
-                        <div class="text-sm text-gray-500 uppercase tracking-wide">Team Members</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-orange-500">Perth</div>
-                        <div class="text-sm text-gray-500 uppercase tracking-wide">Based</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-orange-500">100%</div>
-                        <div class="text-sm text-gray-500 uppercase tracking-wide">Self-Taught</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Team Members Grid -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {teamMembers.map((member) => (
-                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full">
+                    <div class="bg-white rounded-3xl p-10 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
                         <!-- Profile Image -->
-                        <div class="text-center mb-6">
-                            <div class="w-24 h-24 mx-auto mb-4 relative">
+                        <div class="text-center mb-8">
+                            <div class="w-28 h-28 mx-auto mb-5 relative">
                                 <Image
                                     src={member.image}
                                     alt={member.name}
-                                    width={96}
-                                    height={96}
-                                    class="w-full h-full object-cover rounded-full border-4 border-gray-100"
+                                    width={112}
+                                    height={112}
+                                    class="w-full h-full object-cover rounded-full"
                                 />
                             </div>
-                            
+
                             <!-- Name and Role -->
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                            <p class="text-orange-500 font-medium text-sm mb-4">{member.role}</p>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                            <p class="text-orange-500 font-semibold tracking-wide uppercase text-xs">{member.role}</p>
                         </div>
-                        
+
                         <!-- Bio - grows to fill available space -->
-                        <div class="flex-grow mb-6">
-                            <p class="text-gray-600 text-sm leading-relaxed">{member.bio}</p>
+                        <div class="flex-grow mb-8">
+                            <p class="text-gray-600 leading-relaxed">{member.bio}</p>
                         </div>
-                        
+
                         <!-- GitHub Link - locked to bottom -->
                         {member.github && (
-                            <div class="text-center">
-                                <a 
+                            <div class="text-center pt-6">
+                                <a
                                     href={member.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200 rounded-lg text-sm font-medium"
+                                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-50 hover:bg-orange-500 text-gray-700 hover:text-white transition-all duration-200 rounded-full font-medium text-sm"
                                 >
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -105,71 +89,97 @@ const teamMembers = teamData.map(member => ({
         </div>
     </section>
 
-    <!-- Philosophy Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                    Our <span class="text-orange-500">Philosophy</span>
+    <!-- Vision Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    Our <span class="text-orange-500">Approach</span>
                 </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    We believe great software comes from understanding both technology and human behavior. Our diverse backgrounds create solutions that work intuitively.
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    We deliver affordable software through scientific methodology and continuous improvement. Every solution is tested against one question: <strong>Is it working for the business and the people in it?</strong>
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
+            <div class="space-y-8">
+                <div class="bg-gray-50 rounded-2xl p-8 hover:bg-orange-50 transition-colors duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Domain-Driven Design</h3>
+                            <p class="text-gray-600 leading-relaxed">We dive deep into your unique business domain. Every company has specific needs that off-the-shelf solutions miss. We design software that speaks your business language and reflects your actual workflows.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Legal Precision</h3>
-                    <p class="text-gray-600">Understanding compliance, contracts, and business processes to ensure robust solutions.</p>
                 </div>
 
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
+                <div class="bg-gray-50 rounded-2xl p-8 hover:bg-orange-50 transition-colors duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Hypothesis-Driven Development</h3>
+                            <p class="text-gray-600 leading-relaxed">We don't guess. Together with you, we form hypotheses about what will improve your operations. Then we test them with the staff who actually use the software. Does it increase satisfaction? Does it reduce friction? The data guides our decisions.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Psychology Insights</h3>
-                    <p class="text-gray-600">User behavior analysis and cognitive design principles for intuitive experiences.</p>
                 </div>
 
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
+                <div class="bg-gray-50 rounded-2xl p-8 hover:bg-orange-50 transition-colors duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Continuous Improvement</h3>
+                            <p class="text-gray-600 leading-relaxed">Software is never finished. We build with iteration in mind, constantly measuring impact and refining based on real usage patterns. Your business evolves, and your software should too.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Engineering Logic</h3>
-                    <p class="text-gray-600">Systems thinking and problem-solving methodology for scalable solutions.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-8 hover:bg-orange-50 transition-colors duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Affordable & Accessible</h3>
+                            <p class="text-gray-600 leading-relaxed">Quality software shouldn't break the bank. We believe every business deserves software that enhances their operations without enterprise-level pricing. Our efficient processes and modern tooling keep costs down while maintaining high standards.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-24 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Ready to Work With <span class="text-orange-500">Our Team?</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Let's Build <span class="text-orange-500">Together</span>
             </h2>
-            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Let's discuss your project and see how our unique approach can benefit your business.
+            <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Ready to design software that truly serves your business and your people? Let's discover your domain together and test what works.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                    href="/contact/" 
-                    class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors duration-300"
+                <a
+                    href="/contact/"
+                    class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                    Get Started
+                    Start a Conversation
                 </a>
-                <a 
-                    href="/projects/" 
-                    class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg border border-gray-300 hover:border-orange-500 hover:text-orange-500 transition-colors duration-300"
+                <a
+                    href="/projects/"
+                    class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300"
                 >
                     View Our Work
                 </a>
