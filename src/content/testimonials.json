@@ -22,5 +22,13 @@
         "company": "Wizard Plumbing and Gas",
         "link": "https://www.wizardplumbing.com.au/",
         "image": "../assets/project-wizard.webp"
+    },
+    {
+        "id": 4,
+        "quote": "I can’t recommend Joshua and the team at Solaris Software highly enough. They created an incredible website for my business, and the competed website far exceeded my expectations in every way. The whole process was seamless. I was dreading getting my new website done as I have had some really difficult experiences with web design in the past. Before starting, I had very little idea of what I wanted. Joshua guided me through each step of the way, and right from the beginning, I was delighted with how it was taking shape. I was so impressed with Joshua’s attention to the creative process, staying aligned with my brand, his attention to detail - not to mention how quickly the website was completed. He gave me so many ideas and inspiration in terms of layout, colour, content, as well as the important commercial aspects of the project. The finished website, with online bookings and payments, is going to streamline the way I do business and save me so much time and money.\n\nJoshua was a pleasure to work with - his professionalism, communication, responsiveness and patience were all exceptional and beyond compare. If I could give more than 5 stars I would!\n\nI highly recommend Solaris for any web project, whether you have a concrete idea or not.",
+        "author": "Danja Locke",
+        "company": "The Heart Cave",
+        "link": "https://heart-cave.flat-sound-6551.workers.dev/",
+        "image": "../assets/projects/hear-cave-logo.webp"
     }
 ]
