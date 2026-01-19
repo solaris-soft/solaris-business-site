@@ -52,5 +52,52 @@ const testimonials = defineCollection({
     }),
 });
 
+const articles = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      publishDate: z.coerce.date(),
+      draft: z.boolean().default(false),
+      coverImage: image().optional(),
+      tags: z.array(z.string()).optional(),
+    }),
+});
+
+const caseStudies = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      client: z.string(),
+      description: z.string(),
+      publishDate: z.coerce.date(),
+      draft: z.boolean().default(false),
+      heroImage: image().optional(),
+      services: z.array(z.string()).optional(),
+      outcomes: z.array(z.string()).optional(),
+    }),
+});
+
+const servicePages = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    summary: z.string().optional(),
+    order: z.number().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 // 4. Export a single `collections` object to register your collection(s)
-export const collections = { team, projects, services, testimonials };
+export const collections = {
+  team,
+  projects,
+  services,
+  testimonials,
+  articles,
+  caseStudies,
+  servicePages,
+};
