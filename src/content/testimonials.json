@@ -1,34 +1,34 @@
 [
-    {
-        "id": 1,
-        "quote": "We couldn't be happier with the website Solaris Software built for us! From the very beginning, Joshua and Sam were professional, responsive, and truly understood our vision. They took the time to understand our needs and delivered a sleek, modern, and user-friendly website that exceeded our expectations.\n\nTheir attention to detail, technical expertise, and commitment to quality were evident throughout the entire process. Any questions or adjustments we had were handled quickly and efficiently. Thanks to their hard work, we now have a website that not only looks great but also functions flawlessly.\n\nWe highly recommend Solaris Software to anyone looking for a reliable and talented website partner. They made the entire experience seamless and enjoyable!",
-        "author": "Seth & Sandra",
-        "company": "S&S Preserves",
-        "link": "https://www.sspreserves.com.au/",
-        "image": "../assets/project-ss.webp"
-    },
-    {
-        "id": 2,
-        "quote": "Solaris Software created a visually appealing and deliciously dynamic website for LawMac. The team have a true eye for design and understand the importance of the small details. From overhauling the navigation to adding subtle depth and lighting touches, the final result is gorgeous and a pleasure to navigate.\n\nThanks boys, looking forward to working with you again soon.",
-        "author": "Alexandra Goldsbury",
-        "company": "Lawton Macmaster Legal",
-        "link": "https://lawmac.com.au/",
-        "image": "../assets/project-lawmac.webp"
-    },
-    {
-        "id": 3,
-        "quote": "Working with Josh and Sam has been one of the best decision Wizard has made, from the start they have aligned with our vison, with the countless alterations we made through the website design they worked with us to the highest standard we could possibly ask for. I would highly recommend Solaris Software to anyone who is looking for a professional and seamless website design. 10 out of 10.",
-        "author": "Cameron Barnes",
-        "company": "Wizard Plumbing and Gas",
-        "link": "https://www.wizardplumbing.com.au/",
-        "image": "../assets/project-wizard.webp"
-    },
-    {
-        "id": 4,
-        "quote": "I can’t recommend Joshua and the team at Solaris Software highly enough. They created an incredible website for my business, and the competed website far exceeded my expectations in every way. The whole process was seamless. I was dreading getting my new website done as I have had some really difficult experiences with web design in the past. Before starting, I had very little idea of what I wanted. Joshua guided me through each step of the way, and right from the beginning, I was delighted with how it was taking shape. I was so impressed with Joshua’s attention to the creative process, staying aligned with my brand, his attention to detail - not to mention how quickly the website was completed. He gave me so many ideas and inspiration in terms of layout, colour, content, as well as the important commercial aspects of the project. The finished website, with online bookings and payments, is going to streamline the way I do business and save me so much time and money.\n\nJoshua was a pleasure to work with - his professionalism, communication, responsiveness and patience were all exceptional and beyond compare. If I could give more than 5 stars I would!\n\nI highly recommend Solaris for any web project, whether you have a concrete idea or not.",
-        "author": "Danja Locke",
-        "company": "The Heart Cave",
-        "link": "https://heart-cave.flat-sound-6551.workers.dev/",
-        "image": "../assets/projects/hear-cave-logo.webp"
-    }
+  {
+    "id": 1,
+    "quote": "We couldn't be happier with the website Solaris Software built for us! From the very beginning, Joshua and Sam were professional, responsive, and truly understood our vision. They took the time to understand our needs and delivered a sleek, modern, and user-friendly website that exceeded our expectations.\n\nTheir attention to detail, technical expertise, and commitment to quality were evident throughout the entire process. Any questions or adjustments we had were handled quickly and efficiently. Thanks to their hard work, we now have a website that not only looks great but also functions flawlessly.\n\nWe highly recommend Solaris Software to anyone looking for a reliable and talented website partner. They made the entire experience seamless and enjoyable!",
+    "author": "Seth & Sandra",
+    "company": "S&S Preserves",
+    "link": "https://www.sspreserves.com.au/",
+    "image": "../assets/project-ss.webp"
+  },
+  {
+    "id": 2,
+    "quote": "Solaris Software created a visually appealing and deliciously dynamic website for LawMac. The team have a true eye for design and understand the importance of the small details. From overhauling the navigation to adding subtle depth and lighting touches, the final result is gorgeous and a pleasure to navigate.\n\nThanks boys, looking forward to working with you again soon.",
+    "author": "Alexandra Goldsbury",
+    "company": "Lawton Macmaster Legal",
+    "link": "https://lawmac.com.au/",
+    "image": "../assets/project-lawmac.webp"
+  },
+  {
+    "id": 3,
+    "quote": "Working with Josh and Sam has been one of the best decision Wizard has made, from the start they have aligned with our vison, with the countless alterations we made through the website design they worked with us to the highest standard we could possibly ask for. I would highly recommend Solaris Software to anyone who is looking for a professional and seamless website design. 10 out of 10.",
+    "author": "Cameron Barnes",
+    "company": "Wizard Plumbing and Gas",
+    "link": "https://www.wizardplumbing.com.au/",
+    "image": "../assets/project-wizard.webp"
+  },
+  {
+    "id": 4,
+    "quote": "I can’t recommend Joshua and the team at Solaris Software highly enough. They created an incredible website for my business, and the competed website far exceeded my expectations in every way. The whole process was seamless. I was dreading getting my new website done as I have had some really difficult experiences with web design in the past. Before starting, I had very little idea of what I wanted. Joshua guided me through each step of the way, and right from the beginning, I was delighted with how it was taking shape. I was so impressed with Joshua’s attention to the creative process, staying aligned with my brand, his attention to detail - not to mention how quickly the website was completed. He gave me so many ideas and inspiration in terms of layout, colour, content, as well as the important commercial aspects of the project. The finished website, with online bookings and payments, is going to streamline the way I do business and save me so much time and money.\n\nJoshua was a pleasure to work with - his professionalism, communication, responsiveness and patience were all exceptional and beyond compare. If I could give more than 5 stars I would!\n\nI highly recommend Solaris for any web project, whether you have a concrete idea or not.",
+    "author": "Dana Rose",
+    "company": "The Heart Cave",
+    "link": "https://heart-cave.flat-sound-6551.workers.dev/",
+    "image": "../assets/projects/hear-cave-logo.webp"
+  }
 ]
