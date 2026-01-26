@@ -1,0 +1,263 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const articles = await getCollection("articles", ({ data }) => !data.draft);
+const sortedArticles = articles.sort((a, b) =>
+  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+// Get unique tags for filtering
+const allTags = new Set<string>();
+articles.forEach((article) => {
+  article.data.tags?.forEach((tag) => allTags.add(tag));
+});
+const tags = Array.from(allTags).sort();
+---
+
+<Layout
+  title="Articles | Solaris Software"
+  description="Explore insights, tutorials, and industry news from SOLARIS SOFTWARE's expert team on web development, AI solutions, and digital innovation."
+  keywords="web development articles, tech tutorials, programming insights, AI solutions, software development blog"
+  category="Blog"
+>
+  <main class="min-h-screen bg-white">
+    <!-- Header Section -->
+    <section class="pt-32 pb-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-6">
+          <h1
+            class="text-5xl md:text-7xl font-black text-gray-900 tracking-tight"
+          >
+            Our <span class="text-orange-500">Articles</span>
+          </h1>
+          <p
+            class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            Insights, tutorials, and industry perspectives from our team on web
+            development, AI solutions, and digital innovation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Tag Filter -->
+        {tags.length > 0 && (
+          <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+              class="tag-filter active px-6 py-3 rounded-full bg-orange-500 text-white font-medium transition-all duration-300 shadow-sm hover:shadow-md"
+              data-tag="all"
+            >
+              All Articles
+            </button>
+            {tags.map((tag) => (
+              <button
+                class="tag-filter px-6 py-3 rounded-full bg-white text-gray-700 font-medium hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
+                data-tag={tag}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <!-- Articles Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-10"
+          id="articles-grid"
+        >
+          {sortedArticles.map((article) => (
+            <a
+              href={`/articles/${article.slug}/`}
+              class="group article-card bg-white rounded-3xl p-10 hover:shadow-lg transition-all duration-300 flex flex-col h-full"
+              data-tags={article.data.tags?.join(",") || ""}
+            >
+              {article.data.coverImage && (
+                <div class="mb-6 rounded-2xl overflow-hidden bg-gray-50">
+                  <img
+                    src={article.data.coverImage.src}
+                    alt={article.data.title}
+                    class="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
+              <div class="flex-grow">
+                <div class="flex items-center gap-2 mb-4 flex-wrap">
+                  <time
+                    class="text-sm font-medium text-gray-500"
+                    datetime={article.data.publishDate.toISOString()}
+                  >
+                    {article.data.publishDate.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </time>
+                  {article.data.tags && article.data.tags.length > 0 && (
+                    <>
+                      <span class="text-gray-300">•</span>
+                      <span
+                        class="text-sm font-medium text-orange-500 uppercase tracking-wide text-xs"
+                      >
+                        {article.data.tags[0]}
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                <h3
+                  class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors duration-300"
+                >
+                  {article.data.title}
+                </h3>
+
+                <p
+                  class="text-gray-600 leading-relaxed mb-6"
+                >
+                  {article.data.description}
+                </p>
+              </div>
+
+              <div
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-50 hover:bg-orange-500 text-gray-700 hover:text-white transition-all duration-200 rounded-full font-medium text-sm w-fit"
+              >
+                <span>Read Article</span>
+                <svg
+                  class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {sortedArticles.length === 0 && (
+          <div class="text-center py-16">
+            <p class="text-gray-600 text-lg">No articles available yet.</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+        >
+          Want to Stay <span class="text-orange-500">Updated?</span>
+        </h2>
+        <p
+          class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+        >
+          Subscribe to our newsletter to receive the latest articles, insights, and
+          industry updates from our team.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact/"
+            class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Get in Touch
+          </a>
+          <a
+            href="/services/"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300"
+          >
+            Our Services
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Tag filter styles */
+  .tag-filter.active {
+    background: #ff3d00;
+    color: white;
+  }
+
+
+  /* Filter animations */
+  .article-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+
+  .article-card.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  // Tag filtering functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".tag-filter");
+    const articleCards = document.querySelectorAll(".article-card");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", function (this: HTMLButtonElement) {
+        const tag = this.getAttribute("data-tag");
+
+        // Update active button
+        filterButtons.forEach((btn) => {
+          btn.classList.remove("active");
+          btn.classList.add(
+            "bg-white",
+            "text-gray-700",
+            "border",
+            "border-gray-200",
+          );
+          btn.classList.remove(
+            "bg-orange-500",
+            "text-white",
+            "border-orange-500",
+          );
+        });
+
+        this.classList.add("active");
+        this.classList.remove(
+          "bg-white",
+          "text-gray-700",
+          "border",
+          "border-gray-200",
+        );
+        this.classList.add("bg-orange-500", "text-white");
+
+        // Filter articles
+        articleCards.forEach((card) => {
+          const cardTags = card.getAttribute("data-tags");
+          const tags = cardTags || "";
+
+          if (tag === "all" || tags.includes(tag)) {
+            card.classList.remove("hidden");
+            card.classList.add("visible");
+          } else {
+            card.classList.add("hidden");
+            card.classList.remove("visible");
+          }
+        });
+      });
+    });
+  });
+</script>

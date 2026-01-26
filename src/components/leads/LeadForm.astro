@@ -1,0 +1,260 @@
+---
+const requiredNote = "Required";
+---
+
+<section class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-black/5">
+  <div class="max-w-3xl">
+    <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+      Tell us what matters right now
+    </h2>
+    <p class="text-lg text-gray-600 mb-8">
+      We keep this lightweight. No big upfront specs. Just enough context to
+      shape a first hypothesis and a small, testable starting point.
+    </p>
+  </div>
+
+  <form id="lead-form" class="space-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">Name</span>
+        <input
+          type="text"
+          name="name"
+          required
+          placeholder="Your name"
+          class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">Email</span>
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="you@company.com"
+          class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        />
+      </label>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">Role</span>
+        <input
+          type="text"
+          name="role"
+          required
+          placeholder="Founder, Ops Lead, Product Manager"
+          class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        />
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">Company</span>
+        <input
+          type="text"
+          name="company"
+          required
+          placeholder="Company name"
+          class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        />
+      </label>
+    </div>
+
+    <label class="block">
+      <span class="text-sm font-semibold text-gray-900">
+        Current workflow and tools
+        <span class="text-gray-400 font-normal">({requiredNote})</span>
+      </span>
+      <textarea
+        name="workflow"
+        required
+        rows="3"
+        placeholder="What happens today, and which tools or spreadsheets are involved?"
+        class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+      ></textarea>
+    </label>
+
+    <label class="block">
+      <span class="text-sm font-semibold text-gray-900">
+        Where the friction shows up
+        <span class="text-gray-400 font-normal">({requiredNote})</span>
+      </span>
+      <textarea
+        name="friction"
+        required
+        rows="3"
+        placeholder="Bottlenecks, errors, delays, context switching, manual data entry..."
+        class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+      ></textarea>
+    </label>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">
+          Desired outcome
+          <span class="text-gray-400 font-normal">({requiredNote})</span>
+        </span>
+        <textarea
+          name="outcome"
+          required
+          rows="3"
+          placeholder="What should be different once we ship an initial solution?"
+          class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        ></textarea>
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">
+          How success is measured
+          <span class="text-gray-400 font-normal">({requiredNote})</span>
+        </span>
+        <textarea
+          name="successMetrics"
+          required
+          rows="3"
+          placeholder="Example: reduce processing time, fewer errors, higher adoption."
+          class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        ></textarea>
+      </label>
+    </div>
+
+    <label class="block">
+      <span class="text-sm font-semibold text-gray-900">
+        Primary users or stakeholders
+        <span class="text-gray-400 font-normal">({requiredNote})</span>
+      </span>
+      <textarea
+        name="users"
+        required
+        rows="3"
+        placeholder="Who touches this process day-to-day?"
+        class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+      ></textarea>
+    </label>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">
+          Constraints or integrations
+          <span class="text-gray-400 font-normal">({requiredNote})</span>
+        </span>
+        <textarea
+          name="constraints"
+          required
+          rows="3"
+          placeholder="Compliance, data sources, systems we should integrate with."
+          class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        ></textarea>
+      </label>
+
+      <label class="block">
+        <span class="text-sm font-semibold text-gray-900">
+          Timeline or urgency
+          <span class="text-gray-400 font-normal">({requiredNote})</span>
+        </span>
+        <textarea
+          name="timeline"
+          required
+          rows="3"
+          placeholder="Is there a deadline or an upcoming event?"
+          class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+        ></textarea>
+      </label>
+    </div>
+
+    <label class="block">
+      <span class="text-sm font-semibold text-gray-900">
+        Budget range (optional)
+      </span>
+      <input
+        type="text"
+        name="budget"
+        placeholder="Optional range, even if rough"
+        class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
+      />
+    </label>
+
+    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" />
+
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+      <button
+        id="lead-form-submit"
+        type="submit"
+        class="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-3 text-white font-semibold hover:bg-orange-600 transition-all duration-200 shadow-lg"
+      >
+        Send inquiry
+      </button>
+      <p class="text-sm text-gray-500">
+        We usually respond within 1-2 business days.
+      </p>
+    </div>
+
+    <p
+      id="lead-form-status"
+      class="text-sm font-medium text-gray-600"
+      role="status"
+      aria-live="polite"
+    ></p>
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById("lead-form") as HTMLFormElement | null;
+  const statusEl = document.getElementById(
+    "lead-form-status",
+  ) as HTMLParagraphElement | null;
+  const submitBtn = document.getElementById(
+    "lead-form-submit",
+  ) as HTMLButtonElement | null;
+
+  const setStatus = (message: string, tone: "info" | "success" | "error") => {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove("text-gray-600", "text-green-600", "text-red-600");
+    statusEl.classList.add(
+      tone === "success" ? "text-green-600" : tone === "error" ? "text-red-600" : "text-gray-600",
+    );
+  };
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!form || !submitBtn) return;
+
+    submitBtn.setAttribute("disabled", "true");
+    submitBtn.classList.add("opacity-70", "cursor-not-allowed");
+    setStatus("Sending your inquiry...", "info");
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.error || "Unable to send inquiry.");
+      }
+
+      form.reset();
+      setStatus("Thanks! We will review this and reach out shortly.", "success");
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.";
+      setStatus(message, "error");
+    } finally {
+      submitBtn.removeAttribute("disabled");
+      submitBtn.classList.remove("opacity-70", "cursor-not-allowed");
+    }
+  });
+</script>

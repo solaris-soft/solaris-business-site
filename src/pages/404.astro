@@ -4,11 +4,40 @@ import Layout from "@/layouts/Layout.astro";
 
 <Layout title="404 - Page Not Found | SOLARIS">
   <main
-    class="relative flex flex-col items-center justify-center py-16 md:py-24 overflow-hidden min-h-screen"
+    class="relative flex flex-col items-center justify-center py-16 md:py-24 overflow-hidden min-h-screen bg-white"
   >
-    <!-- Solar System Animation -->
+    <!-- Background Effects -->
     <div
       class="absolute inset-0 overflow-hidden pointer-events-none"
+      aria-hidden="true"
+    >
+      <!-- Subtle gradient overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-orange-50/20"
+      >
+      </div>
+      <!-- Subtle pattern overlay -->
+      <div class="absolute inset-0 opacity-[0.02]">
+        <div
+          class="absolute inset-0"
+          style="background-image: radial-gradient(circle at 1px 1px, #ff3d00 1px, transparent 0); background-size: 40px 40px;"
+        >
+        </div>
+      </div>
+      <!-- Gradient orbs -->
+      <div
+        class="absolute w-[600px] h-[600px] -top-[300px] -right-[300px] bg-gradient-radial from-[#ff3d00]/5 via-transparent to-transparent opacity-40 blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute w-[500px] h-[500px] -bottom-[250px] -left-[250px] bg-gradient-radial from-[#ff8a00]/5 via-transparent to-transparent opacity-30 blur-3xl"
+      >
+      </div>
+    </div>
+
+    <!-- Solar System Animation -->
+    <div
+      class="absolute inset-0 overflow-hidden pointer-events-none z-0"
       aria-hidden="true"
     >
       <div class="solar-system">
@@ -44,7 +73,7 @@ import Layout from "@/layouts/Layout.astro";
     </div>
 
     <div
-      class="w-full max-w-7xl flex flex-col items-center justify-center gap-8 relative z-10"
+      class="w-full max-w-7xl flex flex-col items-center justify-center gap-8 relative z-10 px-4 sm:px-6 lg:px-8"
     >
       <!-- Enhanced 404 Text -->
       <h1
@@ -78,37 +107,29 @@ import Layout from "@/layouts/Layout.astro";
 
       <!-- Message -->
       <h2
-        class="text-5xl md:text-7xl font-bold text-white/90 text-center opacity-0 animate-fadeIn"
+        class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 text-center opacity-0 animate-fadeIn leading-tight"
       >
         Lost in Space
       </h2>
 
       <!-- Description -->
       <p
-        class="text-[clamp(1rem,1.5vw,1.2rem)] max-w-[44ch] leading-[1.6] text-white/70 text-center m-0 tracking-[0.01em] relative py-4 opacity-0 animate-slideUp"
+        class="text-[clamp(1rem,1.5vw,1.2rem)] max-w-[44ch] leading-[1.6] text-gray-600 text-center m-0 tracking-[0.01em] relative py-4 opacity-0 animate-slideUp"
       >
         The page you're looking for has drifted beyond our solar system.
         <span
-          class="absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent"
+          class="absolute -left-12 top-1/2 w-8 h-px bg-gradient-to-r from-[#ff3d00] to-transparent hidden md:block"
         ></span>
         <span
-          class="absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent"
+          class="absolute -right-12 top-1/2 w-8 h-px bg-gradient-to-l from-[#ff3d00] to-transparent hidden md:block"
         ></span>
       </p>
 
       <!-- Enhanced CTA Button -->
       <a
         href="/"
-        class="group relative px-8 md:px-11 py-3 md:py-3.5 text-sm tracking-wider uppercase text-white border-none rounded-full no-underline font-medium z-10 h-11 md:h-12 inline-flex items-center justify-center min-w-[160px] md:min-w-[180px] overflow-hidden opacity-0 animate-slideUp animation-delay-200"
+        class="group relative px-8 md:px-11 py-3 md:py-3.5 text-sm tracking-wider uppercase text-white border-none rounded-full no-underline font-medium z-10 h-11 md:h-12 inline-flex items-center justify-center min-w-[160px] md:min-w-[180px] overflow-hidden opacity-0 animate-slideUp animation-delay-200 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] hover:from-[#ff8a00] hover:to-[#ff3d00] transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
       >
-        <div
-          class="absolute inset-[-1px] bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full"
-        >
-        </div>
-        <div
-          class="absolute inset-[1px] bg-black rounded-full transition-colors duration-200 group-hover:bg-black/80"
-        >
-        </div>
         <span class="relative flex items-center gap-2">
           Return Home
           <svg
@@ -281,7 +302,7 @@ import Layout from "@/layouts/Layout.astro";
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 61, 0, 0.15);
     border-radius: 50%;
   }
 

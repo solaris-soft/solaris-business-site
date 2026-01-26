@@ -1,0 +1,124 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LeadForm from "../components/leads/LeadForm.astro";
+---
+
+<Layout
+  title="Inquiry | Solaris Software"
+  description="Share a lightweight, agile-friendly overview of your workflow and constraints. We'll propose a hypothesis-driven path to improve outcomes."
+  keywords="software inquiry, agile software development, hypothesis-driven development, workflow improvement, Solaris Software"
+>
+  <main class="overflow-x-hidden">
+    <!-- Hero Section -->
+    <section class="bg-white pt-32 pb-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-6">
+          <p class="uppercase tracking-[0.3em] text-xs text-orange-500 font-semibold">
+            Inquiry
+          </p>
+          <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tight">
+            Start with the <span class="text-orange-500">right</span> questions
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed">
+            We work in short cycles, testing hypotheses with real users. This
+            inquiry captures just enough context to shape a small, high-impact
+            starting point.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#inquiry-form"
+              class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg"
+            >
+              Share your workflow
+            </a>
+            <a
+              href="/contact/"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300 border border-gray-200"
+            >
+              Book a call instead
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline Section -->
+    <section class="py-24 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Our <span class="text-orange-500">Agile Pipeline</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We avoid big, upfront requirements. Instead, we focus on fast
+            feedback loops and continuous improvement with your team.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-2xl p-8 border border-black/5">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              1. Discover the workflow
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              We map the real process, the people in it, and the friction that
+              slows them down. No fluff, just the ground truth.
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 border border-black/5">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              2. Form a hypothesis
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              We propose a specific change and a clear outcome so everyone knows
+              what success looks like.
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 border border-black/5">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              3. Build the smallest test
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              A focused, production-ready slice that users can validate quickly
+              and confidently.
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-8 border border-black/5">
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              4. Iterate with data
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              We measure impact, refine the solution, and keep your team moving
+              forward.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inquiry Form Section -->
+    <section id="inquiry-form" class="py-24 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <LeadForm />
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-black">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Prefer a live conversation?
+        </h2>
+        <p class="text-lg text-white/70 mb-10">
+          Book a quick call and we will workshop a hypothesis together.
+        </p>
+        <a
+          href="/contact/"
+          class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg"
+        >
+          Schedule a call
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
