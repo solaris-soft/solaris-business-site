@@ -4,7 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const caseStudies = await getCollection("caseStudies");
+  const caseStudies = await getCollection("caseStudies", ({ data }) => !data.draft);
   return caseStudies.map((caseStudy) => ({
     params: { slug: caseStudy.slug },
     props: { caseStudy },
@@ -20,7 +20,7 @@ const { Content } = await caseStudy.render();
   description={caseStudy.data.description}
   image={caseStudy.data.heroImage?.src}
   type="article"
-  publishDate={caseStudy.data.publishDate}
+  publishDate={caseStudy.data.publishDate ?? undefined}
   keywords={`case study, ${caseStudy.data.client}, ${caseStudy.data.title}, web development success stories`}
   category="Case Study"
 >
@@ -98,47 +98,51 @@ const { Content } = await caseStudy.render();
         </h1>
 
         <!-- Meta Information -->
-        <div
-          class="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-8"
-        >
-          <time
-            class="flex items-center gap-2"
-            datetime={caseStudy.data.publishDate.toISOString()}
+        {(caseStudy.data.publishDate || (caseStudy.data.tags && caseStudy.data.tags.length > 0)) && (
+          <div
+            class="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-8"
           >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            {caseStudy.data.publishDate.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
-          {caseStudy.data.services && caseStudy.data.services.length > 0 && (
-            <>
-              <span class="text-gray-300">•</span>
-              <div class="flex flex-wrap gap-2">
-                {caseStudy.data.services.map((service) => (
-                  <span
-                    class="text-sm px-2 py-1 rounded bg-gray-100 text-gray-700"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+            {caseStudy.data.publishDate && (
+              <time
+                class="flex items-center gap-2"
+                datetime={caseStudy.data.publishDate.toISOString()}
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                {caseStudy.data.publishDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            )}
+            {caseStudy.data.tags && caseStudy.data.tags.length > 0 && (
+              <>
+                {caseStudy.data.publishDate && <span class="text-gray-300">•</span>}
+                <div class="flex flex-wrap gap-2">
+                  {caseStudy.data.tags.map((tag) => (
+                    <span
+                      class="text-sm px-2 py-1 rounded bg-gray-100 text-gray-700"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
 
         <!-- Hero Image -->
         {caseStudy.data.heroImage && (
@@ -157,46 +161,36 @@ const { Content } = await caseStudy.render();
           </div>
         )}
 
-        <!-- Outcomes -->
-        {caseStudy.data.outcomes && caseStudy.data.outcomes.length > 0 && (
-          <div
-            class="mb-16 bg-gradient-to-br from-orange-50/50 to-white rounded-2xl p-8 border border-orange-100 shadow-sm"
-          >
-            <h2
-              class="text-2xl font-display text-gray-900 mb-6 flex items-center gap-3"
-            >
-              <span
-                class="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"
-              >
-              </span>
-              Key Outcomes
+        <!-- Problem, Solution, Outcome -->
+        <div class="space-y-12 mb-16">
+          <div class="rounded-2xl p-8 border border-gray-100 bg-gray-50/50">
+            <h2 class="text-xl font-display text-gray-900 mb-4 flex items-center gap-3">
+              <span class="w-1 h-6 bg-orange-500 rounded-full"></span>
+              The Problem
             </h2>
-            <ul class="space-y-4">
-              {caseStudy.data.outcomes.map((outcome) => (
-                <li class="flex items-start group">
-                  <div
-                    class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center mr-4 flex-shrink-0 mt-0.5 group-hover:bg-orange-200 transition-colors duration-300"
-                  >
-                    <svg
-                      class="w-4 h-4 text-orange-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2.5"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <span class="text-gray-700 leading-relaxed">{outcome}</span>
-                </li>
-              ))}
-            </ul>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+              {caseStudy.data.problem}
+            </p>
           </div>
-        )}
+          <div class="rounded-2xl p-8 border border-gray-100 bg-gray-50/50">
+            <h2 class="text-xl font-display text-gray-900 mb-4 flex items-center gap-3">
+              <span class="w-1 h-6 bg-orange-500 rounded-full"></span>
+              Our Solution
+            </h2>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+              {caseStudy.data.solution}
+            </p>
+          </div>
+          <div class="rounded-2xl p-8 border border-orange-100 bg-gradient-to-br from-orange-50/50 to-white shadow-sm">
+            <h2 class="text-xl font-display text-gray-900 mb-4 flex items-center gap-3">
+              <span class="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"></span>
+              Outcome
+            </h2>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+              {caseStudy.data.outcome}
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 

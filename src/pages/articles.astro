@@ -99,6 +99,10 @@ const tags = Array.from(allTags).sort();
                       day: "numeric",
                     })}
                   </time>
+                  <span class="text-gray-300">•</span>
+                  <span class="text-sm font-medium text-gray-500">
+                    {article.data.author}
+                  </span>
                   {article.data.tags && article.data.tags.length > 0 && (
                     <>
                       <span class="text-gray-300">•</span>

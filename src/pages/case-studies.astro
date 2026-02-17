@@ -4,9 +4,11 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const caseStudies = await getCollection("caseStudies", ({ data }) => !data.draft);
-const sortedCaseStudies = caseStudies.sort((a, b) =>
-  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
-);
+const sortedCaseStudies = caseStudies.sort((a, b) => {
+  const aDate = a.data.publishDate?.valueOf() ?? 0;
+  const bDate = b.data.publishDate?.valueOf() ?? 0;
+  return bDate - aDate;
+});
 ---
 
 <Layout
@@ -62,16 +64,15 @@ const sortedCaseStudies = caseStudies.sort((a, b) =>
                   <div class="flex-grow">
                     <div class="mb-4">
                       <span
-                        class="inline-block text-sm font-medium px-3 py-1 rounded-full bg-orange-100 text-orange-700 mb-3"
+                        class="inline-block text-sm font-medium px-3 py-1 rounded-full bg-orange-100 text-orange-700"
                       >
                         {caseStudy.data.client}
                       </span>
-                      {caseStudy.data.services &&
-                        caseStudy.data.services.length > 0 && (
-                          <p class="text-sm text-gray-500 mt-2">
-                            {caseStudy.data.services.join(" • ")}
-                          </p>
-                        )}
+                      {caseStudy.data.tags && caseStudy.data.tags.length > 0 && (
+                        <p class="text-sm text-gray-500 mt-2">
+                          {caseStudy.data.tags.join(" • ")}
+                        </p>
+                      )}
                     </div>
 
                     <h3

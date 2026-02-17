@@ -1,0 +1,146 @@
+# Pages CMS – content and media config for Astro site
+# See https://pagescms.org/docs/configuration/#the-.pages.yml-file
+
+media:
+  input: public/images
+  output: /images
+  label: Images
+
+settings:
+  content:
+    merge: true
+
+content:
+  - name: articles
+    label: Articles
+    type: collection
+    path: src/content/articles
+    format: yaml-frontmatter
+    filename: "{slug}.md"
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+        description: The main headline shown on the article page and in listings.
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+        description: "Used in the article URL (e.g. my-article-title). Use only letters, numbers, and hyphens. No spaces."
+      - name: description
+        label: Short summary
+        type: text
+        required: true
+        description: A brief summary for article listings and search results. One or two sentences.
+      - name: author
+        label: Author
+        type: select
+        required: true
+        description: Who wrote this article.
+        options:
+          values:
+            - value: Sam
+              label: Sam
+            - value: Josh
+              label: Josh
+      - name: publishDate
+        label: Publish date
+        type: date
+        required: true
+        description: The date this article is published. Used for sorting and display.
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft (hide from site)
+        type: boolean
+        default: false
+        description: Turn on to hide this article from the live site until you are ready to publish.
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        description: Optional tags to group and filter articles (e.g. Web Development, Tips).
+      - name: coverImage
+        label: Cover image
+        type: image
+        description: Optional image shown at the top of the article and in listings.
+    view:
+      primary: title
+      fields: [title, author, publishDate, draft]
+      sort: [publishDate, title]
+      default:
+        sort: publishDate
+        order: desc
+      search: [title, description, author]
+
+  - name: caseStudies
+    label: Case Studies
+    type: collection
+    path: src/content/caseStudies
+    format: yaml-frontmatter
+    filename: "{slug}.md"
+    fields:
+      - name: title
+        label: Case study title
+        type: string
+        required: true
+        description: The main headline for this case study.
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+        description: "Used in the case study URL (e.g. acme-website-redesign). Use only letters, numbers, and hyphens."
+      - name: description
+        label: Short summary
+        type: text
+        required: true
+        description: A brief summary for listings and search results. One or two sentences.
+      - name: client
+        label: Client name
+        type: string
+        required: true
+        description: The name of the client or company this case study is about.
+      - name: problem
+        label: Problem
+        type: text
+        required: true
+        description: What challenge or problem did the client face? A short paragraph is enough here; add more detail in the main content below.
+      - name: solution
+        label: Solution
+        type: text
+        required: true
+        description: What did we do to address the problem? Summarise the approach; full story can go in the main content.
+      - name: outcome
+        label: Outcome
+        type: text
+        required: true
+        description: What was the result? For example: key metrics, improvements, or quotes from the client.
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        description: Optional tags to group case studies (e.g. E-commerce, Healthcare).
+      - name: heroImage
+        label: Hero image
+        type: image
+        description: Optional image shown at the top of the case study.
+      - name: publishDate
+        label: Publish date
+        type: date
+        description: When this case study was published. Used for sorting.
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft (hide from site)
+        type: boolean
+        default: false
+        description: Turn on to hide this case study from the live site until you are ready to publish.
+    view:
+      primary: title
+      fields: [title, client, outcome, draft]
+      sort: [publishDate, title]
+      default:
+        sort: publishDate
+        order: desc
+      search: [title, client, outcome]
