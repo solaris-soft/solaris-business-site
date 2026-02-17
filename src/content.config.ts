@@ -57,13 +57,14 @@ const articles = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      slug: z.string(),
+      slug: z.string().optional(),
       description: z.string(),
       author: z.enum(["Sam", "Josh"]),
       publishDate: z.coerce.date(),
       draft: z.boolean().default(false),
       coverImage: image().optional(),
       tags: z.array(z.string()).optional(),
+      body: z.string().optional(),
     }),
 });
 
@@ -72,7 +73,7 @@ const caseStudies = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      slug: z.string(),
+      slug: z.string().optional(),
       description: z.string(),
       client: z.string(),
       problem: z.string(),
@@ -82,6 +83,7 @@ const caseStudies = defineCollection({
       draft: z.boolean().default(false),
       heroImage: image().optional(),
       tags: z.array(z.string()).optional(),
+      body: z.string().optional(),
     }),
 });
 

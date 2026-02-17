@@ -26,13 +26,12 @@ content:
       - name: slug
         label: URL slug
         type: string
-        required: true
-        description: "Used in the article URL (e.g. my-article-title). Use only letters, numbers, and hyphens. No spaces."
+        description: "URL-friendly name for this article (e.g. my-article-title). Letters, numbers and hyphens only."
       - name: description
         label: Short summary
         type: text
         required: true
-        description: A brief summary for article listings and search results. One or two sentences.
+        description: Brief summary for listings and search. One or two sentences.
       - name: author
         label: Author
         type: select
@@ -48,23 +47,27 @@ content:
         label: Publish date
         type: date
         required: true
-        description: The date this article is published. Used for sorting and display.
+        description: Date this article is published.
         options:
           format: yyyy-MM-dd
       - name: draft
         label: Draft (hide from site)
         type: boolean
         default: false
-        description: Turn on to hide this article from the live site until you are ready to publish.
+        description: When on, the article is hidden from the live site.
       - name: tags
         label: Tags
         type: string
         list: true
-        description: Optional tags to group and filter articles (e.g. Web Development, Tips).
+        description: Optional tags for filtering (e.g. Web Development).
       - name: coverImage
         label: Cover image
         type: image
-        description: Optional image shown at the top of the article and in listings.
+        description: Optional image at the top of the article.
+      - name: body
+        label: Article content
+        type: rich-text
+        description: Main article text. Supports headings, lists, links and images.
     view:
       primary: title
       fields: [title, author, publishDate, draft]
@@ -89,56 +92,59 @@ content:
       - name: slug
         label: URL slug
         type: string
-        required: true
-        description: "Used in the case study URL (e.g. acme-website-redesign). Use only letters, numbers, and hyphens."
+        description: "URL-friendly name (e.g. acme-website-redesign). Letters, numbers and hyphens only."
       - name: description
         label: Short summary
         type: text
         required: true
-        description: A brief summary for listings and search results. One or two sentences.
+        description: Brief summary for listings and search.
       - name: client
         label: Client name
         type: string
         required: true
-        description: The name of the client or company this case study is about.
+        description: Name of the client or company.
       - name: problem
         label: Problem
         type: text
         required: true
-        description: What challenge or problem did the client face? A short paragraph is enough here; add more detail in the main content below.
+        description: The challenge or problem the client faced.
       - name: solution
         label: Solution
         type: text
         required: true
-        description: What did we do to address the problem? Summarise the approach; full story can go in the main content.
+        description: What we did to address the problem.
       - name: outcome
         label: Outcome
         type: text
         required: true
-        description: What was the result? For example: key metrics, improvements, or quotes from the client.
+        description: The result achieved (e.g. key metrics or client quote).
       - name: tags
         label: Tags
         type: string
         list: true
-        description: Optional tags to group case studies (e.g. E-commerce, Healthcare).
+        description: Optional tags (e.g. E-commerce).
       - name: heroImage
         label: Hero image
         type: image
-        description: Optional image shown at the top of the case study.
+        description: Optional image at the top.
       - name: publishDate
         label: Publish date
         type: date
-        description: When this case study was published. Used for sorting.
+        description: When the case study was published.
         options:
           format: yyyy-MM-dd
       - name: draft
         label: Draft (hide from site)
         type: boolean
         default: false
-        description: Turn on to hide this case study from the live site until you are ready to publish.
+        description: When on, the case study is hidden from the live site.
+      - name: body
+        label: Case study content
+        type: rich-text
+        description: Full narrative and details. Supports headings, lists, links and images.
     view:
       primary: title
-      fields: [title, client, outcome, draft]
+      fields: [title, client, draft]
       sort: [publishDate, title]
       default:
         sort: publishDate
