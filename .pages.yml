@@ -1,0 +1,152 @@
+# Pages CMS – content and media config for Astro site
+# See https://pagescms.org/docs/configuration/#the-.pages.yml-file
+
+media:
+  input: public/images
+  output: /images
+  label: Images
+
+settings:
+  content:
+    merge: true
+
+content:
+  - name: articles
+    label: Articles
+    type: collection
+    path: src/content/articles
+    format: yaml-frontmatter
+    filename: "{slug}.md"
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+        description: The main headline shown on the article page and in listings.
+      - name: slug
+        label: URL slug
+        type: string
+        description: "URL-friendly name for this article (e.g. my-article-title). Letters, numbers and hyphens only."
+      - name: description
+        label: Short summary
+        type: text
+        required: true
+        description: Brief summary for listings and search. One or two sentences.
+      - name: author
+        label: Author
+        type: select
+        required: true
+        description: Who wrote this article.
+        options:
+          values:
+            - value: Sam
+              label: Sam
+            - value: Josh
+              label: Josh
+      - name: publishDate
+        label: Publish date
+        type: date
+        required: true
+        description: Date this article is published.
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft (hide from site)
+        type: boolean
+        default: false
+        description: When on, the article is hidden from the live site.
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        description: Optional tags for filtering (e.g. Web Development).
+      - name: coverImage
+        label: Cover image
+        type: image
+        description: Optional image at the top of the article.
+      - name: body
+        label: Article content
+        type: rich-text
+        description: Main article text. Supports headings, lists, links and images.
+    view:
+      primary: title
+      fields: [title, author, publishDate, draft]
+      sort: [publishDate, title]
+      default:
+        sort: publishDate
+        order: desc
+      search: [title, description, author]
+
+  - name: caseStudies
+    label: Case Studies
+    type: collection
+    path: src/content/caseStudies
+    format: yaml-frontmatter
+    filename: "{slug}.md"
+    fields:
+      - name: title
+        label: Case study title
+        type: string
+        required: true
+        description: The main headline for this case study.
+      - name: slug
+        label: URL slug
+        type: string
+        description: "URL-friendly name (e.g. acme-website-redesign). Letters, numbers and hyphens only."
+      - name: description
+        label: Short summary
+        type: text
+        required: true
+        description: Brief summary for listings and search.
+      - name: client
+        label: Client name
+        type: string
+        required: true
+        description: Name of the client or company.
+      - name: problem
+        label: Problem
+        type: text
+        required: true
+        description: The challenge or problem the client faced.
+      - name: solution
+        label: Solution
+        type: text
+        required: true
+        description: What we did to address the problem.
+      - name: outcome
+        label: Outcome
+        type: text
+        required: true
+        description: The result achieved (e.g. key metrics or client quote).
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        description: Optional tags (e.g. E-commerce).
+      - name: heroImage
+        label: Hero image
+        type: image
+        description: Optional image at the top.
+      - name: publishDate
+        label: Publish date
+        type: date
+        description: When the case study was published.
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft (hide from site)
+        type: boolean
+        default: false
+        description: When on, the case study is hidden from the live site.
+      - name: body
+        label: Case study content
+        type: rich-text
+        description: Full narrative and details. Supports headings, lists, links and images.
+    view:
+      primary: title
+      fields: [title, client, draft]
+      sort: [publishDate, title]
+      default:
+        sort: publishDate
+        order: desc
+      search: [title, client, outcome]

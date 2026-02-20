@@ -1,734 +1,153 @@
-<footer class="bg-white mt-5 relative overflow-hidden group">
-  <!-- Animated Background Canvas -->
-  <div class="absolute inset-0 pointer-events-none">
-    <!-- Morphing geometric shapes -->
-    <div
-      class="absolute top-1/4 -left-20 w-40 h-40 bg-gradient-to-tr from-black to-gray-800 opacity-4 transform rotate-45 hover:rotate-90 transition-transform duration-[3s] ease-in-out"
-    >
-    </div>
-    <div
-      class="absolute bottom-1/3 right-1/4 w-28 h-28 bg-gradient-to-bl from-orange-400 to-orange-500 opacity-8 transform rotate-12 animate-spin-slow"
-    >
-    </div>
+<footer class="relative bg-white overflow-hidden">
+  <!-- Orange gradient accent line -->
+  <div class="h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
 
-    <!-- Dynamic SVG art -->
-    <svg
-      class="absolute inset-0 w-full h-full opacity-12 group-hover:opacity-20 transition-opacity duration-1000"
-      viewBox="0 0 1000 500"
-    >
-      <defs>
-        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.3"></stop>
-          <stop offset="50%" style="stop-color:#000000;stop-opacity:0.2"></stop>
-          <stop offset="100%" style="stop-color:#f97316;stop-opacity:0.3"
-          ></stop>
-        </linearGradient>
-        <pattern
-          id="dynamicDots"
-          patternUnits="userSpaceOnUse"
-          width="50"
-          height="50"
-        >
-          <circle cx="25" cy="25" r="1.5" fill="#f97316" opacity="0.4">
-            <animate
-              attributeName="r"
-              values="1;2;1"
-              dur="3s"
-              repeatCount="indefinite"></animate>
-          </circle>
-        </pattern>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="coloredBlur"
-          ></feGaussianBlur>
-          <feMerge>
-            <feMergeNode in="coloredBlur"></feMergeNode>
-            <feMergeNode in="SourceGraphic"></feMergeNode>
-          </feMerge>
-        </filter>
-      </defs>
+  <!-- Very subtle warm background wash -->
+  <div class="absolute inset-0 bg-gradient-to-br from-orange-50/20 via-transparent to-transparent pointer-events-none"></div>
 
-      <rect width="1000" height="500" fill="url(#dynamicDots)"></rect>
+  <div class="max-w-6xl mx-auto px-6 py-12 md:py-16 relative">
+    <!-- Main footer grid: Connect | Services | Company | Get in Touch -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
 
-      <!-- Animated flowing lines -->
-      <path
-        d="M0,250 Q250,100 500,250 T1000,200"
-        stroke="url(#gradient1)"
-        stroke-width="2"
-        fill="none"
-        filter="url(#glow)"
-      >
-        <animate
-          attributeName="d"
-          values="M0,250 Q250,100 500,250 T1000,200;M0,250 Q250,150 500,200 T1000,250;M0,250 Q250,100 500,250 T1000,200"
-          dur="8s"
-          repeatCount="indefinite"></animate>
-      </path>
-      <path
-        d="M1000,300 Q750,200 500,300 T0,250"
-        stroke="#000000"
-        stroke-width="1"
-        fill="none"
-        opacity="0.3"
-      >
-        <animate
-          attributeName="d"
-          values="M1000,300 Q750,200 500,300 T0,250;M1000,350 Q750,250 500,350 T0,300;M1000,300 Q750,200 500,300 T0,250"
-          dur="6s"
-          repeatCount="indefinite"></animate>
-      </path>
-
-      <!-- Geometric constellation -->
-      <g opacity="0.15">
-        <circle cx="200" cy="150" r="3" fill="#f97316">
-          <animate
-            attributeName="opacity"
-            values="0.1;0.4;0.1"
-            dur="2s"
-            repeatCount="indefinite"></animate>
-        </circle>
-        <circle cx="400" cy="200" r="2" fill="#000">
-          <animate
-            attributeName="opacity"
-            values="0.1;0.3;0.1"
-            dur="2.5s"
-            repeatCount="indefinite"></animate>
-        </circle>
-        <circle cx="600" cy="180" r="3" fill="#f97316">
-          <animate
-            attributeName="opacity"
-            values="0.1;0.4;0.1"
-            dur="1.8s"
-            repeatCount="indefinite"></animate>
-        </circle>
-        <line
-          x1="200"
-          y1="150"
-          x2="400"
-          y2="200"
-          stroke="#f97316"
-          stroke-width="0.5"
-          opacity="0.2"></line>
-        <line
-          x1="400"
-          y1="200"
-          x2="600"
-          y2="180"
-          stroke="#000"
-          stroke-width="0.5"
-          opacity="0.2"></line>
-      </g>
-    </svg>
-  </div>
-
-  <!-- Custom CSS for animations -->
-  <style>
-    @keyframes float {
-      0%,
-      100% {
-        transform: translateY(0px) translateX(0px) rotate(0deg);
-      }
-      33% {
-        transform: translateY(-10px) translateX(5px) rotate(120deg);
-      }
-      66% {
-        transform: translateY(5px) translateX(-3px) rotate(240deg);
-      }
-    }
-    @keyframes float-delayed {
-      0%,
-      100% {
-        transform: translateY(0px) translateX(0px) scale(1);
-      }
-      50% {
-        transform: translateY(-15px) translateX(8px) scale(1.2);
-      }
-    }
-    @keyframes float-slow {
-      0%,
-      100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-8px) rotate(180deg);
-      }
-    }
-    @keyframes spin-slow {
-      from {
-        transform: rotate(12deg);
-      }
-      to {
-        transform: rotate(372deg);
-      }
-    }
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
-    }
-    .animate-float-delayed {
-      animation: float-delayed 3s ease-in-out infinite 1s;
-    }
-    .animate-float-slow {
-      animation: float-slow 5s ease-in-out infinite;
-    }
-    .animate-spin-slow {
-      animation: spin-slow 20s linear infinite;
-    }
-  </style>
-
-  <div class="container mx-auto px-6 max-w-6xl relative">
-    <!-- Revolutionary Brand Section -->
-    <div class="py-24 text-center relative">
-      <!-- Floating background elements -->
-      <div
-        class="absolute inset-0 flex items-center justify-center pointer-events-none"
-      >
-        <div
-          class="w-96 h-96 bg-gradient-to-r from-orange-500/5 via-transparent to-black/5 rounded-full blur-3xl animate-pulse"
-        >
+      <!-- Connect -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-5">
+          Connect
+        </h3>
+        <div class="flex gap-3">
+          <a
+            href="https://github.com/solaris-soft/"
+            class="group/social w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-400 hover:text-gray-900 hover:border-gray-400 hover:shadow-sm transition-all duration-300 hover:-translate-y-0.5"
+            aria-label="GitHub"
+          >
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" class="transition-transform duration-300 group-hover/social:scale-110">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path>
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/company/solaris-software"
+            class="group/social w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-400 hover:text-orange-600 hover:border-orange-300 hover:shadow-sm hover:shadow-orange-500/10 transition-all duration-300 hover:-translate-y-0.5"
+            aria-label="LinkedIn"
+          >
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" class="transition-transform duration-300 group-hover/social:scale-110">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path>
+            </svg>
+          </a>
+          <a
+            href="https://www.facebook.com/people/Solaris-Software/61581656669840/"
+            class="group/social w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-0.5"
+            aria-label="Facebook"
+          >
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" class="transition-transform duration-300 group-hover/social:scale-110">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+            </svg>
+          </a>
         </div>
       </div>
 
-      <!-- Interactive Brand Mark -->
-      <div class="relative inline-block mb-12 group/brand cursor-pointer">
-        <!-- Multi-layered glow effects -->
-        <div
-          class="absolute -inset-8 bg-gradient-to-r from-orange-500 to-black opacity-0 group-hover/brand:opacity-30 blur-2xl scale-75 group-hover/brand:scale-110 transition-all duration-1000"
-        >
-        </div>
-        <div
-          class="absolute -inset-4 bg-gradient-to-br from-orange-400 to-orange-600 opacity-0 group-hover/brand:opacity-20 blur-xl scale-90 group-hover/brand:scale-105 transition-all duration-700"
-        >
-        </div>
-
-        <!-- Main brand container -->
-        <div
-          class="relative bg-white p-10 border border-gray-200 shadow-2xl group-hover/brand:shadow-orange-500/20 group-hover/brand:border-orange-200 transition-all duration-500 transform group-hover/brand:scale-105"
-        >
-          <!-- Animated corner accents -->
-          <div
-            class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-orange-500 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500"
-          >
-          </div>
-          <div
-            class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-orange-500 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500 delay-100"
-          >
-          </div>
-          <div
-            class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-orange-500 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500 delay-200"
-          >
-          </div>
-          <div
-            class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-orange-500 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500 delay-300"
-          >
-          </div>
-
-          <!-- Complex logo design -->
-          <div class="flex items-center justify-center gap-8 mb-12">
-            <div
-              class="relative group-hover/brand:scale-110 transition-transform duration-500"
-            >
-              <!-- Central orange dot -->
-              <div
-                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full group-hover/brand:scale-125 transition-transform duration-300"
-              >
-                <div
-                  class="absolute inset-1 bg-orange-400 rounded-full opacity-50"
-                >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dynamic typography -->
-          <div class="space-y-2">
-            <h2
-              class="text-4xl font-black text-black tracking-tight relative overflow-hidden"
-            >
-              <span class="inline-block">S</span><span
-                class="inline-block animation-delay-75">O</span
-              ><span class="inline-block animation-delay-150">L</span><span
-                class="inline-block animation-delay-225">A</span
-              ><span class="inline-block animation-delay-300">R</span><span
-                class="inline-block animation-delay-375">I</span
-              ><span class="inline-block animation-delay-450">S</span>
-              <div
-                class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-orange-500 to-transparent w-0 group-hover/brand:w-full transition-all duration-1000"
-              >
-              </div>
-            </h2>
-            <div
-              class="text-2xl font-light text-gray-600 tracking-[0.3em] relative"
-            >
-              SOFTWARE
-              <div
-                class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent group-hover/brand:w-full transition-all duration-800"
-              >
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Services -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-5">
+          Services
+        </h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="/services/" class="footer-link text-sm text-gray-600 hover:text-orange-600">All Services</a>
+          </li>
+          <li>
+            <a href="/projects/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Projects</a>
+          </li>
+          <li>
+            <a href="/testimonials/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Testimonials</a>
+          </li>
+          <li>
+            <a href="/case-studies/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Case Studies</a>
+          </li>
+        </ul>
       </div>
 
-      <!-- Enhanced company info -->
-      <div class="relative">
-        <p class="text-sm text-gray-500 max-w-md mx-auto leading-relaxed">
-          <span class="font-medium text-gray-700">Solaris Systems Pty Ltd</span>
-          <span class="mx-2 text-orange-500">•</span>
-          <span>ABN: 22 687 040 213</span>
-        </p>
-        <div
-          class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-50"
-        >
-        </div>
+      <!-- Company -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-5">
+          Company
+        </h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="/team/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Our Team</a>
+          </li>
+          <li>
+            <a href="/articles/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Articles</a>
+          </li>
+          <li>
+            <a href="/inquiry/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Inquiry</a>
+          </li>
+          <li>
+            <a href="/contact/" class="footer-link text-sm text-gray-600 hover:text-orange-600">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Get in Touch -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-5">
+          Get in Touch
+        </h3>
+        <ul class="space-y-3">
+          <li>
+            <a
+              href="mailto:admin@solaris.software"
+              class="footer-link text-sm text-gray-600 hover:text-orange-600"
+            >
+              admin@solaris.software
+            </a>
+          </li>
+          <li>
+            <a
+              href="tel:+61415267117"
+              class="footer-link text-sm text-gray-600 hover:text-orange-600"
+            >
+              +61 415 267 117
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <!-- Revolutionary Navigation Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-      <!-- Left Column - Services Showcase -->
-      <div class="lg:col-span-5 relative group/services">
-        <!-- Dynamic background -->
-        <div
-          class="absolute inset-0 bg-gradient-to-br from-gray-50 via-orange-50/30 to-gray-50 opacity-80 group-hover/services:opacity-100 transition-opacity duration-500"
-        >
-        </div>
-        <div
-          class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 via-orange-400 to-transparent"
-        >
-        </div>
-        <div
-          class="absolute top-0 right-0 w-20 h-20 bg-orange-500/10 rounded-bl-full"
-        >
-        </div>
-
-        <div class="relative p-10">
-          <!-- Floating header -->
-          <div class="mb-8 relative">
-            <h3
-              class="text-3xl font-black text-black mb-2 relative inline-block"
-            >
-              Services
-              <div
-                class="absolute -bottom-3 left-0 w-16 h-1 bg-gradient-to-r from-orange-500 to-orange-300 group-hover/services:w-full transition-all duration-700"
-              >
-              </div>
-              <div
-                class="absolute -top-2 -right-2 w-4 h-4 bg-orange-500 rounded-full opacity-0 group-hover/services:opacity-100 group-hover/services:animate-ping transition-opacity duration-300"
-              >
-              </div>
-            </h3>
-            <p class="text-sm text-gray-600 mt-2">
-              Discover what we can build together
-            </p>
-          </div>
-
-          <!-- Enhanced service cards -->
-          <div class="space-y-6">
-            <a
-              href="/services/"
-              class="group/card block relative overflow-hidden"
-            >
-              <div
-                class="bg-white p-6 border border-gray-200 group-hover/card:border-orange-300 transition-all duration-300 group-hover/card:shadow-lg group-hover/card:shadow-orange-500/10 transform group-hover/card:-translate-y-1"
-              >
-                <!-- Card accent -->
-                <div
-                  class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500 to-orange-400 scale-y-0 group-hover/card:scale-y-100 transition-transform duration-300 origin-top"
-                >
-                </div>
-                <div class="relative pl-6">
-                  <div class="flex items-center justify-between mb-2">
-                    <h4
-                      class="text-lg font-bold text-black group-hover/card:text-orange-600 transition-colors"
-                    >
-                      All Services
-                    </h4>
-                    <div
-                      class="w-6 h-6 text-gray-400 group-hover/card:text-orange-500 group-hover/card:rotate-12 transition-all duration-300"
-                    >
-                      <svg fill="currentColor" viewBox="0 0 20 20"
-                        ><path
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        ></path></svg
-                      >
-                    </div>
-                  </div>
-                  <p
-                    class="text-sm text-gray-600 group-hover/card:text-gray-700"
-                  >
-                    Complete solutions tailored to your needs
-                  </p>
-                </div>
-              </div>
-            </a>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <a
-                href="/projects/"
-                class="group/card block relative overflow-hidden"
-              >
-                <div
-                  class="bg-white p-5 border border-gray-200 group-hover/card:border-orange-300 transition-all duration-300 group-hover/card:shadow-md transform group-hover/card:scale-105"
-                >
-                  <div
-                    class="absolute top-0 right-0 w-8 h-8 bg-orange-500/10 rounded-bl-full group-hover/card:w-12 group-hover/card:h-12 transition-all duration-300"
-                  >
-                  </div>
-                  <h4
-                    class="font-semibold text-black group-hover/card:text-orange-600 transition-colors mb-1"
-                  >
-                    Projects
-                  </h4>
-                  <p class="text-xs text-gray-500">Our portfolio</p>
-                </div>
-              </a>
-
-              <a
-                href="/testimonials/"
-                class="group/card block relative overflow-hidden"
-              >
-                <div
-                  class="bg-white p-5 border border-gray-200 group-hover/card:border-orange-300 transition-all duration-300 group-hover/card:shadow-md transform group-hover/card:scale-105"
-                >
-                  <div
-                    class="absolute bottom-0 left-0 w-8 h-8 bg-orange-500/10 rounded-tr-full group-hover/card:w-12 group-hover/card:h-12 transition-all duration-300"
-                  >
-                  </div>
-                  <h4
-                    class="font-semibold text-black group-hover/card:text-orange-600 transition-colors mb-1"
-                  >
-                    Testimonials
-                  </h4>
-                  <p class="text-xs text-gray-500">Client stories</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
+    <!-- Bottom bar -->
+    <div class="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-2 text-sm text-gray-500">
+        <div class="w-1.5 h-1.5 bg-orange-500 rotate-45"></div>
+        <span>&copy; {new Date().getFullYear()} Solaris Systems Pty Ltd</span>
+        <span class="text-gray-300">·</span>
+        <span>ABN 22 687 040 213</span>
       </div>
-
-      <!-- Middle Column - Stacked Information Cards -->
-      <div class="lg:col-span-4 space-y-10">
-        <!-- Company Section -->
-        <div class="relative group/company">
-          <div
-            class="absolute -inset-4 bg-gradient-to-br from-orange-500/5 to-transparent rounded-xl opacity-0 group-hover/company:opacity-100 transition-opacity duration-500"
-          >
-          </div>
-          <div
-            class="relative text-center lg:text-left p-6 bg-white/50 backdrop-blur-sm rounded-lg border border-gray-100 group-hover/company:border-orange-200 transition-all duration-300"
-          >
-            <h3 class="text-xl font-bold text-black mb-6 relative">
-              Company
-              <div
-                class="absolute -bottom-2 left-0 lg:left-0 w-0 group-hover/company:w-20 h-0.5 bg-gradient-to-r from-orange-500 to-orange-300 transition-all duration-500"
-              >
-              </div>
-              <div
-                class="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full opacity-0 group-hover/company:opacity-100 transition-opacity duration-300"
-              >
-              </div>
-            </h3>
-            <div class="space-y-4">
-              <a
-                href="/team/"
-                class="group/link flex items-center justify-between p-3 bg-white rounded-md border border-transparent hover:border-orange-200 transition-all duration-200 hover:shadow-sm"
-              >
-                <span
-                  class="text-gray-700 group-hover/link:text-orange-600 font-medium transition-colors"
-                  >Our Team</span
-                >
-                <div
-                  class="w-4 h-4 text-gray-400 group-hover/link:text-orange-500 group-hover/link:translate-x-1 transition-all duration-200"
-                >
-                  <svg fill="currentColor" viewBox="0 0 20 20"
-                    ><path
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    ></path></svg
-                  >
-                </div>
-              </a>
-              <a
-                href="/contact/"
-                class="group/link flex items-center justify-between p-3 bg-white rounded-md border border-transparent hover:border-orange-200 transition-all duration-200 hover:shadow-sm"
-              >
-                <span
-                  class="text-gray-700 group-hover/link:text-orange-600 font-medium transition-colors"
-                  >Contact</span
-                >
-                <div
-                  class="w-4 h-4 text-gray-400 group-hover/link:text-orange-500 group-hover/link:translate-x-1 transition-all duration-200"
-                >
-                  <svg fill="currentColor" viewBox="0 0 20 20"
-                    ><path
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    ></path></svg
-                  >
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Contact Section -->
-        <div class="relative group/contact">
-          <div
-            class="absolute -inset-4 bg-gradient-to-bl from-black/5 to-transparent rounded-xl opacity-0 group-hover/contact:opacity-100 transition-opacity duration-500"
-          >
-          </div>
-          <div
-            class="relative text-center lg:text-left p-6 bg-white/50 backdrop-blur-sm rounded-lg border border-gray-100 group-hover/contact:border-gray-300 transition-all duration-300"
-          >
-            <h3 class="text-xl font-bold text-black mb-6 relative">
-              Get in Touch
-              <div
-                class="absolute -bottom-2 left-0 lg:left-0 w-0 group-hover/contact:w-24 h-0.5 bg-gradient-to-r from-black to-gray-500 transition-all duration-500"
-              >
-              </div>
-              <div
-                class="absolute -top-1 -right-1 w-2 h-2 bg-black rounded-full opacity-0 group-hover/contact:opacity-100 transition-opacity duration-300"
-              >
-              </div>
-            </h3>
-            <div class="space-y-4">
-              <a
-                href="mailto:admin@solaris.software"
-                class="group/link block p-4 bg-white rounded-md border border-transparent hover:border-gray-300 transition-all duration-200 hover:shadow-sm transform hover:scale-[1.02]"
-              >
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-5 h-5 text-gray-400 group-hover/link:text-black transition-colors"
-                  >
-                    <svg fill="currentColor" viewBox="0 0 20 20"
-                      ><path
-                        d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-                      ></path><path
-                        d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-                      ></path></svg
-                    >
-                  </div>
-                  <span
-                    class="text-gray-700 group-hover/link:text-black font-medium transition-colors"
-                    >admin@solaris.software</span
-                  >
-                </div>
-              </a>
-              <a
-                href="tel:+61415267117"
-                class="group/link block p-4 bg-white rounded-md border border-transparent hover:border-gray-300 transition-all duration-200 hover:shadow-sm transform hover:scale-[1.02]"
-              >
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-5 h-5 text-gray-400 group-hover/link:text-black transition-colors"
-                  >
-                    <svg fill="currentColor" viewBox="0 0 20 20"
-                      ><path
-                        d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
-                      ></path></svg
-                    >
-                  </div>
-                  <span
-                    class="text-gray-700 group-hover/link:text-black font-medium transition-colors"
-                    >+61 415 267 117</span
-                  >
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column - Vertical Social Hub -->
-      <div
-        class="lg:col-span-3 flex flex-col items-center lg:items-end justify-center relative"
-      >
-        <!-- Floating background accent -->
-        <div
-          class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-500/10 to-transparent rounded-full blur-xl"
-        >
-        </div>
-
-        <div class="relative z-10 text-center lg:text-right">
-          <h3 class="text-2xl font-bold text-black mb-8 relative inline-block">
-            Connect
-            <div
-              class="absolute -bottom-2 left-1/2 lg:left-auto lg:right-0 transform -translate-x-1/2 lg:translate-x-0 w-12 h-0.5 bg-gradient-to-r from-orange-500 to-transparent"
-            >
-            </div>
-          </h3>
-
-          <!-- Revolutionary social buttons -->
-          <div class="flex lg:flex-col gap-6 justify-center lg:justify-end">
-            <a
-              href="https://github.com/solaris-soft/"
-              class="group/social relative block"
-              aria-label="Github"
-            >
-              <!-- Background effects -->
-              <div
-                class="absolute -inset-3 bg-gradient-to-br from-black/10 via-transparent to-orange-500/10 rounded-2xl opacity-0 group-hover/social:opacity-100 blur-sm transition-all duration-500"
-              >
-              </div>
-
-              <!-- Main button -->
-              <div
-                class="relative w-16 h-16 bg-white border-2 border-gray-200 group-hover/social:border-black rounded-xl flex items-center justify-center transition-all duration-500 group-hover/social:rotate-6 group-hover/social:scale-110 shadow-lg group-hover/social:shadow-xl"
-              >
-                <!-- Corner accents -->
-                <div
-                  class="absolute top-1 right-1 w-2 h-2 bg-orange-500 rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300"
-                >
-                </div>
-                <div
-                  class="absolute bottom-1 left-1 w-1 h-1 bg-black rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 delay-100"
-                >
-                </div>
-
-                <svg
-                  width="28"
-                  height="28"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  class="text-gray-600 group-hover/social:text-black transition-colors relative z-10"
-                >
-                  <path
-                    d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/company/solaris-software"
-              class="group/social relative block"
-              aria-label="LinkedIn"
-            >
-              <!-- Background effects -->
-              <div
-                class="absolute -inset-3 bg-gradient-to-bl from-orange-500/10 via-transparent to-black/10 rounded-2xl opacity-0 group-hover/social:opacity-100 blur-sm transition-all duration-500"
-              >
-              </div>
-
-              <!-- Main button -->
-              <div
-                class="relative w-16 h-16 bg-white border-2 border-gray-200 group-hover/social:border-orange-500 rounded-xl flex items-center justify-center transition-all duration-500 group-hover/social:-rotate-6 group-hover/social:scale-110 shadow-lg group-hover/social:shadow-xl"
-              >
-                <!-- Corner accents -->
-                <div
-                  class="absolute top-1 left-1 w-2 h-2 bg-black rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300"
-                >
-                </div>
-                <div
-                  class="absolute bottom-1 right-1 w-1 h-1 bg-orange-500 rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 delay-100"
-                >
-                </div>
-
-                <svg
-                  width="28"
-                  height="28"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  class="text-gray-600 group-hover/social:text-orange-600 transition-colors relative z-10"
-                >
-                  <path
-                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-
-            <a
-              href="https://www.facebook.com/people/Solaris-Software/61581656669840/"
-              class="group/social relative block"
-              aria-label="Facebook"
-            >
-              <!-- Background effects -->
-              <div
-                class="absolute -inset-3 bg-gradient-to-tr from-blue-500/10 via-transparent to-orange-500/10 rounded-2xl opacity-0 group-hover/social:opacity-100 blur-sm transition-all duration-500"
-              >
-              </div>
-
-              <!-- Main button -->
-              <div
-                class="relative w-16 h-16 bg-white border-2 border-gray-200 group-hover/social:border-blue-500 rounded-xl flex items-center justify-center transition-all duration-500 group-hover/social:rotate-6 group-hover/social:scale-110 shadow-lg group-hover/social:shadow-xl"
-              >
-                <!-- Corner accents -->
-                <div
-                  class="absolute top-1 right-1 w-2 h-2 bg-orange-500 rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300"
-                >
-                </div>
-                <div
-                  class="absolute bottom-1 left-1 w-1 h-1 bg-blue-500 rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 delay-100"
-                >
-                </div>
-
-                <svg
-                  width="28"
-                  height="28"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  class="text-gray-600 group-hover/social:text-blue-600 transition-colors relative z-10"
-                >
-                  <path
-                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Creative Bottom Section -->
-    <div class="relative">
-      <!-- Diagonal separator -->
-      <div
-        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent"
-      >
-      </div>
-
-      <div class="pt-8 pb-6">
-        <div
-          class="flex flex-col lg:flex-row justify-between items-center gap-6"
-        >
-          <div class="flex items-center gap-6 text-sm">
-            <div class="flex items-center gap-2">
-              <div class="w-2 h-2 bg-orange-500 rotate-45"></div>
-              <span class="text-gray-600"
-                >&copy; {new Date().getFullYear()} Solaris Systems Pty Ltd</span
-              >
-            </div>
-            <div class="hidden lg:block w-px h-4 bg-gray-300"></div>
-            <span class="text-gray-500 hidden lg:inline"
-              >All rights reserved</span
-            >
-          </div>
-
-          <div class="flex items-center gap-8 text-sm">
-            <a
-              href="/privacy/"
-              class="text-gray-600 hover:text-orange-500 transition-all duration-200 hover:scale-110 relative group"
-            >
-              Privacy
-              <div
-                class="absolute -bottom-1 left-0 right-0 h-px bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-              >
-              </div>
-            </a>
-            <div class="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <a
-              href="/terms/"
-              class="text-gray-600 hover:text-orange-500 transition-all duration-200 hover:scale-110 relative group"
-            >
-              Terms
-              <div
-                class="absolute -bottom-1 left-0 right-0 h-px bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
-              >
-              </div>
-            </a>
-          </div>
-        </div>
+      <div class="flex items-center gap-5 text-sm">
+        <a href="/privacy/" class="footer-link text-gray-500 hover:text-orange-600">Privacy</a>
+        <a href="/terms/" class="footer-link text-gray-500 hover:text-orange-600">Terms</a>
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  /* Sliding underline on footer links */
+  .footer-link {
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(to right, #f97316, #fb923c);
+    transition: width 0.3s ease;
+  }
+
+  .footer-link:hover::after {
+    width: 100%;
+  }
+</style>

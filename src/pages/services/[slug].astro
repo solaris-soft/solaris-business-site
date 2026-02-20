@@ -1,0 +1,202 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const servicePages = await getCollection("servicePages", ({ data }) => !data.draft);
+
+  // Sort by order if available, otherwise by title
+  servicePages.sort((a, b) => {
+    if (a.data.order !== undefined && b.data.order !== undefined) {
+      return a.data.order - b.data.order;
+    }
+    if (a.data.order !== undefined) return -1;
+    if (b.data.order !== undefined) return 1;
+    return a.data.title.localeCompare(b.data.title);
+  });
+
+  return servicePages.map((servicePage) => ({
+    params: { slug: servicePage.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const servicePages = await getCollection("servicePages");
+const servicePage = servicePages.find((s) => s.slug === slug);
+
+if (!servicePage) {
+  return Astro.redirect("/404/");
+}
+
+const { Content } = await servicePage.render();
+---
+
+<Layout
+  title={`${servicePage.data.title} | Solaris Software`}
+  description={servicePage.data.description}
+  type="service"
+  category="Services"
+>
+  <main class="min-h-screen bg-white relative overflow-hidden">
+    <!-- Subtle background accent -->
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-orange-50/20 pointer-events-none"
+    >
+    </div>
+
+    <!-- Header + Content (unified flow) -->
+    <section class="pt-12 md:pt-16 pb-16 md:pb-24 relative">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Back Button -->
+        <a
+          href="/services/"
+          class="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium text-sm mb-6 transition-colors duration-300 group"
+        >
+          <svg
+            class="w-4 h-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back to Services
+        </a>
+
+        <!-- Service Title -->
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-display text-gray-900 mb-4 leading-tight">
+          {servicePage.data.title}
+        </h1>
+
+        <!-- Service Summary -->
+        <p class="text-lg text-gray-500 leading-relaxed mb-10">
+          {servicePage.data.summary || servicePage.data.description}
+        </p>
+
+        <!-- Service Body -->
+        <article class="prose prose-lg prose-gray prose-headings:font-display prose-headings:text-gray-900 prose-a:text-orange-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-pre:rounded-xl prose-pre:bg-gray-900">
+          <Content />
+        </article>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-12 md:py-16 bg-gradient-to-br from-orange-50/50 to-white relative">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 class="text-3xl md:text-4xl font-display text-gray-900 mb-6">
+          Ready to Get Started?
+        </h2>
+        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Let's discuss how we can help you with {servicePage.data.title.toLowerCase()} and achieve your business goals.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact/"
+            class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25"
+          >
+            Get in Touch
+            <svg
+              class="w-5 h-5 ml-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="/services/"
+            class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 font-medium rounded-xl hover:border-orange-500 hover:text-orange-600 transition-all duration-300"
+          >
+            View All Services
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Prose styling override for better reading experience */
+  article.prose {
+    color: #374151;
+  }
+
+  article.prose h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  article.prose h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  article.prose p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+  }
+
+  article.prose ul,
+  article.prose ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  article.prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  article.prose blockquote {
+    border-left: 4px solid #ff3d00;
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: #6b7280;
+    margin: 2rem 0;
+  }
+
+  article.prose code {
+    background-color: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  article.prose pre {
+    background-color: #1f2937;
+    color: #f9fafb;
+    overflow-x: auto;
+  }
+
+  article.prose pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+  }
+
+  article.prose img {
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Smooth transitions */
+  .transition-all {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>

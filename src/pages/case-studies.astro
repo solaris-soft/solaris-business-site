@@ -1,0 +1,171 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const caseStudies = await getCollection("caseStudies", ({ data }) => !data.draft);
+const sortedCaseStudies = caseStudies.sort((a, b) => {
+  const aDate = a.data.publishDate?.valueOf() ?? 0;
+  const bDate = b.data.publishDate?.valueOf() ?? 0;
+  return bDate - aDate;
+});
+---
+
+<Layout
+  title="Case Studies | Solaris Software"
+  description="Explore SOLARIS SOFTWARE's detailed case studies showcasing real-world solutions, challenges overcome, and results achieved for businesses in Perth and Western Australia."
+  keywords="web development case studies, project success stories, Perth business solutions, software development portfolio, client results"
+  category="Case Studies"
+>
+  <main class="min-h-screen bg-white">
+    <!-- Header Section -->
+    <section class="pt-32 pb-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-6">
+          <h1
+            class="text-5xl md:text-7xl font-black text-gray-900 tracking-tight"
+          >
+            Case <span class="text-orange-500">Studies</span>
+          </h1>
+          <p
+            class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            Discover how we've helped businesses transform their digital presence and achieve their goals through innovative web solutions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Case Studies Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-10"
+        >
+          {
+            sortedCaseStudies.map((caseStudy) => {
+              return (
+                <a
+                  href={`/case-studies/${caseStudy.slug}/`}
+                  class="group case-study-card bg-white rounded-3xl p-10 hover:shadow-lg transition-all duration-300 flex flex-col h-full"
+                >
+                  {caseStudy.data.heroImage && (
+                    <div class="mb-6 rounded-2xl overflow-hidden bg-gray-50">
+                      <img
+                        src={caseStudy.data.heroImage.src}
+                        alt={caseStudy.data.title}
+                        class="w-full h-auto object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  <div class="flex-grow">
+                    <div class="mb-4">
+                      <span
+                        class="inline-block text-sm font-medium px-3 py-1 rounded-full bg-orange-100 text-orange-700"
+                      >
+                        {caseStudy.data.client}
+                      </span>
+                      {caseStudy.data.tags && caseStudy.data.tags.length > 0 && (
+                        <p class="text-sm text-gray-500 mt-2">
+                          {caseStudy.data.tags.join(" • ")}
+                        </p>
+                      )}
+                    </div>
+
+                    <h3
+                      class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors duration-300"
+                    >
+                      {caseStudy.data.title}
+                    </h3>
+
+                    <p
+                      class="text-gray-600 leading-relaxed mb-6"
+                    >
+                      {caseStudy.data.description}
+                    </p>
+
+                    {caseStudy.data.outcomes &&
+                      caseStudy.data.outcomes.length > 0 && (
+                        <div class="mb-6 pb-6 border-b border-gray-100">
+                          <p
+                            class="text-sm font-medium text-gray-500 mb-2"
+                          >
+                            Key Result:
+                          </p>
+                          <p class="text-gray-700">
+                            {caseStudy.data.outcomes[0]}
+                          </p>
+                        </div>
+                      )}
+                  </div>
+
+                  <div
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-50 hover:bg-orange-500 text-gray-700 hover:text-white transition-all duration-200 rounded-full font-medium text-sm w-fit"
+                  >
+                    <span>Read Case Study</span>
+                    <svg
+                      class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              );
+            })
+          }
+        </div>
+
+        {sortedCaseStudies.length === 0 && (
+          <div class="text-center py-16">
+            <p class="text-gray-500 text-lg">No case studies available yet. Check back soon!</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+        >
+          Ready to Create Your <span class="text-orange-500">Success Story?</span>
+        </h2>
+        <p
+          class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+        >
+          Let's work together to build a solution that drives real results for your business.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact/"
+            class="inline-flex items-center justify-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Get Started
+          </a>
+          <a
+            href="/services/"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300"
+          >
+            View Services
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+
+</style>

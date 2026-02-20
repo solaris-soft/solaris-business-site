@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Top-level configuration
+  "name": "solaris-business-site",
+  "main": "dist/_worker.js",
+  // Set this to today's date
+  "compatibility_date": "2026-02-20",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist",
+  },
+  "workers_dev": false,
+  "route": {
+    "pattern": "solaris.software",
+    "custom_domain": true,
+  },
+  "observability": {
+    "enabled": true,
+  },
+  "vars": {
+    "LEADS_TO_EMAIL": "admin@solaris.software",
+    "LEADS_FROM_EMAIL": "leads@solaris.software",
+  },
+}
