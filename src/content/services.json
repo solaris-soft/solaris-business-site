@@ -30,8 +30,8 @@
     "title": "UI/UX Design",
     "description": "Beautiful, easy-to-use interfaces that your customers will love. We design for real people, not just good looks.",
     "features": [
-      "User-Centered Design", 
-      "Responsive Design", 
+      "User-Centered Design",
+      "Responsive Design",
       "Accessibility",
       "User Research",
       "Prototyping"
@@ -43,8 +43,8 @@
     "title": "Branding",
     "description": "Help people remember your business with clear, professional branding that tells your story and stands out from competitors.",
     "features": [
-      "Brand Strategy", 
-      "Visual Identity", 
+      "Brand Strategy",
+      "Visual Identity",
       "Brand Consistency",
       "Brand Messaging",
       "Brand Experience"
@@ -115,16 +115,5 @@
       "Conversion Optimization"
     ],
     "long-description": "Our e-commerce solutions create digital storefronts that blend compelling user experiences with robust backend systems to drive sales and customer loyalty. We understand that successful e-commerce goes beyond attractive product pages—it requires seamless integration of payment processing, inventory management, shipping logistics, and customer service. Our comprehensive approach ensures every aspect of your online store contributes to business success. We specialize in building: Custom E-Commerce Platforms designed to showcase your brand and products in unique ways that differentiate you from competitors using cookie-cutter templates. Payment Processing integrations that offer your customers secure, frictionless checkout experiences with multiple payment options to maximize conversion rates. Inventory Management systems that synchronize online and offline inventory, automate reordering, and provide real-time visibility into product availability. Mobile Commerce experiences optimized for smartphones and tablets, ensuring your customers can shop conveniently from any device with fast, intuitive interfaces. Conversion Optimization strategies that analyze user behavior, identify abandonment points, and implement data-driven improvements to increase sales and average order values."
-  },
-  {
-    "id": "fortix-configuration",
-    "title": "Fortix Configuration",
-    "description": "Get Fortix working exactly how your business needs it. We're official partners and will set everything up to match your workflow.",
-    "features": [
-      "Fortix Configuration",
-      "Fortix Integration",
-      "Fortix Customization"
-    ],
-    "long-description": "Our Fortix configuration services help businesses integrate their operations with the Fortix platform, enabling seamless and efficient business processes. We analyze your business model, identify key requirements, and develop tailored solutions that optimize your operations. Our team of experts ensures a smooth transition, from initial setup to ongoing support, to help you achieve your business goals. We specialize in configuring: Fortix Configuration that aligns your business processes with the Fortix platform, ensuring seamless integration and efficient operations. Fortix Integration that connects your systems and data to the Fortix platform, enabling real-time insights and improved decision-making. Fortix Customization that adapts the Fortix platform to your specific business needs, ensuring a tailored and efficient solution. We are partnered with Fortix and are authorised resellers of their products. We can help you configure your Fortix instance to your specific business needs. We analyse your business model and assist in creating a seamless and stress free integration with the Fortix platform."
   }
 ]
