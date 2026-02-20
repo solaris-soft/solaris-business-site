@@ -46,130 +46,39 @@ const sections = [
   keywords="privacy policy, data protection, SOLARIS SOFTWARE privacy, Perth web development privacy"
   category="Legal"
 >
-  <div class="relative min-h-screen pt-24">
-    <!-- Background Effects -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div
-        class="absolute w-[120%] h-[120%] -left-[10%] -top-[10%] bg-gradient-radial from-orange-500/5 via-transparent to-transparent opacity-30 blur-3xl"
-      >
+  <div class="min-h-screen bg-white">
+    <!-- Header Section -->
+    <section class="pt-32 pb-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-6">
+          <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tight">
+            Privacy <span class="text-orange-500">Policy</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We are committed to protecting your privacy and ensuring transparency
+            in how we handle information.
+          </p>
+        </div>
       </div>
-      <div
-        class="absolute w-full h-px top-1/2 left-0 bg-gradient-to-r from-transparent via-orange-500/10 to-transparent"
-      >
-      </div>
-    </div>
+    </section>
 
-    <div class="container mx-auto px-6 md:px-8 max-w-4xl relative z-10">
-      <!-- Header Section -->
-      <section
-        class="flex flex-col items-center justify-center py-16 text-center"
-      >
-        <h1 class="text-[clamp(2.5rem,5vw,3.5rem)] font-bold relative mb-6">
-          <span class="animate-slideFromLeft">Privacy</span>
-          <span
-            class="bg-gradient-to-r from-orange-500 to-secondary bg-clip-text text-transparent animate-slideFromRight ml-4"
-            >Policy</span
-          >
-        </h1>
-
-        <p
-          class="text-[clamp(1rem,1.2vw,1.1rem)] text-black/70 leading-relaxed max-w-[60ch] animate-slideUp"
-        >
-          We are committed to protecting your privacy and ensuring transparency
-          in how we handle information. This policy outlines our practices
-          regarding data collection, usage, and project development.
-        </p>
-      </section>
-
-      <!-- Privacy Sections -->
-      <section class="pb-24 space-y-12">
+    <!-- Privacy Sections -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {
           sections.map((section) => (
-            <div class="opacity-0 animate-slideUp bg-white/5 rounded-lg p-6 hover:bg-white/10 transition-colors duration-300">
-              <h2 class="text-xl font-bold mb-4 text-orange-500">
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <h2 class="text-xl font-bold mb-4 text-gray-900">
                 {section.title}
               </h2>
-              <p class="text-black/70 leading-relaxed">{section.content}</p>
+              <p class="text-gray-600 leading-relaxed">{section.content}</p>
             </div>
           ))
         }
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
 </Layout>
 
 <style>
-  @keyframes slideFromLeft {
-    from {
-      transform: translateX(-100px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideFromRight {
-    from {
-      transform: translateX(100px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  .animate-slideFromLeft {
-    animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-slideFromRight {
-    animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-slideUp {
-    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  section > div {
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  section > div:nth-child(1) {
-    animation-delay: 0.3s;
-  }
-  section > div:nth-child(2) {
-    animation-delay: 0.4s;
-  }
-  section > div:nth-child(3) {
-    animation-delay: 0.5s;
-  }
-  section > div:nth-child(4) {
-    animation-delay: 0.6s;
-  }
-  section > div:nth-child(5) {
-    animation-delay: 0.7s;
-  }
-  section > div:nth-child(6) {
-    animation-delay: 0.8s;
-  }
-  section > div:nth-child(7) {
-    animation-delay: 0.9s;
-  }
-  section > div:nth-child(8) {
-    animation-delay: 1s;
-  }
 </style>
