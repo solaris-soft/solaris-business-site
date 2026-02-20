@@ -26,17 +26,10 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
   category="Case Study"
 >
   <main class="min-h-screen bg-white relative overflow-hidden">
-    <!-- Enhanced Background Effects -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <!-- Gradient orbs -->
-      <div
-        class="absolute w-[500px] h-[500px] -top-[250px] -right-[250px] bg-gradient-radial from-[#ff3d00]/5 via-transparent to-transparent opacity-30 blur-3xl"
-      >
-      </div>
-      <div
-        class="absolute w-[400px] h-[400px] -bottom-[200px] -left-[200px] bg-gradient-radial from-[#ff8a00]/5 via-transparent to-transparent opacity-20 blur-3xl"
-      >
-      </div>
+    <!-- Subtle background accent -->
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-orange-50/20 pointer-events-none"
+    >
     </div>
 
     <!-- Reading Progress Indicator -->
@@ -52,11 +45,11 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
       </div>
     </div>
 
-    <!-- Header Section -->
-    <section class="py-20 bg-white relative">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header + Content (unified flow) -->
+    <section class="pt-12 md:pt-16 pb-16 md:pb-24 relative">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <!-- Breadcrumb -->
-        <nav class="mb-8">
+        <nav class="mb-6">
           <ol class="flex items-center space-x-2 text-sm flex-wrap">
             <li>
               <a
@@ -83,9 +76,9 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
         </nav>
 
         <!-- Client Badge -->
-        <div class="mb-6">
+        <div class="mb-4">
           <span
-            class="inline-block text-sm font-medium px-4 py-2 rounded-full bg-orange-100 text-orange-700"
+            class="inline-block text-xs font-medium px-3 py-1.5 rounded-full bg-orange-100 text-orange-700"
           >
             {caseStudy.data.client}
           </span>
@@ -93,7 +86,7 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
 
         <!-- Title -->
         <h1
-          class="text-4xl md:text-5xl font-display text-gray-900 mb-6 leading-tight"
+          class="text-3xl md:text-4xl lg:text-5xl font-display text-gray-900 mb-4 leading-tight"
         >
           {caseStudy.data.title}
         </h1>
@@ -101,7 +94,7 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
         <!-- Meta Information -->
         {(caseStudy.data.publishDate || (caseStudy.data.tags && caseStudy.data.tags.length > 0)) && (
           <div
-            class="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-8"
+            class="flex flex-wrap items-center gap-3 text-gray-600 text-sm mb-8"
           >
             {caseStudy.data.publishDate && (
               <time
@@ -130,11 +123,11 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
             )}
             {caseStudy.data.tags && caseStudy.data.tags.length > 0 && (
               <>
-                {caseStudy.data.publishDate && <span class="text-gray-300">•</span>}
+                {caseStudy.data.publishDate && <span class="text-gray-300">·</span>}
                 <div class="flex flex-wrap gap-2">
                   {caseStudy.data.tags.map((tag) => (
                     <span
-                      class="text-sm px-2 py-1 rounded bg-gray-100 text-gray-700"
+                      class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700"
                     >
                       {tag}
                     </span>
@@ -147,44 +140,39 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
 
         <!-- Hero Image -->
         {caseStudy.data.heroImage && (
-          <div class="mb-16 rounded-2xl overflow-hidden shadow-2xl relative group">
+          <div class="mb-10 rounded-2xl overflow-hidden shadow-lg relative group">
             <img
               src={caseStudy.data.heroImage.src}
               alt={caseStudy.data.title}
-              class="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+              class="w-full h-auto"
               loading="eager"
             />
-            {/* Gradient overlay */}
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            >
-            </div>
           </div>
         )}
 
         <!-- Problem, Solution, Outcome -->
-        <div class="space-y-12 mb-16">
-          <div class="rounded-2xl p-8 border border-gray-100 bg-gray-50/50">
-            <h2 class="text-xl font-display text-gray-900 mb-4 flex items-center gap-3">
-              <span class="w-1 h-6 bg-orange-500 rounded-full"></span>
+        <div class="space-y-8 mb-12">
+          <div class="rounded-2xl p-6 md:p-8 border border-gray-100 bg-gray-50/50">
+            <h2 class="text-lg font-display text-gray-900 mb-3 flex items-center gap-3">
+              <span class="w-1 h-5 bg-orange-500 rounded-full"></span>
               The Problem
             </h2>
             <p class="text-gray-700 leading-relaxed whitespace-pre-line">
               {caseStudy.data.problem}
             </p>
           </div>
-          <div class="rounded-2xl p-8 border border-gray-100 bg-gray-50/50">
-            <h2 class="text-xl font-display text-gray-900 mb-4 flex items-center gap-3">
-              <span class="w-1 h-6 bg-orange-500 rounded-full"></span>
+          <div class="rounded-2xl p-6 md:p-8 border border-gray-100 bg-gray-50/50">
+            <h2 class="text-lg font-display text-gray-900 mb-3 flex items-center gap-3">
+              <span class="w-1 h-5 bg-orange-500 rounded-full"></span>
               Our Solution
             </h2>
             <p class="text-gray-700 leading-relaxed whitespace-pre-line">
               {caseStudy.data.solution}
             </p>
           </div>
-          <div class="rounded-2xl p-8 border border-orange-100 bg-gradient-to-br from-orange-50/50 to-white shadow-sm">
-            <h2 class="text-xl font-display text-gray-900 mb-4 flex items-center gap-3">
-              <span class="w-1 h-6 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"></span>
+          <div class="rounded-2xl p-6 md:p-8 border border-orange-100 bg-gradient-to-br from-orange-50/50 to-white shadow-sm">
+            <h2 class="text-lg font-display text-gray-900 mb-3 flex items-center gap-3">
+              <span class="w-1 h-5 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"></span>
               Outcome
             </h2>
             <p class="text-gray-700 leading-relaxed whitespace-pre-line">
@@ -192,38 +180,23 @@ const hasBodyHtml = caseStudy.data.body != null && caseStudy.data.body !== "";
             </p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Content Section -->
-    <section class="py-12 bg-gray-50/50 relative">
-      <!-- Subtle pattern overlay -->
-      <div class="absolute inset-0 opacity-[0.02]">
-        <div
-          class="absolute inset-0"
-          style="background-image: radial-gradient(circle at 1px 1px, #ff3d00 1px, transparent 0); background-size: 24px 24px;"
+        <!-- Article Body -->
+        <article
+          class="prose prose-lg prose-gray prose-headings:font-display prose-headings:text-gray-900 prose-a:text-orange-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-lg prose-pre:rounded-xl prose-pre:bg-gray-900"
         >
-        </div>
+          {hasBodyHtml ? (
+            <Fragment set:html={caseStudy.data.body} />
+          ) : (
+            <Content />
+          )}
+        </article>
       </div>
-      <article
-        class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 prose prose-lg"
-      >
-        {hasBodyHtml ? (
-          <Fragment set:html={caseStudy.data.body} />
-        ) : (
-          <Content />
-        )}
-      </article>
     </section>
 
-    <!-- Related Case Studies / CTA -->
-    <section class="py-16 md:py-24 bg-white relative">
-      <!-- Subtle background accent -->
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-orange-50/20 via-transparent to-transparent"
-      >
-      </div>
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- CTA Section -->
+    <section class="py-12 md:py-16 border-t border-gray-100 relative">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12">
           <h2
             class="text-3xl md:text-4xl font-display text-gray-900 mb-6 leading-tight"
