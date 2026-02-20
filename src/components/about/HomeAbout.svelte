@@ -1,16 +1,16 @@
 <div class="bg-white w-full h-[60vh] py-32" data-speed="0.8">
   <!-- Decorative elements with parallax effect -->
   <div
-    class="absolute p-12 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00]"
+    class="absolute p-12 bg-gradient-to-r from-orange-500 to-secondary"
     data-speed="0.6"
     data-lag="0.1"
   >
     <div
-      class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#ff3d00] to-[#ff8a00]"
+      class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-orange-500 to-secondary"
       data-speed="0.4"
     ></div>
     <div
-      class="absolute bottom-0 right-0 w-full h-full bg-gradient-to-l from-[#ff3d00] to-[#ff8a00]"
+      class="absolute bottom-0 right-0 w-full h-full bg-gradient-to-l from-orange-500 to-secondary"
       data-speed="0.7"
     ></div>
   </div>

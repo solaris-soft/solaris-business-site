@@ -164,7 +164,7 @@
           >
           <br />
           <div
-            class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent animate-slideFromRight inline-block"
+            class="bg-gradient-to-r from-orange-500 to-secondary bg-clip-text text-transparent animate-slideFromRight inline-block"
           >
             Support that lasts.
           </div>
@@ -185,7 +185,7 @@
       <div class="hero-cta flex flex-wrap justify-center gap-6 mb-24">
         <a
           href="/contact/"
-          class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] rounded-full text-white font-medium hover:shadow-lg hover:shadow-[#ff3d00]/20 transition-all duration-300 hover:scale-105"
+          class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-secondary rounded-full text-white font-medium hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 hover:scale-105"
         >
           Start Your Project
         </a>

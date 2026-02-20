@@ -179,7 +179,7 @@
     <div class="w-full max-w-md">
       <label for="meeting-type" class="block mb-2">
         <span
-          class="bg-gradient-to-r from-[#ff3d00] to-[#ff8a00] bg-clip-text text-transparent text-base font-medium"
+          class="bg-gradient-to-r from-orange-500 to-secondary bg-clip-text text-transparent text-base font-medium"
         >
           Select Meeting Duration
         </span>
@@ -187,7 +187,7 @@
       <div class="relative">
         <select
           id="meeting-type"
-          class="w-full bg-black/50 border border-[#ff3d00]/20 text-gray-200 text-base rounded-lg focus:ring-2 focus:ring-[#ff3d00]/50 block p-3 pr-10 transition-all duration-200 appearance-none"
+          class="w-full bg-black/50 border border-orange-500/20 text-gray-200 text-base rounded-lg focus:ring-2 focus:ring-orange-500/50 block p-3 pr-10 transition-all duration-200 appearance-none"
         >
           {#each meetingTypes as type}
             <option value={type.id}>{type.label}</option>

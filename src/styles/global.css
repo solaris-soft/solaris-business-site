@@ -8,7 +8,20 @@
   --font-ui: "General Sans", "Source Sans Pro", sans-serif;
   --font-body: "General Sans", "Source Sans Pro", sans-serif;
   
-  /* Custom colors */
+  /* Brand orange scale — centred on #ff3d00 */
+  --color-orange-50: #fff5f2;
+  --color-orange-100: #ffe4db;
+  --color-orange-200: #ffc9b3;
+  --color-orange-300: #ff9e7a;
+  --color-orange-400: #ff6e3d;
+  --color-orange-500: #ff3d00;
+  --color-orange-600: #e63600;
+  --color-orange-700: #bf2d00;
+  --color-orange-800: #992400;
+  --color-orange-900: #731b00;
+  --color-orange-950: #4a1000;
+
+  /* Semantic aliases */
   --color-primary: #ff3d00;
   --color-secondary: #ff8a00;
   --color-bg: #000000;

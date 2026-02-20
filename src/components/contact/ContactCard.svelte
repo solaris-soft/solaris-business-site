@@ -18,11 +18,11 @@
       onmouseleave={() => (isHovered = false)}
     >
       <div
-        class="relative bg-white border-2 border-white hover:border-[#ff3d00] transition-all duration-300 p-8 transform hover:-translate-y-2 hover:shadow-2xl"
+        class="relative bg-white border-2 border-white hover:border-orange-500 transition-all duration-300 p-8 transform hover:-translate-y-2 hover:shadow-2xl"
       >
         <!-- Geometric accent -->
         <div
-          class="absolute top-0 right-0 w-16 h-16 bg-[#ff3d00] transform rotate-45 translate-x-8 -translate-y-8 transition-transform duration-300 {isHovered
+          class="absolute top-0 right-0 w-16 h-16 bg-orange-500 transform rotate-45 translate-x-8 -translate-y-8 transition-transform duration-300 {isHovered
             ? 'scale-150'
             : 'scale-100'}"
         ></div>
@@ -39,7 +39,7 @@
         <!-- Content -->
         <div class="relative z-10">
           <div
-            class="text-[#ff3d00] text-sm font-bold uppercase tracking-widest mb-3"
+            class="text-orange-500 text-sm font-bold uppercase tracking-widest mb-3"
           >
             {label}
           </div>
@@ -53,7 +53,7 @@
     <div class="relative bg-white border-2 border-white p-8">
       <!-- Geometric accent -->
       <div
-        class="absolute top-0 right-0 w-16 h-16 bg-[#ff3d00]/20 transform rotate-45 translate-x-8 -translate-y-8"
+        class="absolute top-0 right-0 w-16 h-16 bg-orange-500/20 transform rotate-45 translate-x-8 -translate-y-8"
       ></div>
 
       <!-- Icon -->
@@ -68,7 +68,7 @@
       <!-- Content -->
       <div class="relative z-10">
         <div
-          class="text-[#ff3d00] text-sm font-bold uppercase tracking-widest mb-3"
+          class="text-orange-500 text-sm font-bold uppercase tracking-widest mb-3"
         >
           {label}
         </div>
@@ -90,6 +90,6 @@
   /* Focus states */
   :global(a:focus) {
     outline: none;
-    box-shadow: 0 0 0 3px #ff3d00;
+    box-shadow: 0 0 0 3px var(--color-orange-500);
   }
 </style>
