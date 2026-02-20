@@ -33,7 +33,7 @@ const hasBodyHtml = article.data.body != null && article.data.body !== "";
     <!-- Subtle background accent -->
     <div
       class="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-orange-50/20 pointer-events-none"
-    >
+      >
     </div>
 
     <!-- Reading Progress Indicator -->
@@ -52,35 +52,13 @@ const hasBodyHtml = article.data.body != null && article.data.body !== "";
     <!-- Article Header + Content (unified flow) -->
     <section class="pt-12 md:pt-16 pb-16 md:pb-24 relative">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <!-- Back Button -->
-        <a
-          href="/articles/"
+          <!-- Back Button -->
+          <a
+            href="/articles/"
           class="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium text-sm mb-6 transition-all duration-300 group"
-        >
-          <svg
-            class="w-4 h-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Back to Articles
-        </a>
-
-        <!-- Article Meta -->
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-          <time
-            class="text-sm font-medium text-gray-500 flex items-center gap-2"
-            datetime={article.data.publishDate.toISOString()}
           >
             <svg
-              class="w-4 h-4"
+              class="w-4 h-4 mr-2 transition-transform duration-300 group-hover:-translate-x-1"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -89,44 +67,66 @@ const hasBodyHtml = article.data.body != null && article.data.body !== "";
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                d="M15 19l-7-7 7-7"
               />
             </svg>
-            {article.data.publishDate.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
+            Back to Articles
+          </a>
+
+          <!-- Article Meta -->
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <time
+              class="text-sm font-medium text-gray-500 flex items-center gap-2"
+              datetime={article.data.publishDate.toISOString()}
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              {article.data.publishDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
           <span class="text-gray-300">·</span>
-          <span class="text-sm font-medium text-gray-500">
-            {article.data.author}
-          </span>
-          {article.data.tags && article.data.tags.length > 0 && (
-            <>
+            <span class="text-sm font-medium text-gray-500">
+              {article.data.author}
+            </span>
+            {article.data.tags && article.data.tags.length > 0 && (
+              <>
               <span class="text-gray-300">·</span>
-              <div class="flex flex-wrap gap-2">
-                {article.data.tags.map((tag) => (
-                  <span
+                <div class="flex flex-wrap gap-2">
+                  {article.data.tags.map((tag) => (
+                    <span
                     class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
 
-        <!-- Article Title -->
+          <!-- Article Title -->
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-display text-gray-900 mb-4 leading-tight">
-          {article.data.title}
-        </h1>
+            {article.data.title}
+          </h1>
 
-        <!-- Article Description -->
+          <!-- Article Description -->
         <p class="text-lg text-gray-500 leading-relaxed mb-10">
-          {article.data.description}
-        </p>
+            {article.data.description}
+          </p>
 
         <!-- Cover Image -->
         {article.data.coverImage && (
