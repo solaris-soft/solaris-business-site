@@ -2,7 +2,9 @@
 const requiredNote = "Required";
 ---
 
-<section class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-black/5">
+<section
+  class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-black/5"
+>
   <div class="max-w-3xl">
     <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">
       Tell us what matters right now
@@ -17,6 +19,7 @@ const requiredNote = "Required";
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <label class="block">
         <span class="text-sm font-semibold text-gray-900">Name</span>
+        <span class="text-sm text-gray-500">{requiredNote}</span>
         <input
           type="text"
           name="name"
@@ -28,6 +31,7 @@ const requiredNote = "Required";
 
       <label class="block">
         <span class="text-sm font-semibold text-gray-900">Email</span>
+        <span class="text-sm text-gray-500">{requiredNote}</span>
         <input
           type="email"
           name="email"
@@ -44,7 +48,6 @@ const requiredNote = "Required";
         <input
           type="text"
           name="role"
-          required
           placeholder="Founder, Ops Lead, Product Manager"
           class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
         />
@@ -55,7 +58,6 @@ const requiredNote = "Required";
         <input
           type="text"
           name="company"
-          required
           placeholder="Company name"
           class="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
         />
@@ -65,11 +67,9 @@ const requiredNote = "Required";
     <label class="block">
       <span class="text-sm font-semibold text-gray-900">
         Current workflow and tools
-        <span class="text-gray-400 font-normal">({requiredNote})</span>
       </span>
       <textarea
         name="workflow"
-        required
         rows="3"
         placeholder="What happens today, and which tools or spreadsheets are involved?"
         class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -79,11 +79,9 @@ const requiredNote = "Required";
     <label class="block">
       <span class="text-sm font-semibold text-gray-900">
         Where the friction shows up
-        <span class="text-gray-400 font-normal">({requiredNote})</span>
       </span>
       <textarea
         name="friction"
-        required
         rows="3"
         placeholder="Bottlenecks, errors, delays, context switching, manual data entry..."
         class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -94,11 +92,9 @@ const requiredNote = "Required";
       <label class="block">
         <span class="text-sm font-semibold text-gray-900">
           Desired outcome
-          <span class="text-gray-400 font-normal">({requiredNote})</span>
         </span>
         <textarea
           name="outcome"
-          required
           rows="3"
           placeholder="What should be different once we ship an initial solution?"
           class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -108,11 +104,9 @@ const requiredNote = "Required";
       <label class="block">
         <span class="text-sm font-semibold text-gray-900">
           How success is measured
-          <span class="text-gray-400 font-normal">({requiredNote})</span>
         </span>
         <textarea
           name="successMetrics"
-          required
           rows="3"
           placeholder="Example: reduce processing time, fewer errors, higher adoption."
           class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -123,11 +117,9 @@ const requiredNote = "Required";
     <label class="block">
       <span class="text-sm font-semibold text-gray-900">
         Primary users or stakeholders
-        <span class="text-gray-400 font-normal">({requiredNote})</span>
       </span>
       <textarea
         name="users"
-        required
         rows="3"
         placeholder="Who touches this process day-to-day?"
         class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -138,11 +130,9 @@ const requiredNote = "Required";
       <label class="block">
         <span class="text-sm font-semibold text-gray-900">
           Constraints or integrations
-          <span class="text-gray-400 font-normal">({requiredNote})</span>
         </span>
         <textarea
           name="constraints"
-          required
           rows="3"
           placeholder="Compliance, data sources, systems we should integrate with."
           class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -152,11 +142,9 @@ const requiredNote = "Required";
       <label class="block">
         <span class="text-sm font-semibold text-gray-900">
           Timeline or urgency
-          <span class="text-gray-400 font-normal">({requiredNote})</span>
         </span>
         <textarea
           name="timeline"
-          required
           rows="3"
           placeholder="Is there a deadline or an upcoming event?"
           class="mt-2 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-500 focus:ring-orange-500"
@@ -176,7 +164,13 @@ const requiredNote = "Required";
       />
     </label>
 
-    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" />
+    <input
+      type="text"
+      name="website"
+      tabindex="-1"
+      autocomplete="off"
+      class="hidden"
+    />
 
     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <button
@@ -196,7 +190,8 @@ const requiredNote = "Required";
       class="text-sm font-medium text-gray-600"
       role="status"
       aria-live="polite"
-    ></p>
+    >
+    </p>
   </form>
 </section>
 
@@ -212,9 +207,17 @@ const requiredNote = "Required";
   const setStatus = (message: string, tone: "info" | "success" | "error") => {
     if (!statusEl) return;
     statusEl.textContent = message;
-    statusEl.classList.remove("text-gray-600", "text-green-600", "text-red-600");
+    statusEl.classList.remove(
+      "text-gray-600",
+      "text-green-600",
+      "text-red-600",
+    );
     statusEl.classList.add(
-      tone === "success" ? "text-green-600" : tone === "error" ? "text-red-600" : "text-gray-600",
+      tone === "success"
+        ? "text-green-600"
+        : tone === "error"
+          ? "text-red-600"
+          : "text-gray-600",
     );
   };
 
@@ -231,7 +234,7 @@ const requiredNote = "Required";
     const payload = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("/api/leads", {
+      const response = await fetch("/api/leads/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -245,7 +248,10 @@ const requiredNote = "Required";
       }
 
       form.reset();
-      setStatus("Thanks! We will review this and reach out shortly.", "success");
+      setStatus(
+        "Thanks! We will review this and reach out shortly.",
+        "success",
+      );
     } catch (error) {
       const message =
         error instanceof Error

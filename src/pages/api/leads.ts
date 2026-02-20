@@ -1,59 +1,45 @@
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
+import { z } from "zod";
 
-const requiredFields = [
-  "name",
-  "email",
-  "role",
-  "company",
-  "workflow",
-  "friction",
-  "outcome",
-  "successMetrics",
-  "users",
-  "constraints",
-  "timeline",
-] as const;
+const leadBodySchema = z.object({
+  website: z.string().max(200).optional(),
+  name: z.string().trim().min(1, "Name is required.").max(500),
+  email: z.string().trim().email("Invalid email address."),
+  role: z.string().trim().max(2000).optional().default(""),
+  company: z.string().trim().max(2000).optional().default(""),
+  workflow: z.string().trim().max(2000).optional().default(""),
+  friction: z.string().trim().max(2000).optional().default(""),
+  outcome: z.string().trim().max(2000).optional().default(""),
+  successMetrics: z.string().trim().max(2000).optional().default(""),
+  users: z.string().trim().max(2000).optional().default(""),
+  constraints: z.string().trim().max(2000).optional().default(""),
+  timeline: z.string().trim().max(2000).optional().default(""),
+  budget: z.string().trim().max(500).optional().default(""),
+});
 
-const sanitize = (value: unknown, maxLength = 2000) => {
-  if (typeof value !== "string") return "";
-  return value.trim().slice(0, maxLength);
-};
-
-const isValidEmail = (email: string) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
   try {
-    const payload = await request.json();
-    const websiteTrap = sanitize(payload.website, 200);
+    const raw = await request.json();
+    const websiteTrap =
+      typeof raw?.website === "string" && raw.website.trim().length > 0;
     if (websiteTrap) {
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
-    const data = Object.fromEntries(
-      requiredFields.map((field) => [field, sanitize(payload[field])]),
-    ) as Record<(typeof requiredFields)[number], string>;
-
-    const budget = sanitize(payload.budget, 500);
-
-    const missing = requiredFields.filter((field) => !data[field]);
-    if (missing.length > 0) {
-      return new Response(
-        JSON.stringify({ error: "Please complete all required fields." }),
-        { status: 400 },
-      );
+    const parsed = leadBodySchema.safeParse(raw);
+    if (!parsed.success) {
+      const first = parsed.error.issues[0];
+      const message = first?.message ?? "Please complete all required fields.";
+      return new Response(JSON.stringify({ error: message }), { status: 400 });
     }
 
-    if (!isValidEmail(data.email)) {
-      return new Response(JSON.stringify({ error: "Invalid email address." }), {
-        status: 400,
-      });
-    }
+    const data = parsed.data;
 
-    const apiKey = import.meta.env.RESEND_API_KEY;
-    const toEmail = import.meta.env.LEADS_TO_EMAIL;
-    const fromEmail = import.meta.env.LEADS_FROM_EMAIL;
+    const env = locals.runtime?.env;
+    const apiKey = env?.RESEND_API_KEY;
+    const toEmail = env?.LEADS_TO_EMAIL;
+    const fromEmail = env?.LEADS_FROM_EMAIL;
 
     if (!apiKey || !toEmail || !fromEmail) {
       return new Response(
@@ -63,36 +49,37 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
 
     const resend = new Resend(apiKey);
+    const opt = (val: string) => (val ? val : "(Not provided)");
 
-    const subject = `New inquiry from ${data.name} (${data.company})`;
+    const subject = `New inquiry from ${data.name}${data.company ? ` (${data.company})` : ""}`;
     const summaryLines = [
       `Name: ${data.name}`,
       `Email: ${data.email}`,
-      `Role: ${data.role}`,
-      `Company: ${data.company}`,
+      `Role: ${opt(data.role)}`,
+      `Company: ${opt(data.company)}`,
       "",
       "Current workflow and tools:",
-      data.workflow,
+      opt(data.workflow),
       "",
       "Where the friction shows up:",
-      data.friction,
+      opt(data.friction),
       "",
       "Desired outcome:",
-      data.outcome,
+      opt(data.outcome),
       "",
       "How success is measured:",
-      data.successMetrics,
+      opt(data.successMetrics),
       "",
       "Primary users or stakeholders:",
-      data.users,
+      opt(data.users),
       "",
       "Constraints or integrations:",
-      data.constraints,
+      opt(data.constraints),
       "",
       "Timeline or urgency:",
-      data.timeline,
+      opt(data.timeline),
       "",
-      `Budget range: ${budget || "Not provided"}`,
+      `Budget range: ${data.budget ? opt(data.budget) : "Not provided"}`,
       "",
       `IP: ${clientAddress || "Unavailable"}`,
     ];
@@ -106,7 +93,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
-  } catch (error) {
+  } catch {
     return new Response(
       JSON.stringify({ error: "Unable to process inquiry." }),
       { status: 500 },
