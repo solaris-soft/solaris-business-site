@@ -29,7 +29,7 @@ const hasBodyHtml = article.data.body != null && article.data.body !== "";
   publishDate={article.data.publishDate}
   category="Blog"
 >
-  <main class="min-h-screen bg-white relative overflow-hidden">
+  <div class="min-h-screen bg-white relative overflow-hidden">
     <!-- Subtle background accent -->
     <div
       class="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-transparent to-orange-50/20 pointer-events-none"
@@ -308,7 +308,7 @@ const hasBodyHtml = article.data.body != null && article.data.body !== "";
         </div>
       </div>
     </section>
-  </main>
+  </div>
 </Layout>
 
 <style>
