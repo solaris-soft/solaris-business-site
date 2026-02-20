@@ -2,7 +2,7 @@
 title: "Web Development"
 description: "Fast, modern websites and web apps built to work perfectly for your business. No templates—everything custom-made."
 summary: "We build custom web applications, e-commerce solutions, and progressive web apps using cutting-edge technologies like Astro, Next.js, and React."
-order: 1
+order: 7
 draft: false
 ---
 

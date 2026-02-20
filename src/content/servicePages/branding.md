@@ -2,7 +2,7 @@
 title: "Branding"
 description: "Help people remember your business with clear, professional branding that tells your story and stands out from competitors."
 summary: "Strategic brand foundations, visual identity, and messaging that build trust and recognition."
-order: 4
+order: 10
 draft: false
 ---
 

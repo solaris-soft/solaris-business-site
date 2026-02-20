@@ -2,7 +2,7 @@
 title: "Business Systems"
 description: "Connect all your business tools so they work together. CRM, accounting, inventory—everything talking to each other."
 summary: "Integrated systems that unify data, improve visibility, and reduce manual handoffs."
-order: 8
+order: 1
 draft: false
 ---
 

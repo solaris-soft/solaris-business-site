@@ -185,22 +185,87 @@ const isActive = (href: string) => {
     style="display: none; opacity: 0; transform: translateY(-10px);"
   >
     <div
-      class="px-4 pt-4 pb-4 space-y-3 bg-black bg-opacity-98 backdrop-blur-md shadow-lg"
+      class="px-5 pt-3 pb-5 bg-black bg-opacity-98 backdrop-blur-md shadow-lg"
     >
-      <div class="grid grid-cols-1 gap-3 pb-2">
+      <!-- Navigation links -->
+      <div class="space-y-1 pb-4">
         <a
-          href="/inquiry/"
-          class={`block px-4 py-3 rounded-full font-ui text-sm font-semibold text-center transition-all duration-200 ${
-            isActive("/inquiry/")
-              ? "bg-orange-500 text-white"
-              : "bg-orange-500 text-white hover:bg-orange-600"
+          href="/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
           }`}
         >
-          Start an Inquiry
+          Home
         </a>
         <a
+          href="/services/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/services/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
+          }`}
+        >
+          Services
+        </a>
+        <a
+          href="/projects/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/projects/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
+          }`}
+        >
+          Projects
+        </a>
+        <a
+          href="/case-studies/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/case-studies/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
+          }`}
+        >
+          Case Studies
+        </a>
+        <a
+          href="/articles/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/articles/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
+          }`}
+        >
+          Articles
+        </a>
+        <a
+          href="/team/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/team/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
+          }`}
+        >
+          Team
+        </a>
+        <a
+          href="/testimonials/"
+          class={`block px-3 py-2.5 rounded-lg font-ui text-base font-medium transition-colors duration-200 ${
+            isActive("/testimonials/")
+              ? "text-orange-500 bg-orange-500/10"
+              : "text-white hover:text-orange-400 hover:bg-white/5"
+          }`}
+        >
+          Testimonials
+        </a>
+      </div>
+
+      <!-- CTA buttons at bottom for thumb reach -->
+      <div class="grid grid-cols-2 gap-3 pt-4 border-t border-white/10">
+        <a
           href="/contact/"
-          class={`block px-4 py-3 rounded-full font-ui text-sm font-semibold text-center border transition-all duration-200 ${
+          class={`block px-4 py-3.5 rounded-xl font-ui text-sm font-semibold text-center border transition-all duration-200 ${
             isActive("/contact/")
               ? "border-orange-500 text-orange-500"
               : "border-white/20 text-white hover:border-orange-500 hover:text-orange-400"
@@ -208,77 +273,17 @@ const isActive = (href: string) => {
         >
           Contact
         </a>
+        <a
+          href="/inquiry/"
+          class={`block px-4 py-3.5 rounded-xl font-ui text-sm font-semibold text-center transition-all duration-200 ${
+            isActive("/inquiry/")
+              ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20"
+              : "bg-orange-500 text-white hover:bg-orange-600"
+          }`}
+        >
+          Start Inquiry
+        </a>
       </div>
-      <a
-        href="/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Home
-      </a>
-      <a
-        href="/services/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/services/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Services
-      </a>
-      <a
-        href="/projects/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/projects/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Projects
-      </a>
-      <a
-        href="/case-studies/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/case-studies/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Case Studies
-      </a>
-      <a
-        href="/articles/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/articles/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Articles
-      </a>
-      <a
-        href="/team/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/team/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Team
-      </a>
-      <a
-        href="/testimonials/"
-        class={`block px-3 py-2 rounded-md font-ui text-base font-medium transition-colors duration-200 ${
-          isActive("/testimonials/")
-            ? "text-orange-500 bg-orange-500/10"
-            : "text-white hover:text-orange-400 hover:bg-white/5"
-        }`}
-      >
-        Testimonials
-      </a>
     </div>
   </div>
 </nav>

@@ -2,7 +2,7 @@
 title: "Custom Software"
 description: "Software built exactly for your business needs. No forcing your way of working into someone else's system."
 summary: "Purpose-built software that matches your workflows and scales as you grow."
-order: 7
+order: 4
 draft: false
 ---
 

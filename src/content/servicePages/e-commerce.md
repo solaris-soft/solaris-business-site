@@ -2,7 +2,7 @@
 title: "E-Commerce Solutions"
 description: "Online stores that actually sell. Fast checkout, mobile-friendly, and easy to manage. Everything you need to sell online."
 summary: "Custom e-commerce platforms with streamlined checkout, inventory, and conversion-focused UX."
-order: 9
+order: 5
 draft: false
 ---
 

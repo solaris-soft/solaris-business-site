@@ -2,7 +2,7 @@
 title: "UI/UX Design"
 description: "Beautiful, easy-to-use interfaces that your customers will love. We design for real people, not just good looks."
 summary: "User-centered UI/UX design grounded in research, accessibility, and measurable outcomes."
-order: 3
+order: 9
 draft: false
 ---
 

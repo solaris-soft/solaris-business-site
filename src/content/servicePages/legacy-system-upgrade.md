@@ -2,7 +2,7 @@
 title: "Legacy System Upgrade"
 description: "Bring outdated systems up to date. We upgrade legacy codebases to modern practices and security standards so your business can move forward."
 summary: "We modernise ageing codebases with updated frameworks, security hardening, and clear upgrade paths—so you can keep running while we bring your systems up to current standards."
-order: 8
+order: 3
 draft: false
 ---
 

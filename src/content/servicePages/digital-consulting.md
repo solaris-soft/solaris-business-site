@@ -2,7 +2,7 @@
 title: "Digital Consulting"
 description: "Not sure what technology you need? We'll figure out what works best for your business and help you make smart decisions."
 summary: "Strategic guidance to choose the right tools, architecture, and roadmap without wasted spend."
-order: 5
+order: 8
 draft: false
 ---
 
