@@ -243,7 +243,7 @@
         <div class="mt-7 flex flex-col sm:flex-row gap-3">
           <a
             href="/contact/"
-            class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium shadow-sm hover:shadow-md transition-shadow"
+            class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-orange-500 text-white font-semibold shadow-lg hover:bg-orange-600 hover:shadow-xl transition-all duration-300"
           >
             Get Started
             <svg

@@ -205,7 +205,7 @@
               <!-- CTA Button -->
               <a
                 href="/contact/"
-                class="block w-full py-3 md:py-4 px-6 text-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/25 touch-manipulation"
+                class="block w-full py-3 md:py-4 px-6 text-center rounded-full bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl touch-manipulation"
               >
                 Get Started
               </a>

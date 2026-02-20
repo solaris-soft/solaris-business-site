@@ -463,7 +463,7 @@
           </div>
           <div class="cta-button">
             <a
-              class="group px-12 py-4 bg-orange-500 text-black font-bold uppercase tracking-wider hover:bg-white transition-all duration-300 border-2 border-orange-500 hover:border-white"
+              class="group px-12 py-4 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl"
               href="/contact/"
             >
               <span
